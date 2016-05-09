@@ -85,7 +85,7 @@
     <Compile Include="SPFunctions\TableFunctions.vb" />
     <Compile Include="QueryFunctions\TableFunctions.vb" />
     <Compile Include="QueryFunctions\ScalarFunctions.vb" />
-    <Compile Include="Utilities\DBUtilities.vb" />
+    <Compile Include="DBUtilities.vb" />
     <Compile Include="Utilities\Nullables.vb" />
     <Compile Include="Utilities\ByteArrays.vb" />
     <Compile Include="Utilities\Booleans.vb" />
