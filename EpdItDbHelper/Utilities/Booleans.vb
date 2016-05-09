@@ -4,7 +4,6 @@
     ''' An enumeration of the different ways pseud-boolean values are stored in the database.
     ''' </summary>
     Public Enum BooleanDBConversionType
-        TrueOrDBNull
         OneOrZero
     End Enum
 
@@ -16,20 +15,11 @@
     ''' <returns>A string that can be stored in the database.</returns>
     Public Shared Function ConvertDBValueToBoolean(value As String, conversionType As BooleanDBConversionType) As Boolean
         Select Case conversionType
-            Case BooleanDBConversionType.TrueOrDBNull
-                If value Is Nothing OrElse IsDBNull(value) OrElse value.ToString = "null" Then
-                    Return False
-                Else
-                    Return Boolean.Parse(value) ' Will throw an exception if value is not equal to Boolean.TrueString
-                End If
-
             Case BooleanDBConversionType.OneOrZero
                 Return Convert.ToBoolean(Integer.Parse(value))
-
+            Case Else
+                Throw New ArgumentException
         End Select
-
-        ' Fallback
-        Return Boolean.Parse(value)
     End Function
 
     ''' <summary>
@@ -40,24 +30,15 @@
     ''' <returns>A string that can be stored in the database.</returns>
     Public Shared Function ConvertBooleanToDBValue(value As Boolean, conversionType As BooleanDBConversionType) As String
         Select Case conversionType
-            Case BooleanDBConversionType.TrueOrDBNull
-                If value Then
-                    Return Boolean.TrueString
-                Else
-                    Return Nothing
-                End If
-
             Case BooleanDBConversionType.OneOrZero
                 If value Then
                     Return "1"
                 Else
                     Return "0"
                 End If
-
+            Case Else
+                Throw New ArgumentException
         End Select
-
-        ' Fallback
-        Return value.ToString
     End Function
 
     ''' <summary>
