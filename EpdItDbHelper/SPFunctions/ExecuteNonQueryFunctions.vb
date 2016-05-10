@@ -31,7 +31,6 @@ Partial Public Class DB
     ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
     Public Function SPRunCommand(ByVal spName As String, ByRef parameterArray As SqlParameter()) As Boolean
         Dim success As Boolean = True
-        Dim startTime As Date = Date.UtcNow
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)

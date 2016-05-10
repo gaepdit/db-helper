@@ -62,7 +62,6 @@ Partial Public Class DB
 
         Dim table As New DataTable
         Dim success As Boolean = True
-        Dim startTime As Date = Date.UtcNow
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)

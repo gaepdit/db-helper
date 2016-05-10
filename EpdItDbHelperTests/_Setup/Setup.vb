@@ -15,7 +15,7 @@ Namespace EpdItDbHelper.Tests
 
         <AssemblyInitialize>
         Public Shared Sub DbSetup(testContext As TestContext)
-            ConnectionString = "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+            ConnectionString = "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EpdItDbHelperTests.ThingDbContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
             DBInstance = New DB(ConnectionString)
             InitializeTestDb()
         End Sub

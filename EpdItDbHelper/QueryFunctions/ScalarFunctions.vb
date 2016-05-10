@@ -50,8 +50,6 @@ Partial Public Class DB
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As SqlParameter(), Optional ByVal failSilently As Boolean = False) As T
         Dim result As Object = Nothing
-        Dim startTime As Date = Date.UtcNow
-
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text

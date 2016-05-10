@@ -28,7 +28,6 @@ Partial Public Class DB
 
     Private Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As SqlParameter()) As Byte()
         Dim success As Boolean = True
-        Dim startTime As Date = Date.UtcNow
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)

@@ -76,7 +76,6 @@ Partial Public Class DB
     ''' <returns>A DataTable of values.</returns>
     Public Function GetDataTable(ByVal query As String, ByVal parameterArray As SqlParameter()) As DataTable
         Dim table As New DataTable
-        Dim startTime As Date = Date.UtcNow
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)

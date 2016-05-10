@@ -68,7 +68,6 @@ Partial Public Class DB
         countList.Clear()
         If queryList.Count <> parametersList.Count Then Return False
         Dim success As Boolean = True
-        Dim startTime As Date = Date.UtcNow
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As SqlCommand = connection.CreateCommand
