@@ -2,7 +2,8 @@
 
 Namespace EpdItDbHelper.Tests
 
-    <TestClass()> Public Class NullableUtilitiesTests
+    <TestClass()>
+    Public Class NullableUtilitiesTests
 
         <TestMethod>
         Public Sub GetNullable_ToString_FromDBNull()

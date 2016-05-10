@@ -2,7 +2,8 @@
 
 Namespace EpdItDbHelper.Tests
 
-    <TestClass()> Public Class BooleanUtilitiesTests
+    <TestClass()>
+    Public Class BooleanUtilitiesTests
 
         <TestMethod()>
         Public Sub ConvertDBValueToBoolean_GoodValues()
@@ -26,7 +27,8 @@ Namespace EpdItDbHelper.Tests
             Dim emptyStringResult As Boolean = ConvertDBValueToBoolean("booger", BooleanDBConversionType.OneOrZero)
         End Sub
 
-        <TestMethod()> Public Sub ConvertBooleanToDBValueTest()
+        <TestMethod()>
+        Public Sub ConvertBooleanToDBValueTest()
             Dim oneResult As String = ConvertBooleanToDBValue(True, BooleanDBConversionType.OneOrZero)
             Assert.AreEqual("1", oneResult)
 
@@ -34,7 +36,8 @@ Namespace EpdItDbHelper.Tests
             Assert.AreEqual("0", zeroResult)
         End Sub
 
-        <TestMethod()> Public Sub StoreNothingIfZeroTest_Integer()
+        <TestMethod()>
+        Public Sub StoreNothingIfZero_Integer()
             Dim NonZeroInput As Integer = 13
             Dim NonZeroInputResult As Integer? = StoreNothingIfZero(NonZeroInput)
             Assert.AreEqual(NonZeroInput, NonZeroInputResult)
@@ -45,7 +48,8 @@ Namespace EpdItDbHelper.Tests
             Assert.AreEqual(Nothing, ZeroResult)
         End Sub
 
-        <TestMethod()> Public Sub StoreNothingIfZeroTest_Decimal()
+        <TestMethod()>
+        Public Sub StoreNothingIfZero_Decimal()
             Dim NonZeroInput As Decimal = 13
             Dim NonZeroInputResult As Decimal? = StoreNothingIfZero(NonZeroInput)
             Assert.AreEqual(NonZeroInput, NonZeroInputResult)

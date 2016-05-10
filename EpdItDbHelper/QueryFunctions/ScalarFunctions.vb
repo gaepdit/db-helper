@@ -34,7 +34,10 @@ Partial Public Class DB
     ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As SqlParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
-        Dim parameterArray As SqlParameter() = {parameter}
+        Dim parameterArray As SqlParameter() = Nothing
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
         Return GetSingleValue(Of T)(query, parameterArray, failSilently)
     End Function
 
@@ -52,8 +55,9 @@ Partial Public Class DB
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
-                command.Parameters.AddRange(parameterArray)
-
+                If parameterArray IsNot Nothing Then
+                    command.Parameters.AddRange(parameterArray)
+                End If
                 command.Connection.Open()
                 result = command.ExecuteScalar()
                 command.Connection.Close()
@@ -71,6 +75,20 @@ Partial Public Class DB
     ''' Determines whether a value as indicated by the SQL query exists in the database.
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
+    ''' <param name="parameter">An optional SqlParameter array to send.</param>
+    ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
+    Public Function ValueExists(query As String, Optional parameter As SqlParameter = Nothing) As Boolean
+        Dim parameterArray As SqlParameter() = Nothing
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
+        Return ValueExists(query, parameterArray)
+    End Function
+
+    ''' <summary>
+    ''' Determines whether a value as indicated by the SQL query exists in the database.
+    ''' </summary>
+    ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String, parameterArray As SqlParameter()) As Boolean
@@ -79,8 +97,9 @@ Partial Public Class DB
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
-                command.Parameters.AddRange(parameterArray)
-
+                If parameterArray IsNot Nothing Then
+                    command.Parameters.AddRange(parameterArray)
+                End If
                 command.Connection.Open()
                 result = command.ExecuteScalar()
                 command.Connection.Close()
