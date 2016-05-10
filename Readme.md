@@ -21,7 +21,7 @@ This is still a work in progress. Some parts are working and some are not. Pleas
 
 There are two classes available:
 
-### DB
+### `DB`
 
 The DB class must be instantiated with a connection string. (In the future, there may be more options for instantiating.) 
 
@@ -37,7 +37,7 @@ Example:
 
 ```
 Dim userId as Integer = 3
-Dim query as String = "SELECT USERNAME FROM USERTABLE WHERE ID = @id"
+Dim query as String = "select UserName from UserTable where UserId = @id"
 Dim parameter As SqlParameter = New SqlParameter("id", userId)
 Dim userName as String = DB.GetSingleValue(Of String)(query, parameter)
 ```
@@ -47,12 +47,18 @@ Other functions require a name of a Stored Procedure or User-defined Function in
 Example:
 
 ```
-Dim state as String = "GA"
-Dim spName as String = "RetrieveCountyNames"
-Dim parameter As SqlParameter = New SqlParameter("state", state)
-Dim counties as DataTable = DB.SPGetDataTable(spName, parameter)
+Dim spName as String = "RetrieveFacilitiesByCounty"
+Dim parameterArray As SqlParameter() = {
+    New SqlParameter("state", "GA"),
+    New SqlParameter("county", "Fulton")
+}
+Dim facilities as DataTable = DB.SPGetDataTable(spName, parameterArray)
 ```
 
-### DBUtilities
+### `DBUtilities`
 
 This class does not need to be instantiated. It includes several useful functions for working with database data. The most useful is `DBUtilities.GetNullable(Of T)` which helps handle data retrieved from nullable columns in the database (handling DBNull appropriately).
+
+## How do I help make it better?
+
+Start by writing Unit Tests for any functions not yet covered. Then run the tests and fix any code that is broken.
