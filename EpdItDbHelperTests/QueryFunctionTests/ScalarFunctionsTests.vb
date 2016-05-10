@@ -1,0 +1,132 @@
+﻿Imports System.Data.SqlClient
+
+Namespace EpdItDbHelper.Tests
+
+    <TestClass()>
+    Public Class ScalarFunctionsTests
+
+        <TestMethod()>
+        Public Sub GetSingleValue_String_NoParameters()
+            Dim key As Integer = 1
+            Dim query As String = "SELECT [Name] from dbo.Things where [ID] = " & key.ToString
+            Dim Expected_Result As String = ThingData.Things.Find(Function(Thing) Thing.ID = key).Name
+            Dim Actual_Result As String = DBInstance.GetSingleValue(Of String)(query)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_String_OneParameter()
+            Dim key As Integer = 2
+            Dim query As String = "SELECT [Name] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Expected_Result As String = ThingData.Things.Find(Function(Thing) Thing.ID = key).Name
+            Dim Actual_Result As String = DBInstance.GetSingleValue(Of String)(query, parameter)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_String_TwoParameters()
+            Dim key As Integer = 3
+            Dim query As String = "SELECT [Name] from dbo.Things where Status = @status and MandatoryInteger = @mandatoryInteger"
+            Dim parameterArray As SqlParameter() = {
+                New SqlParameter("status", ThingData.Things.Find(Function(Thing) Thing.ID = key).Status),
+                New SqlParameter("mandatoryInteger", ThingData.Things.Find(Function(Thing) Thing.ID = key).MandatoryInteger)
+            }
+            Dim Expected_Result As String = ThingData.Things.Find(Function(Thing) Thing.ID = key).Name
+            Dim Actual_Result As String = DBInstance.GetSingleValue(Of String)(query, parameterArray)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_Date()
+            Dim key As Integer = 4
+            Dim query As String = "SELECT [MandatoryDate] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Expected_Result As Date = ThingData.Things.Find(Function(Thing) Thing.ID = key).MandatoryDate
+            Dim Actual_Result As Date = DBInstance.GetSingleValue(Of Date)(query, parameter)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_NullableDate_NotNull()
+            Dim key As Integer = 1
+            Dim query As String = "SELECT [OptionalDate] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Expected_Result As Date? = ThingData.Things.Find(Function(Thing) Thing.ID = key).OptionalDate
+            Dim Actual_Result As Date? = DBInstance.GetSingleValue(Of Date?)(query, parameter)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+            Assert.IsNotNull(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_NullableDate_Null()
+            Dim key As Integer = 2
+            Dim query As String = "SELECT [OptionalDate] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Expected_Result As Date? = ThingData.Things.Find(Function(Thing) Thing.ID = key).OptionalDate
+            Dim Actual_Result As Date? = DBInstance.GetSingleValue(Of Date?)(query, parameter)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+            Assert.IsNull(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_NullableInt_NotNull()
+            Dim key As Integer = 1
+            Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Expected_Result As Integer? = ThingData.Things.Find(Function(Thing) Thing.ID = key).OptionalInteger
+            Dim Actual_Result As Integer? = DBInstance.GetSingleValue(Of Integer?)(query, parameter)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+            Assert.IsNotNull(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetSingleValue_NullableInt_Null()
+            Dim key As Integer = 2
+            Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Expected_Result As Integer? = ThingData.Things.Find(Function(Thing) Thing.ID = key).OptionalInteger
+            Dim Actual_Result As Integer? = DBInstance.GetSingleValue(Of Integer?)(query, parameter)
+            Assert.AreEqual(Expected_Result, Actual_Result)
+            Assert.IsNull(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetBoolean_True()
+            Dim key As Integer = 1
+            Dim query As String = "SELECT [Status] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Actual_Result As Boolean = DBInstance.GetBoolean(query, parameter)
+            Assert.IsTrue(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub GetBoolean_False()
+            Dim key As Integer = 2
+            Dim query As String = "SELECT [Status] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Actual_Result As Boolean = DBInstance.GetBoolean(query, parameter)
+            Assert.IsFalse(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub ValueExists_True()
+            Dim key As Integer = 1
+            Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Actual_Result As Boolean = DBInstance.ValueExists(query, parameter)
+            Assert.IsTrue(Actual_Result)
+        End Sub
+
+        <TestMethod()>
+        Public Sub ValueExists_False()
+            Dim key As Integer = 2
+            Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
+            Dim parameter As New SqlParameter("id", key)
+            Dim Actual_Result As Boolean = DBInstance.ValueExists(query, parameter)
+            Assert.IsFalse(Actual_Result)
+        End Sub
+
+    End Class
+
+End Namespace

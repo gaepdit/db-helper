@@ -91,12 +91,14 @@
     <Import Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QueryFunctions\ScalarFunctionsTests.vb" />
+    <Compile Include="QueryFunctionTests\ScalarFunctionsTests.vb" />
+    <Compile Include="_Setup\ThingData.vb" />
     <Compile Include="_Setup\ThingDbContext.vb" />
     <Compile Include="_Setup\ThingDbInitializer.vb" />
     <Compile Include="_Setup\Thing.vb" />
     <Compile Include="_Setup\Setup.vb" />
-    <Compile Include="Utilities\NullableUtilitiesTests.vb" />
+    <Compile Include="QueryFunctionTests\ScalarFunctionsTablefreeTests.vb" />
+    <Compile Include="UtilityTests\NullableUtilitiesTests.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -112,7 +114,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utilities\BooleanUtilitiesTests.vb" />
+    <Compile Include="UtilityTests\BooleanUtilitiesTests.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
