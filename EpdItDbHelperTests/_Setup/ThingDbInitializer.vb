@@ -10,7 +10,7 @@ Public Class ThingDbInitializer
 
         context.Database.Create()
 
-        For Each thing As Thing In ThingData.Things
+        For Each thing As Thing In ThingData.ThingsList
             context.Things.Add(thing)
         Next
 

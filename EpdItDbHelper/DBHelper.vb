@@ -1,4 +1,4 @@
-﻿Public Class DB
+﻿Public Class DBHelper
 
     Private Property ConnectionString As String
 

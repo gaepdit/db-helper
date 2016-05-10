@@ -1,4 +1,4 @@
-﻿Imports EpdItDbHelper.DBUtilities
+﻿Imports EpdIt.DBUtilities
 
 Namespace EpdItDbHelper.Tests
 

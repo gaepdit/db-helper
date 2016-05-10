@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
-Partial Public Class DB
+Partial Public Class DBHelper
 
     ' These functions call Oracle FUNCTIONs that return an Oracle SYS_REFCURSOR.
 

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
 
-Partial Public Class DB
+Partial Public Class DBHelper
 
 #Region " Read (ByteArray) "
 

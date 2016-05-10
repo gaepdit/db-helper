@@ -28,7 +28,7 @@ The DB class must be instantiated with a connection string. (In the future, ther
 Example:
 
 ```
-Friend DB As New EpdItDbHelper.DB(ConnectionString)
+Friend DB As New EpdIt.DBHelper(ConnectionString)
 ```
 
 The DB object has many functions available for interacting with the database. Some functions which require a SQL query or command and optional SQL parameters.

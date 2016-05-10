@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
-Partial Public Class DB
+Partial Public Class DBHelper
 
 #Region " Stored Procedures that run commands (ExecuteNonQuery) "
 
