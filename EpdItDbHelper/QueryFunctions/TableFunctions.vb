@@ -33,7 +33,10 @@ Partial Public Class DBHelper
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A DataRow of values.</returns>
     Public Function GetDataRow(query As String, Optional parameter As SqlParameter = Nothing) As DataRow
-        Dim parameterArray As SqlParameter() = {parameter}
+        Dim parameterArray As SqlParameter() = Nothing
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
         Return GetDataRow(query, parameterArray)
     End Function
 
