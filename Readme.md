@@ -81,8 +81,6 @@ This class does not need to be instantiated. It includes several useful function
 * SPGetBoolean(String, SqlParameter, Boolean) As Boolean
 * SPGetDataRow(String, SqlParameter()) As DataRow
 * SPGetDataRow(String, SqlParameter) As DataRow
-* SPGetDataTable(String, SqlParameter()) As DataTable
-* SPGetDataTable(String, SqlParameter) As DataTable
 * SPGetInteger(String) As Integer
 * SPGetListOfKeyValuePair(String, SqlParameter) As List(Of KeyValuePair(Of Integer, String))
 * SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
@@ -102,3 +100,5 @@ This class does not need to be instantiated. It includes several useful function
 * RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
 * SPRunCommand(String, SqlParameter()) As Boolean
 * SPRunCommand(String, SqlParameter) As Boolean
+* SPGetDataTable(String, SqlParameter()) As DataTable
+* SPGetDataTable(String, SqlParameter) As DataTable

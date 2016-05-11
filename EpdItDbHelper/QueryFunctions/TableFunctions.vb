@@ -10,8 +10,7 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A lookup dictionary.</returns>
-    Public Function GetLookupDictionary(ByVal query As String, Optional ByVal parameter As SqlParameter = Nothing) _
-        As Dictionary(Of Integer, String)
+    Public Function GetLookupDictionary(query As String, Optional parameter As SqlParameter = Nothing) As Dictionary(Of Integer, String)
         Dim d As New Dictionary(Of Integer, String)
 
         Dim dataTable As DataTable = GetDataTable(query, parameter)
@@ -33,7 +32,7 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A DataRow of values.</returns>
-    Public Function GetDataRow(ByVal query As String, Optional ByVal parameter As SqlParameter = Nothing) As DataRow
+    Public Function GetDataRow(query As String, Optional parameter As SqlParameter = Nothing) As DataRow
         Dim parameterArray As SqlParameter() = {parameter}
         Return GetDataRow(query, parameterArray)
     End Function
@@ -44,7 +43,7 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A DataRow of values.</returns>
-    Public Function GetDataRow(ByVal query As String, ByVal parameterArray As SqlParameter()) As DataRow
+    Public Function GetDataRow(query As String, parameterArray As SqlParameter()) As DataRow
         Dim resultTable As DataTable = GetDataTable(query, parameterArray)
         If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
             Return resultTable.Rows(0)
@@ -63,8 +62,11 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A DataTable of values.</returns>
-    Public Function GetDataTable(ByVal query As String, Optional ByVal parameter As SqlParameter = Nothing) As DataTable
-        Dim parameterArray As SqlParameter() = {parameter}
+    Public Function GetDataTable(query As String, Optional parameter As SqlParameter = Nothing) As DataTable
+        Dim parameterArray As SqlParameter() = Nothing
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
         Return GetDataTable(query, parameterArray)
     End Function
 
@@ -74,13 +76,15 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
     ''' <returns>A DataTable of values.</returns>
-    Public Function GetDataTable(ByVal query As String, ByVal parameterArray As SqlParameter()) As DataTable
+    Public Function GetDataTable(query As String, parameterArray As SqlParameter()) As DataTable
         Dim table As New DataTable
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
-                command.Parameters.AddRange(parameterArray)
+                If parameterArray IsNot Nothing Then
+                    command.Parameters.AddRange(parameterArray)
+                End If
                 Using adapter As New SqlDataAdapter(command)
                     command.Connection.Open()
                     adapter.Fill(table)

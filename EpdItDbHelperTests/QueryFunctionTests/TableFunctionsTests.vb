@@ -1,0 +1,55 @@
+﻿Imports System.Data.SqlClient
+Imports EpdIt.DBUtilities
+
+<TestClass()> Public Class TableFunctionsTests
+
+    <TestInitialize>
+    Public Sub InitializeTestDataTable()
+        ThingData.SelectedThingsDataTable = New DataTable()
+        ThingData.SelectedThingsDataTable.Columns.Add("ID")
+        ThingData.SelectedThingsDataTable.Columns.Add("Name")
+        ThingData.SelectedThingsDataTable.Columns.Add("Status")
+        ThingData.SelectedThingsDataTable.Columns.Add("MandatoryInteger")
+        ThingData.SelectedThingsDataTable.Columns.Add("MandatoryDate")
+
+        For Each thing As Thing In ThingData.ThingsList
+            If thing.MandatoryInteger = ThingData.ThingSelectionKey Then
+                ThingData.SelectedThingsDataTable.Rows.Add({thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate})
+            End If
+        Next
+    End Sub
+
+    <TestMethod()>
+    Public Sub GetDataTable_NoParams()
+        Dim query As String = "SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE MandatoryInteger = " & ThingData.ThingSelectionKey & " ORDER BY [ID]"
+        Dim dt As DataTable = DB.GetDataTable(query)
+
+        Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dt.Rows.Count)
+        Assert.AreEqual(ThingData.ThingsList(0).ID, dt.Rows(0).Item("ID"))
+        Assert.AreEqual(ThingData.ThingsList(0).Name, dt.Rows(0).Item("Name"))
+        Assert.AreEqual(ThingData.ThingsList(0).Status, dt.Rows(0).Item("Status"))
+        Assert.AreEqual(ThingData.ThingsList(0).MandatoryInteger, dt.Rows(0).Item("MandatoryInteger"))
+        Assert.AreEqual(ThingData.ThingsList(0).MandatoryDate, dt.Rows(0).Item("MandatoryDate"))
+
+        Assert.IsNull(GetNullable(Of Integer?)(dt.Rows(1).Item("OptionalInteger")))
+        Assert.IsNull(GetNullable(Of Date?)(dt.Rows(1).Item("OptionalDate")))
+    End Sub
+
+    <TestMethod()>
+    Public Sub GetDataTable_OneParam()
+        Dim query As String = "SELECT * FROM dbo.Things WHERE MandatoryInteger = @key ORDER BY [ID]"
+        Dim parameter As New SqlParameter("key", ThingData.ThingSelectionKey)
+        Dim dt As DataTable = DB.GetDataTable(query, parameter)
+
+        Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dt.Rows.Count)
+        Assert.AreEqual(ThingData.ThingsList(0).ID, dt.Rows(0).Item("ID"))
+        Assert.AreEqual(ThingData.ThingsList(0).Name, dt.Rows(0).Item("Name"))
+        Assert.AreEqual(ThingData.ThingsList(0).Status, dt.Rows(0).Item("Status"))
+        Assert.AreEqual(ThingData.ThingsList(0).MandatoryInteger, dt.Rows(0).Item("MandatoryInteger"))
+        Assert.AreEqual(ThingData.ThingsList(0).MandatoryDate, dt.Rows(0).Item("MandatoryDate"))
+
+        Assert.IsNull(GetNullable(Of Integer?)(dt.Rows(1).Item("OptionalInteger")))
+        Assert.IsNull(GetNullable(Of Date?)(dt.Rows(1).Item("OptionalDate")))
+    End Sub
+
+End Class
