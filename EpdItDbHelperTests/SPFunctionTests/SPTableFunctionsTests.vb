@@ -1,7 +1,8 @@
 ﻿Imports System.Data.SqlClient
 Imports EpdIt.DBUtilities
 
-<TestClass()> Public Class TableFunctionsTests
+<TestClass()>
+Public Class SPTableFunctionsTests
 
     <TestInitialize>
     Public Sub InitializeTestDataTable()
@@ -20,9 +21,9 @@ Imports EpdIt.DBUtilities
     End Sub
 
     <TestMethod()>
-    Public Sub GetDataTable_NoParams()
-        Dim query As String = "SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE MandatoryInteger = " & ThingData.ThingSelectionKey & " ORDER BY [ID]"
-        Dim dt As DataTable = DB.GetDataTable(query)
+    Public Sub SPGetDataTable_NoParams()
+        Dim spName As String = DBO_SP_Table_NoParameters_NAME
+        Dim dt As DataTable = DB.SPGetDataTable(spName)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dt.Rows.Count)
         Assert.AreEqual(ThingData.ThingsList(0).ID, dt.Rows(0).Item("ID"))
@@ -36,10 +37,10 @@ Imports EpdIt.DBUtilities
     End Sub
 
     <TestMethod()>
-    Public Sub GetDataTable_OneParam()
-        Dim query As String = "SELECT * FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]"
+    Public Sub SPGetDataTable_OneParam()
+        Dim spName As String = DBO_SP_Table_OneParameter_NAME
         Dim parameter As New SqlParameter("mandatoryInteger", ThingData.ThingSelectionKey)
-        Dim dt As DataTable = DB.GetDataTable(query, parameter)
+        Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dt.Rows.Count)
         Assert.AreEqual(ThingData.ThingsList(0).ID, dt.Rows(0).Item("ID"))
@@ -53,10 +54,10 @@ Imports EpdIt.DBUtilities
     End Sub
 
     <TestMethod>
-    Public Sub GetDataRow_NoParams()
-        Dim key As Integer = 2
-        Dim query As String = "SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = " & key
-        Dim dr As DataRow = DB.GetDataRow(query)
+    Public Sub SPGetDataRow_NoParam()
+        Dim key As Integer = DBO_SP_Row_NoParameters_VALUE_int
+        Dim spName As String = DBO_SP_Row_NoParameters_NAME
+        Dim dr As DataRow = DB.GetDataRow(spName)
 
         Dim th As Thing = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key)
 
@@ -69,12 +70,13 @@ Imports EpdIt.DBUtilities
         Assert.IsNull(GetNullable(Of Integer?)(dr.Item("OptionalInteger")))
         Assert.IsNull(GetNullable(Of Date?)(dr.Item("OptionalDate")))
     End Sub
+
     <TestMethod>
-    Public Sub GetDataRow_OneParam()
-        Dim key As Integer = 2
-        Dim query As String = "SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = @id"
+    Public Sub SPGetDataRow_OneParam()
+        Dim key As Integer = DBO_SP_Row_OneParameter_VALUE_int
+        Dim spName As String = DBO_SP_Row_OneParameter_NAME
         Dim parameter As New SqlParameter("id", key)
-        Dim dr As DataRow = DB.GetDataRow(query, parameter)
+        Dim dr As DataRow = DB.SPGetDataRow(spName, parameter)
 
         Dim th As Thing = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key)
 
@@ -89,19 +91,19 @@ Imports EpdIt.DBUtilities
     End Sub
 
     <TestMethod()>
-    Public Sub GetLookupDictionary_NoParams()
-        Dim query As String = "SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = " & ThingData.ThingSelectionKey & " ORDER BY [ID]"
-        Dim dict As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query)
+    Public Sub SPGetLookupDictionary_NoParams()
+        Dim spName As String = DBO_SP_Dictionary_NoParameters_NAME
+        Dim dict As Dictionary(Of Integer, String) = DB.SPGetLookupDictionary(spName)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dict.Count)
         Assert.AreEqual(ThingData.ThingsList(0).Name, dict(ThingData.ThingsList(0).ID))
     End Sub
 
     <TestMethod()>
-    Public Sub GetLookupDictionary_OneParam()
-        Dim query As String = "SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]"
+    Public Sub SPGetLookupDictionary_OneParam()
+        Dim spName As String = DBO_SP_Dictionary_OneParameter_NAME
         Dim parameter As New SqlParameter("mandatoryInteger", ThingData.ThingSelectionKey)
-        Dim dict As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query, parameter)
+        Dim dict As Dictionary(Of Integer, String) = DB.SPGetLookupDictionary(spName, parameter)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dict.Count)
         Assert.AreEqual(ThingData.ThingsList(0).Name, dict(ThingData.ThingsList(0).ID))

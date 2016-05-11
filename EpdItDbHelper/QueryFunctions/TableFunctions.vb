@@ -2,29 +2,7 @@
 
 Partial Public Class DBHelper
 
-#Region " Read (Lookup Dictionary) "
-
-    ''' <summary>
-    ''' Retrieves a dictionary of (integer -> string) values from the database
-    ''' </summary>
-    ''' <param name="query">The SQL query to send.</param>
-    ''' <param name="parameter">An optional SqlParameter to send.</param>
-    ''' <returns>A lookup dictionary.</returns>
-    Public Function GetLookupDictionary(query As String, Optional parameter As SqlParameter = Nothing) As Dictionary(Of Integer, String)
-        Dim d As New Dictionary(Of Integer, String)
-
-        Dim dataTable As DataTable = GetDataTable(query, parameter)
-
-        For Each row As DataRow In dataTable.Rows
-            d.Add(row.Item(0), row.Item(1))
-        Next
-
-        Return d
-    End Function
-
-#End Region
-
-#Region " Read (DataRow) "
+#Region " DataRow "
 
     ''' <summary>
     ''' Retrieves a single row of values from the database.
@@ -57,7 +35,7 @@ Partial Public Class DBHelper
 
 #End Region
 
-#Region " Read (DataTable) "
+#Region " DataTable "
 
     ''' <summary>
     ''' Retrieves a DataTable of values from the database.
@@ -89,14 +67,42 @@ Partial Public Class DBHelper
                     command.Parameters.AddRange(parameterArray)
                 End If
                 Using adapter As New SqlDataAdapter(command)
-                    command.Connection.Open()
-                    adapter.Fill(table)
-                    command.Connection.Close()
+                    Try
+
+                        command.Connection.Open()
+                        adapter.Fill(table)
+                        command.Connection.Close()
+                    Catch ex As Exception
+                        Throw
+                    End Try
+
                 End Using
             End Using
         End Using
 
         Return table
+    End Function
+
+#End Region
+
+#Region " Lookup Dictionary "
+
+    ''' <summary>
+    ''' Retrieves a dictionary of (integer -> string) values from the database
+    ''' </summary>
+    ''' <param name="query">The SQL query to send.</param>
+    ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <returns>A lookup dictionary.</returns>
+    Public Function GetLookupDictionary(query As String, Optional parameter As SqlParameter = Nothing) As Dictionary(Of Integer, String)
+        Dim d As New Dictionary(Of Integer, String)
+
+        Dim dataTable As DataTable = GetDataTable(query, parameter)
+
+        For Each row As DataRow In dataTable.Rows
+            d.Add(row.Item(0), row.Item(1))
+        Next
+
+        Return d
     End Function
 
 #End Region
