@@ -2,11 +2,11 @@
 
 The purpose of this library is to simplify interactions with a SQL Server database. 
 
-## Status
+## What is this?
 
-This library was originally written for working with an Oracle database. It is being migrated to work with SQL Server.
+This library was originally written for working with an Oracle database. It is being migrated to work with SQL Server. **This is still a work in progress.** Some parts are working and some are not. Please contribute and help fix the parts that don't work yet.
 
-This is still a work in progress. Some parts are working and some are not. Please contribute and help fix the parts that don't work yet. 
+See the status of each method at the bottom of this page. 
 
 ## How do I get set up?
 
@@ -61,4 +61,44 @@ This class does not need to be instantiated. It includes several useful function
 
 ## How do I help make it better?
 
-Start by writing Unit Tests for any functions not yet covered. Then run the tests and fix any code that is broken.
+* See the TO-DO list below. 
+* Write unit tests for any functions not yet covered. 
+* Run the unit tests and fix any code that is broken.
+* Fix the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
+
+### TO-DO
+
+* AddRefCursorParameter(SqlParameter())
+* GetByteArrayFromBlob(String, SqlParameter()) As Byte()
+* GetDataRow(String, SqlParameter()) As DataRow
+* GetDataRow(String, SqlParameter) As DataRow
+* GetDataTable(String, SqlParameter()) As DataTable
+* GetDataTable(String, SqlParameter) As DataTable
+* GetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
+* RunCommand(String, SqlParameter(), Integer, Boolean) As Boolean
+* RunCommand(String, SqlParameter, Integer, Boolean) As Boolean
+* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
+* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
+* SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
+* SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
+* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
+* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
+* SPGetDataRow(String, SqlParameter()) As DataRow
+* SPGetDataRow(String, SqlParameter) As DataRow
+* SPGetDataTable(String, SqlParameter()) As DataTable
+* SPGetDataTable(String, SqlParameter) As DataTable
+* SPGetInteger(String) As Integer
+* SPGetListOfKeyValuePair(String, SqlParameter) As List(Of KeyValuePair(Of Integer, String))
+* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
+* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
+* SPRunCommand(String, SqlParameter()) As Boolean
+* SPRunCommand(String, SqlParameter) As Boolean
+
+### DONE
+
+* GetBoolean(String, SqlParameter(), Boolean) As Boolean
+* GetBoolean(String, SqlParameter, Boolean) As Boolean
+* GetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
+* GetSingleValue(Of T)(String, SqlParameter, Boolean) As T
+* ValueExists(String, SqlParameter()) As Boolean
+* ValueExists(String, SqlParameter) As Boolean
