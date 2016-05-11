@@ -20,8 +20,13 @@ Public Class Setup
 
     Private Shared Sub InitializeTestDb()
         Database.SetInitializer(New ThingDbInitializer)
+
         Dim context As New ThingDbContext
         context.Database.Initialize(True)
+
+        For Each dbo As String In DbObjects.UdfObjects
+            context.Database.ExecuteSqlCommand(dbo)
+        Next
     End Sub
 
     <AssemblyCleanup>
