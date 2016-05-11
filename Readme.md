@@ -42,7 +42,7 @@ Dim parameter As SqlParameter = New SqlParameter("id", userId)
 Dim userName as String = DB.GetSingleValue(Of String)(query, parameter)
 ```
 
-Other functions require a name of a Stored Procedure or User-defined Function instead of a SQL query. These functions all start with "SP" in the name.
+Other functions require a name of a Stored Procedure instead of a SQL query. These functions all start with "SP" in the name.
 
 Example:
 
@@ -75,10 +75,6 @@ This class does not need to be instantiated. It includes several useful function
 * GetDataTable(String, SqlParameter()) As DataTable
 * GetDataTable(String, SqlParameter) As DataTable
 * GetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
-* RunCommand(String, SqlParameter(), Integer, Boolean) As Boolean
-* RunCommand(String, SqlParameter, Integer, Boolean) As Boolean
-* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
-* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
 * SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
 * SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
 * SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
@@ -102,3 +98,7 @@ This class does not need to be instantiated. It includes several useful function
 * GetSingleValue(Of T)(String, SqlParameter, Boolean) As T
 * ValueExists(String, SqlParameter()) As Boolean
 * ValueExists(String, SqlParameter) As Boolean
+* RunCommand(String, SqlParameter(), Integer, Boolean) As Boolean
+* RunCommand(String, SqlParameter, Integer, Boolean) As Boolean
+* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
+* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean

@@ -4,12 +4,6 @@ Public Class ThingDbInitializer
     Inherits DropCreateDatabaseAlways(Of ThingDbContext)
 
     Protected Overrides Sub Seed(context As ThingDbContext)
-        If context.Database.Exists Then
-            context.Database.Delete()
-        End If
-
-        context.Database.Create()
-
         For Each thing As Thing In ThingData.ThingsList
             context.Things.Add(thing)
         Next

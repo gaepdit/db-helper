@@ -2,8 +2,6 @@
 
 Partial Public Class DBHelper
 
-#Region " Run commands (ExecuteNonQuery) "
-
     ''' <summary>
     ''' Executes a SQL statement on the database.
     ''' </summary>
@@ -12,13 +10,16 @@ Partial Public Class DBHelper
     ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
     ''' <param name="failSilently">If true, suppresses error messages displayed to the user.</param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
-    Public Function RunCommand(ByVal query As String,
-                                   Optional ByVal parameter As SqlParameter = Nothing,
-                                   Optional ByRef rowsAffected As Integer = 0,
-                                   Optional ByVal failSilently As Boolean = False
-                                   ) As Boolean
+    Public Function RunCommand(query As String,
+                               Optional parameter As SqlParameter = Nothing,
+                               Optional ByRef rowsAffected As Integer = 0,
+                               Optional failSilently As Boolean = False
+                               ) As Boolean
         rowsAffected = 0
-        Dim parameterArray As SqlParameter() = {parameter}
+        Dim parameterArray As SqlParameter() = Nothing
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
         Return RunCommand(query, parameterArray, rowsAffected, failSilently)
     End Function
 
@@ -26,25 +27,24 @@ Partial Public Class DBHelper
     ''' Executes a SQL statement on the database.
     ''' </summary>
     ''' <param name="query">The SQL statement to execute.</param>
-    ''' <param name="parameters">An SqlParameter array to send.</param>
+    ''' <param name="parameterArray">An SqlParameter array to send.</param>
     ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
     ''' <param name="failSilently">If true, suppresses error messages displayed to the user.</param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
-    Public Function RunCommand(ByVal query As String,
-                                   ByVal parameters As SqlParameter(),
-                                   Optional ByRef rowsAffected As Integer = 0,
-                                   Optional ByVal failSilently As Boolean = False
-                                   ) As Boolean
+    Public Function RunCommand(query As String,
+                               parameterArray As SqlParameter(),
+                               Optional ByRef rowsAffected As Integer = 0,
+                               Optional failSilently As Boolean = False
+                               ) As Boolean
         rowsAffected = 0
         Dim queryList As New List(Of String)
         queryList.Add(query)
 
-        Dim parametersList As New List(Of SqlParameter())
-        parametersList.Add(parameters)
+        Dim parameterArrayList As New List(Of SqlParameter()) From {parameterArray}
 
         Dim countList As New List(Of Integer)
 
-        Dim result As Boolean = RunCommand(queryList, parametersList, countList, failSilently)
+        Dim result As Boolean = RunCommand(queryList, parameterArrayList, countList, failSilently)
 
         If result AndAlso countList.Count > 0 Then rowsAffected = countList(0)
 
@@ -59,11 +59,11 @@ Partial Public Class DBHelper
     ''' <param name="countList">A List of rows affected by each SQL statement.</param>
     ''' <param name="failSilently"></param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
-    Public Function RunCommand(ByVal queryList As List(Of String),
-                                   ByVal parametersList As List(Of SqlParameter()),
-                                   Optional ByRef countList As List(Of Integer) = Nothing,
-                                   Optional ByVal failSilently As Boolean = False
-                                   ) As Boolean
+    Public Function RunCommand(queryList As List(Of String),
+                               parametersList As List(Of SqlParameter()),
+                               Optional ByRef countList As List(Of Integer) = Nothing,
+                               Optional failSilently As Boolean = False
+                               ) As Boolean
         If countList Is Nothing Then countList = New List(Of Integer)
         countList.Clear()
         If queryList.Count <> parametersList.Count Then Return False
@@ -83,7 +83,9 @@ Partial Public Class DBHelper
                         For index As Integer = 0 To queryList.Count - 1
                             command.Parameters.Clear()
                             command.CommandText = queryList(index)
-                            command.Parameters.AddRange(parametersList(index))
+                            If parametersList(index) IsNot Nothing Then
+                                command.Parameters.AddRange(parametersList(index))
+                            End If
                             Dim rowsAffected As Integer = command.ExecuteNonQuery()
                             countList.Insert(index, rowsAffected)
                         Next
@@ -91,15 +93,11 @@ Partial Public Class DBHelper
                     Catch ee As SqlException
                         success = False
                         countList.Clear()
-                        Try
-                            transaction.Rollback()
-                        Catch
-                        End Try
+                        transaction.Rollback()
+                        Throw
                     End Try
 
                     command.Connection.Close()
-                Catch ee As SqlException
-                    success = False
                 Finally
                     If transaction IsNot Nothing Then transaction.Dispose()
                 End Try
@@ -110,12 +108,16 @@ Partial Public Class DBHelper
         Return success
     End Function
 
-    Public Function RunCommandIgnoreErrors(query As String, parameters As SqlParameter()) As Boolean
+    Public Function RunCommandIgnoreErrors(query As String,
+                                           parameterArray As SqlParameter()
+                                           ) As Boolean
         Try
             Using connection As New SqlConnection(ConnectionString)
                 Using command As New SqlCommand(query, connection)
                     command.CommandType = CommandType.Text
-                    command.Parameters.AddRange(parameters)
+                    If parameterArray IsNot Nothing Then
+                        command.Parameters.AddRange(parameterArray)
+                    End If
                     command.Connection.Open()
                     command.ExecuteScalar()
                     command.Connection.Close()
@@ -126,7 +128,5 @@ Partial Public Class DBHelper
             Return False
         End Try
     End Function
-
-#End Region
 
 End Class

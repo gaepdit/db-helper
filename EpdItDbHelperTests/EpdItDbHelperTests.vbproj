@@ -91,6 +91,7 @@
     <Import Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QueryFunctionTests\NonQueryFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\ScalarFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\UdfScalarFunctionsTests.vb" />
     <Compile Include="_Setup\DbObjects.vb" />
@@ -144,6 +145,9 @@
       <Project>{d069b1f3-fcef-45ea-9bb4-0737d725bedd}</Project>
       <Name>EpdItDbHelper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SPFunctionTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
