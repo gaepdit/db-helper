@@ -24,7 +24,7 @@ Public Class Setup
         Dim context As New ThingDbContext
         context.Database.Initialize(True)
 
-        For Each dbo As String In DbObjects.DbObjects
+        For Each dbo As String In DbTestObjects.DbTestObjectStrings
             context.Database.ExecuteSqlCommand(dbo)
         Next
     End Sub

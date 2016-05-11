@@ -4,18 +4,17 @@
 Public Class UDFScalarFunctionsTests
 
     <TestMethod()>
-    Public Sub CallFunction_Integer_NoParameters()
-        Dim udfQuery As String = "select dbo." & DB_TEST_FUNCTION_A & "()"
-        Dim Expected_Result As Integer = DB_TEST_INT_A
+    Public Sub UDF_NoParameters()
+        Dim udfQuery As String = "select dbo." & DBO_UDF_NoParameters_NAME & "()"
         Dim Actual_Result As Integer = DB.GetSingleValue(Of Integer)(udfQuery)
-        Assert.AreEqual(Expected_Result, Actual_Result)
+        Assert.AreEqual(DBO_UDF_NoParameters_VALUE, Actual_Result)
     End Sub
 
     <TestMethod()>
-    Public Sub CallFunction_Integer_WithParameters()
+    Public Sub UDF_WithParameters()
         Dim p1 As Integer = 3
         Dim p2 As Integer = 10
-        Dim udfQuery As String = "select dbo." & DB_TEST_FUNCTION_B & "(@param1, @param2)"
+        Dim udfQuery As String = "select dbo." & DBO_UDF_WithParameters_NAME & "(@param1, @param2)"
         Dim parameterArray As SqlParameter() = {
             New SqlParameter("param1", p1),
             New SqlParameter("param2", p2)

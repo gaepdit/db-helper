@@ -6,15 +6,30 @@ Public Class SPNonQueryFunctionsTests
     <TestMethod()>
     Public Sub SPInsert_NoParameters()
         Dim rowsAffected As Integer = 0
-        Dim spName As String = DB_TEST_PROCEDURE_C
+        Dim spName As String = DBO_SP_INSERT_NoParameters_NAME
         Dim Actual_Result As Boolean = DB.SPRunCommand(spName, rowsAffected:=rowsAffected)
         Assert.IsTrue(Actual_Result)
         Assert.AreEqual(1, rowsAffected)
 
         Dim extraQuery As String = "SELECT MandatoryInteger FROM dbo.Things WHERE Name = @name"
-        Dim extraParameter As New SqlParameter("@name", DB_TEST_STRING_C)
+        Dim extraParameter As New SqlParameter("@name", DBO_SP_INSERT_NoParameters_VALUE_str)
         Dim Extra_Result As Integer = DB.GetSingleValue(Of Integer)(extraQuery, extraParameter)
-        Assert.AreEqual(DB_TEST_INT_C, Extra_Result)
+        Assert.AreEqual(DBO_SP_INSERT_NoParameters_VALUE_int, Extra_Result)
+    End Sub
+
+    <TestMethod()>
+    Public Sub SPInsert_OneParameter()
+        Dim rowsAffected As Integer = 0
+        Dim spName As String = DBO_SP_INSERT_OneParameter_NAME
+        Dim parameter As New SqlParameter("@mandatoryInteger", DBO_SP_INSERT_OneParameter_VALUE_int)
+        Dim Actual_Result As Boolean = DB.SPRunCommand(spName, parameter, rowsAffected)
+        Assert.IsTrue(Actual_Result)
+        Assert.AreEqual(1, rowsAffected)
+
+        Dim extraQuery As String = "SELECT MandatoryInteger FROM dbo.Things WHERE Name = @name"
+        Dim extraParameter As New SqlParameter("@name", DBO_SP_INSERT_OneParameter_VALUE_str)
+        Dim Extra_Result As Integer = DB.GetSingleValue(Of Integer)(extraQuery, extraParameter)
+        Assert.AreEqual(DBO_SP_INSERT_OneParameter_VALUE_int, Extra_Result)
     End Sub
 
     <TestMethod()>
@@ -23,7 +38,7 @@ Public Class SPNonQueryFunctionsTests
         Dim insertName As String = "test" & key.ToString
         Dim insertDate As Date = New Date(2016, 2, 3)
 
-        Dim spName As String = DB_TEST_PROCEDURE_D
+        Dim spName As String = DBO_SP_INSERT_WithParameters_NAME
         Dim parameterArray() As SqlParameter = {
             New SqlParameter("@name", insertName),
             New SqlParameter("@status", True),

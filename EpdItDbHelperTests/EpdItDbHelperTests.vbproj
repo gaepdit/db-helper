@@ -95,7 +95,7 @@
     <Compile Include="QueryFunctionTests\ScalarFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\UdfScalarFunctionsTests.vb" />
     <Compile Include="SPFunctionTests\SPNonQueryFunctionsTests.vb" />
-    <Compile Include="_Setup\DbObjects.vb" />
+    <Compile Include="_Setup\DbTestObjects.vb" />
     <Compile Include="_Setup\ThingData.vb" />
     <Compile Include="_Setup\ThingDbContext.vb" />
     <Compile Include="_Setup\ThingDbInitializer.vb" />
