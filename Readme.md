@@ -87,8 +87,6 @@ This class does not need to be instantiated. It includes several useful function
 * SPGetListOfKeyValuePair(String, SqlParameter) As List(Of KeyValuePair(Of Integer, String))
 * SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
 * SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
-* SPRunCommand(String, SqlParameter()) As Boolean
-* SPRunCommand(String, SqlParameter) As Boolean
 
 ### DONE
 
@@ -102,3 +100,5 @@ This class does not need to be instantiated. It includes several useful function
 * RunCommand(String, SqlParameter, Integer, Boolean) As Boolean
 * RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
 * RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
+* SPRunCommand(String, SqlParameter()) As Boolean
+* SPRunCommand(String, SqlParameter) As Boolean

@@ -26,10 +26,9 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
-    ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
     ''' <returns>A boolean value.</returns>
-    Public Function SPGetBoolean(ByVal query As String, Optional ByVal parameter As SqlParameter = Nothing, Optional ByVal failSilently As Boolean = False) As Boolean
-        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(query, parameter, failSilently))
+    Public Function SPGetBoolean(query As String, Optional parameter As SqlParameter = Nothing) As Boolean
+        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(query, parameter))
     End Function
 
     ''' <summary>
@@ -37,10 +36,9 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
-    ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
     ''' <returns>A boolean value.</returns>
-    Public Function SPGetBoolean(ByVal query As String, ByVal parameterArray As SqlParameter(), Optional ByVal failSilently As Boolean = False) As Boolean
-        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(query, parameterArray, failSilently))
+    Public Function SPGetBoolean(query As String, parameterArray As SqlParameter()) As Boolean
+        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(query, parameterArray))
     End Function
 
     ''' <summary>
@@ -48,14 +46,13 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
-    ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
     ''' <returns>A value of the specified type.</returns>
-    Public Function SPGetSingleValue(Of T)(ByVal query As String, Optional ByVal parameter As SqlParameter = Nothing, Optional ByVal failSilently As Boolean = False) As T
+    Public Function SPGetSingleValue(Of T)(query As String, Optional parameter As SqlParameter = Nothing) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return SPGetSingleValue(Of T)(query, parameterArray, failSilently)
+        Return SPGetSingleValue(Of T)(query, parameterArray)
     End Function
 
 
@@ -64,9 +61,8 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
-    ''' <param name="failSilently">If true, OracleExceptions will be suppressed.</param>
     ''' <returns>A value of the specified type.</returns>
-    Private Function SPGetSingleValue(Of T)(ByVal query As String, ByVal parameterArray As SqlParameter(), Optional ByVal failSilently As Boolean = False) As T
+    Private Function SPGetSingleValue(Of T)(query As String, parameterArray As SqlParameter()) As T
         Dim result As Object = Nothing
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)

@@ -63,8 +63,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QueryFunctions\ExecuteNonQueryFunctions.vb" />
-    <Compile Include="SPFunctions\SPExecuteNonQueryFunctions.vb" />
+    <Compile Include="QueryFunctions\NonQueryFunctions.vb" />
+    <Compile Include="SPFunctions\SPNonQueryFunctions.vb" />
     <Compile Include="QueryFunctions\ByteArrayFunctions.vb" />
     <Compile Include="DBHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
