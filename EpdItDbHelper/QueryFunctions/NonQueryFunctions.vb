@@ -102,25 +102,4 @@ Partial Public Class DBHelper
         Return success
     End Function
 
-    Public Function RunCommandIgnoreErrors(query As String,
-                                           parameterArray As SqlParameter()
-                                           ) As Boolean
-        Try
-            Using connection As New SqlConnection(ConnectionString)
-                Using command As New SqlCommand(query, connection)
-                    command.CommandType = CommandType.Text
-                    If parameterArray IsNot Nothing Then
-                        command.Parameters.AddRange(parameterArray)
-                    End If
-                    command.Connection.Open()
-                    command.ExecuteScalar()
-                    command.Connection.Close()
-                End Using
-            End Using
-            Return True
-        Catch
-            Return False
-        End Try
-    End Function
-
 End Class
