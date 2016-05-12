@@ -1,7 +1,7 @@
 ﻿Partial Public Class DBUtilities
 
     ''' <summary>
-    ''' An enumeration of the different ways pseud-boolean values are stored in the database.
+    ''' An enumeration of the different ways pseudo-boolean values are stored in the database.
     ''' </summary>
     Public Enum BooleanDBConversionType
         OneOrZero
