@@ -73,9 +73,11 @@ This class does not need to be instantiated. It includes several useful function
 * GetByteArrayFromBlob(String, SqlParameter()) As Byte()
 * SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
 * SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
+
+### Needs Unit Tests
+
 * SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
 * SPGetBoolean(String, SqlParameter, Boolean) As Boolean
-* SPGetInteger(String) As Integer
 * SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
 * SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
 

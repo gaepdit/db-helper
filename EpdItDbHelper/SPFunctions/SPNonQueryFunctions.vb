@@ -1,11 +1,10 @@
 ﻿Imports System.Data.SqlClient
 
-' Stored Procedures that run commands (ExecuteNonQuery) 
-Partial Public Class DBHelper
+' These functions call Stored Procedures using IN and/or OUT parameters.
+' If successful, any OUT parameters are available to the calling procedure as 
+' returned by the database.
 
-    ' These functions call Stored Procedures using IN and/or OUT parameters.
-    ' If successful, any OUT parameters are available to the calling procedure as 
-    ' returned by the database.
+Partial Public Class DBHelper
 
     ''' <summary>
     ''' Executes a Stored Procedure on the database.

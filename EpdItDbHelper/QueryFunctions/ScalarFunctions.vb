@@ -2,8 +2,6 @@
 
 Partial Public Class DBHelper
 
-#Region " Read (Scalar) "
-
     ''' <summary>
     ''' Retrieves a boolean value from the database.
     ''' </summary>
@@ -69,10 +67,6 @@ Partial Public Class DBHelper
         Return DBUtilities.GetNullable(Of T)(result)
     End Function
 
-#End Region
-
-#Region " Value Exists "
-
     ''' <summary>
     ''' Determines whether a value as indicated by the SQL query exists in the database.
     ''' </summary>
@@ -114,7 +108,5 @@ Partial Public Class DBHelper
 
         Return Not (result Is Nothing OrElse IsDBNull(result) OrElse result.ToString = "null")
     End Function
-
-#End Region
 
 End Class
