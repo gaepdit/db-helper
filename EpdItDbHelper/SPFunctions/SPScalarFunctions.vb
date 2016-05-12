@@ -62,7 +62,7 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A value of the specified type.</returns>
-    Private Function SPGetSingleValue(Of T)(query As String, parameterArray As SqlParameter()) As T
+    Public Function SPGetSingleValue(Of T)(query As String, parameterArray As SqlParameter()) As T
         Dim result As Object = Nothing
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
