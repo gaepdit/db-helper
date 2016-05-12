@@ -16,7 +16,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetSingleValue_String_OneParameter()
         Dim key As Integer = 2
         Dim query As String = "SELECT [Name] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Expected_Result As String = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).Name
         Dim Actual_Result As String = DB.GetSingleValue(Of String)(query, parameter)
         Assert.AreEqual(Expected_Result, Actual_Result)
@@ -27,8 +27,8 @@ Public Class ScalarFunctionsTests
         Dim key As Integer = 3
         Dim query As String = "SELECT [Name] from dbo.Things where Status = @status and MandatoryInteger = @mandatoryInteger"
         Dim parameterArray As SqlParameter() = {
-            New SqlParameter("status", ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).Status),
-            New SqlParameter("mandatoryInteger", ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).MandatoryInteger)
+            New SqlParameter("@status", ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).Status),
+            New SqlParameter("@mandatoryInteger", ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).MandatoryInteger)
         }
         Dim Expected_Result As String = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).Name
         Dim Actual_Result As String = DB.GetSingleValue(Of String)(query, parameterArray)
@@ -39,7 +39,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetSingleValue_Date()
         Dim key As Integer = 4
         Dim query As String = "SELECT [MandatoryDate] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Expected_Result As Date = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).MandatoryDate
         Dim Actual_Result As Date = DB.GetSingleValue(Of Date)(query, parameter)
         Assert.AreEqual(Expected_Result, Actual_Result)
@@ -49,7 +49,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetSingleValue_NullableDate_NotNull()
         Dim key As Integer = 1
         Dim query As String = "SELECT [OptionalDate] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Expected_Result As Date? = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).OptionalDate
         Dim Actual_Result As Date? = DB.GetSingleValue(Of Date?)(query, parameter)
         Assert.AreEqual(Expected_Result, Actual_Result)
@@ -60,7 +60,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetSingleValue_NullableDate_Null()
         Dim key As Integer = 2
         Dim query As String = "SELECT [OptionalDate] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Expected_Result As Date? = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).OptionalDate
         Dim Actual_Result As Date? = DB.GetSingleValue(Of Date?)(query, parameter)
         Assert.AreEqual(Expected_Result, Actual_Result)
@@ -71,7 +71,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetSingleValue_NullableInt_NotNull()
         Dim key As Integer = 1
         Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Expected_Result As Integer? = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).OptionalInteger
         Dim Actual_Result As Integer? = DB.GetSingleValue(Of Integer?)(query, parameter)
         Assert.AreEqual(Expected_Result, Actual_Result)
@@ -82,7 +82,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetSingleValue_NullableInt_Null()
         Dim key As Integer = 2
         Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Expected_Result As Integer? = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).OptionalInteger
         Dim Actual_Result As Integer? = DB.GetSingleValue(Of Integer?)(query, parameter)
         Assert.AreEqual(Expected_Result, Actual_Result)
@@ -93,7 +93,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetBoolean_True()
         Dim key As Integer = 1
         Dim query As String = "SELECT [Status] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Actual_Result As Boolean = DB.GetBoolean(query, parameter)
         Assert.IsTrue(Actual_Result)
     End Sub
@@ -102,7 +102,7 @@ Public Class ScalarFunctionsTests
     Public Sub GetBoolean_False()
         Dim key As Integer = 2
         Dim query As String = "SELECT [Status] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Actual_Result As Boolean = DB.GetBoolean(query, parameter)
         Assert.IsFalse(Actual_Result)
     End Sub
@@ -111,7 +111,7 @@ Public Class ScalarFunctionsTests
     Public Sub ValueExists_True()
         Dim key As Integer = 1
         Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Actual_Result As Boolean = DB.ValueExists(query, parameter)
         Assert.IsTrue(Actual_Result)
     End Sub
@@ -120,7 +120,7 @@ Public Class ScalarFunctionsTests
     Public Sub ValueExists_False()
         Dim key As Integer = 2
         Dim query As String = "SELECT [OptionalInteger] from dbo.Things where [ID] = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim Actual_Result As Boolean = DB.ValueExists(query, parameter)
         Assert.IsFalse(Actual_Result)
     End Sub

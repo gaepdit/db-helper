@@ -16,8 +16,8 @@ Public Class UDFScalarFunctionsTests
         Dim p2 As Integer = 10
         Dim udfQuery As String = "select dbo." & DBO_UDF_WithParameters_NAME & "(@param1, @param2)"
         Dim parameterArray As SqlParameter() = {
-            New SqlParameter("param1", p1),
-            New SqlParameter("param2", p2)
+            New SqlParameter("@param1", p1),
+            New SqlParameter("@param2", p2)
         }
         Dim Expected_Result As Integer = p1 + p2
         Dim Actual_Result As Integer = DB.GetSingleValue(Of Integer)(udfQuery, parameterArray)

@@ -38,7 +38,7 @@ Imports EpdIt.DBUtilities
     <TestMethod()>
     Public Sub GetDataTable_OneParam()
         Dim query As String = "SELECT * FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]"
-        Dim parameter As New SqlParameter("mandatoryInteger", ThingData.ThingSelectionKey)
+        Dim parameter As New SqlParameter("@mandatoryInteger", ThingData.ThingSelectionKey)
         Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dt.Rows.Count)
@@ -73,7 +73,7 @@ Imports EpdIt.DBUtilities
     Public Sub GetDataRow_OneParam()
         Dim key As Integer = 2
         Dim query As String = "SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = @id"
-        Dim parameter As New SqlParameter("id", key)
+        Dim parameter As New SqlParameter("@id", key)
         Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
         Dim th As Thing = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key)
@@ -100,7 +100,7 @@ Imports EpdIt.DBUtilities
     <TestMethod()>
     Public Sub GetLookupDictionary_OneParam()
         Dim query As String = "SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]"
-        Dim parameter As New SqlParameter("mandatoryInteger", ThingData.ThingSelectionKey)
+        Dim parameter As New SqlParameter("@mandatoryInteger", ThingData.ThingSelectionKey)
         Dim dict As Dictionary(Of Integer, String) = DB.GetLookupDictionary(query, parameter)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dict.Count)
