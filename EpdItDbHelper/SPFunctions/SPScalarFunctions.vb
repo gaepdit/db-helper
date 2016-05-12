@@ -2,8 +2,6 @@
 
 Partial Public Class DBHelper
 
-#Region " Read (Scalar) "
-
     Public Function SPGetInteger(spName As String) As Integer
         Dim result As Integer
         Using connection As New SqlConnection(ConnectionString)
@@ -78,7 +76,5 @@ Partial Public Class DBHelper
 
         Return DBUtilities.GetNullable(Of T)(result)
     End Function
-
-#End Region
 
 End Class

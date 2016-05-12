@@ -19,6 +19,8 @@ See the status of each method at the bottom of this page.
 
 ## How do I use the library?
 
+See the automatically-generated documentation in the documentation folder.
+
 There are two classes available:
 
 ### `DB`

@@ -40,6 +40,9 @@
     ' SP dict one parameter
     Public Property DBO_SP_Dictionary_OneParameter_NAME As String = "DictSpOneParam"
 
+    ' SP with OUT parameter
+    Public Property DBO_SP_Output_Parameter_NAME As String = "SpOutParam"
+    Public Property DBO_SP_Output_Parameter_VALUE_int As Integer = 2
 
     Public Property DbTestObjectStrings As New List(Of String) From {
         "CREATE FUNCTION dbo." & DBO_UDF_NoParameters_NAME & " () RETURNS INT AS BEGIN RETURN " & DBO_UDF_NoParameters_VALUE & " END",
@@ -61,6 +64,8 @@
         "CREATE PROCEDURE " & DBO_SP_Dictionary_NoParameters_NAME & " AS BEGIN " &
         "     SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = " & ThingData.ThingSelectionKey & " ORDER BY [ID]; END;",
         "CREATE PROCEDURE " & DBO_SP_Dictionary_OneParameter_NAME & " @mandatoryInteger int AS BEGIN " &
-        "     SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]; END;"
-    }
+        "     SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]; END;",
+        "CREATE PROCEDURE " & DBO_SP_Output_Parameter_NAME & " @id int, @name varchar(max) OUTPUT AS BEGIN " &
+        "     SET NOCOUNT ON; " &
+        "     SELECT @name = Name FROM dbo.Things WHERE id = @id; END;"}
 End Module

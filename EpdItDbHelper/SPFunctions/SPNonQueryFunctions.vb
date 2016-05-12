@@ -1,8 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
+' Stored Procedures that run commands (ExecuteNonQuery) 
 Partial Public Class DBHelper
-
-#Region " Stored Procedures that run commands (ExecuteNonQuery) "
 
     ' These functions call Stored Procedures using IN and/or OUT parameters.
     ' If successful, any OUT parameters are available to the calling procedure as 
@@ -61,7 +60,5 @@ Partial Public Class DBHelper
 
         Return success
     End Function
-
-#End Region
 
 End Class
