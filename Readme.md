@@ -68,18 +68,12 @@ This class does not need to be instantiated. It includes several useful function
 
 ### TO-DO
 
-* AddRefCursorParameter(SqlParameter())
 * GetByteArrayFromBlob(String, SqlParameter()) As Byte()
 * SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
 * SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
 * SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
 * SPGetBoolean(String, SqlParameter, Boolean) As Boolean
-* SPGetDataRow(String, SqlParameter()) As DataRow
-* SPGetDataRow(String, SqlParameter) As DataRow
-* SPGetDataTable(String, SqlParameter()) As DataTable
-* SPGetDataTable(String, SqlParameter) As DataTable
 * SPGetInteger(String) As Integer
-* SPGetListOfKeyValuePair(String, SqlParameter) As List(Of KeyValuePair(Of Integer, String))
 * SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
 * SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
 
@@ -102,3 +96,8 @@ This class does not need to be instantiated. It includes several useful function
 * GetDataTable(String, SqlParameter()) As DataTable
 * GetDataTable(String, SqlParameter) As DataTable
 * GetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
+* SPGetDataRow(String, SqlParameter()) As DataRow
+* SPGetDataRow(String, SqlParameter) As DataRow
+* SPGetDataTable(String, SqlParameter()) As DataTable
+* SPGetDataTable(String, SqlParameter) As DataTable
+* SPGetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
