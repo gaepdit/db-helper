@@ -63,23 +63,17 @@ This class does not need to be instantiated. It includes several useful function
 
 ## How do I help make it better?
 
-* See the TO-DO list below. 
+* See the TO-DO list below for functions that have not been completed or tested.
+* Add new functions as needed.
 * Write unit tests for any functions not yet covered. 
 * Run the unit tests and fix any code that is broken.
-* Fix the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
+* Review the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
 
 ### TO-DO
 
 * GetByteArrayFromBlob(String, SqlParameter()) As Byte()
 * SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
 * SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
-
-### Needs Unit Tests
-
-* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
-* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
-* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
-* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
 
 ### DONE
 
@@ -105,3 +99,7 @@ This class does not need to be instantiated. It includes several useful function
 * SPGetDataTable(String, SqlParameter()) As DataTable
 * SPGetDataTable(String, SqlParameter) As DataTable
 * SPGetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
+* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
+* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
+* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
+* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
