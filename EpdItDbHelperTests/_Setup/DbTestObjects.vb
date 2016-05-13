@@ -44,6 +44,22 @@
     Public Property DBO_SP_Output_Parameter_NAME As String = "SpOutParam"
     Public Property DBO_SP_Output_Parameter_VALUE_int As Integer = 2
 
+    ' SP with return_value_argument as string
+    Public Property DBO_SP_Return_String_NAME As String = "SpOutReturnString"
+    Public Property DBO_SP_Return_String_VALUE As Integer = 2
+
+    ' SP with return_value_argument as integer
+    Public Property DBO_SP_Return_Int_NAME As String = "SpOutReturnIntParam"
+    Public Property DBO_SP_Return_Int_VALUE As Integer = 2
+
+    ' SP with return_value_argument as boolean
+    Public Property DBO_SP_Return_Bool_NAME As String = "SpOutReturnBoolParam"
+    Public Property DBO_SP_Return_Bool_VALUE As Integer = 2
+
+    ' SP with return_value_argument as nullable date
+    Public Property DBO_SP_Return_NullDate_NAME As String = "SpOutReturnNullDateParam"
+    Public Property DBO_SP_Return_NullDate_VALUE As Integer = 2
+
     Public Property DbTestObjectStrings As New List(Of String) From {
         "CREATE FUNCTION dbo." & DBO_UDF_NoParameters_NAME & " () RETURNS INT AS BEGIN RETURN " & DBO_UDF_NoParameters_VALUE & " END",
         "CREATE FUNCTION dbo." & DBO_UDF_WithParameters_NAME & " (@param1 int, @param2 int) RETURNS INT AS BEGIN RETURN @param1 + @param2 END",
@@ -67,5 +83,18 @@
         "     SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]; END;",
         "CREATE PROCEDURE " & DBO_SP_Output_Parameter_NAME & " @id int, @name varchar(max) OUTPUT AS BEGIN " &
         "     SET NOCOUNT ON; " &
-        "     SELECT @name = Name FROM dbo.Things WHERE id = @id; END;"}
+        "     SELECT @name = Name FROM dbo.Things WHERE id = @id; END;",
+        "CREATE PROCEDURE " & DBO_SP_Return_String_NAME & " @id int, @return_value_argument varchar(max) OUTPUT AS BEGIN " &
+        "     SET NOCOUNT ON; " &
+        "     SELECT @return_value_argument = Name FROM dbo.Things WHERE id = @id; END;",
+        "CREATE PROCEDURE " & DBO_SP_Return_Int_NAME & " @id int, @return_value_argument int OUTPUT AS BEGIN " &
+        "     SET NOCOUNT ON; " &
+        "     SELECT @return_value_argument = MandatoryInteger FROM dbo.Things WHERE id = @id; END;",
+        "CREATE PROCEDURE " & DBO_SP_Return_Bool_NAME & " @id int, @return_value_argument bit OUTPUT AS BEGIN " &
+        "     SET NOCOUNT ON; " &
+        "     SELECT @return_value_argument = Status FROM dbo.Things WHERE id = @id; END;",
+        "CREATE PROCEDURE " & DBO_SP_Return_NullDate_NAME & " @id int, @return_value_argument date OUTPUT AS BEGIN " &
+        "     SET NOCOUNT ON; " &
+        "     SELECT @return_value_argument = OptionalDate FROM dbo.Things WHERE id = @id; END;"
+    }
 End Module
