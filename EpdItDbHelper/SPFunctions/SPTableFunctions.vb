@@ -10,7 +10,9 @@ Partial Public Class DBHelper
     ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
     ''' <param name="parameter">An optional Oracle Parameter to send.</param>
     ''' <returns>A DataRow.</returns>
-    Public Function SPGetDataRow(spName As String, Optional parameter As SqlParameter = Nothing) As DataRow
+    Public Function SPGetDataRow(spName As String,
+                                 ByRef Optional parameter As SqlParameter = Nothing
+                                 ) As DataRow
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
@@ -24,7 +26,9 @@ Partial Public Class DBHelper
     ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
     ''' <param name="parameterArray">An optional Oracle Parameter to send.</param>
     ''' <returns>A DataRow</returns>
-    Public Function SPGetDataRow(spName As String, parameterArray As SqlParameter()) As DataRow
+    Public Function SPGetDataRow(spName As String,
+                                 ByRef parameterArray As SqlParameter()
+                                 ) As DataRow
         Dim resultTable As DataTable = SPGetDataTable(spName, parameterArray)
         If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
             Return resultTable.Rows(0)
@@ -43,12 +47,18 @@ Partial Public Class DBHelper
     ''' <param name="spName">The Stored Procedure to call</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A DataTable</returns>
-    Public Function SPGetDataTable(spName As String, Optional parameter As SqlParameter = Nothing) As DataTable
+    Public Function SPGetDataTable(spName As String,
+                                   Optional ByRef parameter As SqlParameter = Nothing
+                                   ) As DataTable
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return SPGetDataTable(spName, parameterArray)
+        Dim table As DataTable = SPGetDataTable(spName, parameterArray)
+        If table IsNot Nothing AndAlso parameterArray IsNot Nothing Then
+            parameter = parameterArray(0)
+        End If
+        Return table
     End Function
 
     ''' <summary>
@@ -57,7 +67,9 @@ Partial Public Class DBHelper
     ''' <param name="spName">The Stored Procedure to call</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
     ''' <returns>A DataTable</returns>
-    Public Function SPGetDataTable(spName As String, parameterArray As SqlParameter()) As DataTable
+    Public Function SPGetDataTable(spName As String,
+                                   ByRef parameterArray As SqlParameter()
+                                   ) As DataTable
         If String.IsNullOrEmpty(spName) Then
             Return Nothing
         End If
@@ -74,6 +86,9 @@ Partial Public Class DBHelper
                     command.Connection.Open()
                     adapter.Fill(table)
                     command.Connection.Close()
+                    If parameterArray IsNot Nothing Then
+                        command.Parameters.CopyTo(parameterArray, 0)
+                    End If
                 End Using
             End Using
         End Using
@@ -91,7 +106,9 @@ Partial Public Class DBHelper
     ''' <param name="spName">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A lookup dictionary.</returns>
-    Public Function SPGetLookupDictionary(spName As String, Optional parameter As SqlParameter = Nothing) As Dictionary(Of Integer, String)
+    Public Function SPGetLookupDictionary(spName As String,
+                                          ByRef Optional parameter As SqlParameter = Nothing
+                                          ) As Dictionary(Of Integer, String)
         Dim d As New Dictionary(Of Integer, String)
 
         Dim dataTable As DataTable = SPGetDataTable(spName, parameter)
