@@ -6,7 +6,10 @@ Partial Public Class DBHelper
 #Region " Read (ByteArray) "
 
     Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional ByVal parameter As SqlParameter = Nothing) As Boolean
-        Dim parameterArray As SqlParameter() = {parameter}
+        Dim parameterArray As SqlParameter() = Nothing
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
         Return SaveBinaryFileFromDB(filePath, query, parameterArray)
     End Function
 
@@ -32,7 +35,9 @@ Partial Public Class DBHelper
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
-                command.Parameters.AddRange(parameterArray)
+                If parameterArray IsNot Nothing Then
+                    command.Parameters.AddRange(parameterArray)
+                End If
 
                 Try
                     command.Connection.Open()
