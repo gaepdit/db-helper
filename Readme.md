@@ -23,9 +23,9 @@ See the automatically-generated documentation in the documentation folder.
 
 There are two classes available:
 
-### `DB`
+### `DB` Class
 
-The DB class must be instantiated with a connection string. (In the future, there may be more options for instantiating.) 
+The DB class must be instantiated with a connection string. (In the future, there may be more options for instantiating. Let me know if this is a priority for you.) 
 
 Example:
 
@@ -33,35 +33,73 @@ Example:
 Friend DB As New EpdIt.DBHelper(ConnectionString)
 ```
 
-The DB object has many functions available for interacting with the database. Some functions which require a SQL query or command and optional SQL parameters.
+The DB object has many functions available for interacting with the database. They differ based on whether they require a SQL query string as input, or the name of a Stored Procedure. 
 
-Example:
+#### Query string functions
+
+These functions require a SQL query or command plus optional SQL parameters.
+
+**Example 1:** No SQL parameters
 
 ```
-Dim userId as Integer = 3
+Dim query as String = "select States from StatesTable"
+Dim states as DataTable = DB.GetDataTable(query)
+```
+
+**Example 2:** One SQL parameter
+
+```
 Dim query as String = "select UserName from UserTable where UserId = @id"
-Dim parameter As SqlParameter = New SqlParameter("id", userId)
+Dim parameter As New SqlParameter("@id", MyUserId)
 Dim userName as String = DB.GetSingleValue(Of String)(query, parameter)
 ```
 
-Other functions require a name of a Stored Procedure instead of a SQL query. These functions all start with "SP" in the name.
+**Example 3:** Multiple SQL parameters
 
-Example:
+```
+Dim query as String = "update FacilityTable set Name = @name where FacilityId = @id"
+Dim parameterArray As SqlParameter() = {
+    New SqlParameter("@name", MyNewFacilityName),
+    New SqlParameter("@id", MyFacilityId)
+}
+Dim userName as String = DB.GetDataTable(query, parameterArray)
+```
+
+#### Stored Procedure functions
+
+These functions require the name of a Stored Procedure instead of a SQL query. These functions all start with "SP" in the name. 
+
+Any combination of INPUT or OUTPUT parameters can be used, and the OUTPUT parameters will contain their values as sent by the database.
+
+**Example 1:** Specifying INPUT and OUTPUT parameters
 
 ```
 Dim spName as String = "RetrieveFacilitiesByCounty"
 Dim parameterArray As SqlParameter() = {
-    New SqlParameter("state", "GA"),
-    New SqlParameter("county", "Fulton")
+    New SqlParameter("@county", MyCounty),
+    New SqlParameter("@total", SqlDbType.Int) With {
+        .Direction = ParameterDirection.Output
+    }
 }
 Dim facilities as DataTable = DB.SPGetDataTable(spName, parameterArray)
 ```
 
-### `DBUtilities`
+Some convenience functions are available that return a single value from a stored procedure. These require the stored procedure to be written with a single OUTPUT parameter named `@return_value_argument`. The OUTPUT parameter does not need to be specified when calling the function.
 
-This class does not need to be instantiated. It includes several useful functions for working with database data. The most useful is `DBUtilities.GetNullable(Of T)` which helps handle data retrieved from nullable columns in the database (handling DBNull appropriately).
+**Example 2:** Single implied OUTPUT parameter
 
-## How do I help make it better?
+```
+Dim spName as String = "RetrieveUserStatus" 
+' RetrieveUserStatus must have an OUTPUT bit parameter named @return_value_argument
+Dim parameter As New SqlParameter("id", userId)
+Dim status as Boolean = DB.SPGetBoolean(spName, parameter)
+```
+
+### `DBUtilities` Class
+
+This class does not need to be instantiated. It includes several useful shared functions for working with database data. The most useful is `DBUtilities.GetNullable(Of T)` which helps handle data retrieved from nullable columns in the database (handling DBNull appropriately).
+
+## How can I help make it better?
 
 * See the TO-DO list below for functions that have not been completed or tested.
 * Add new functions as needed.
@@ -74,6 +112,10 @@ This class does not need to be instantiated. It includes several useful function
 * GetByteArrayFromBlob(String, SqlParameter()) As Byte()
 * SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
 * SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
+
+### Missing Unit Tests
+
+* SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
 
 ### DONE
 
