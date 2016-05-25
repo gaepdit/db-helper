@@ -1,67 +1,40 @@
 ﻿Imports System.Data.SqlClient
-Imports System.IO
 
 Partial Public Class DBHelper
 
-#Region " Read (ByteArray) "
+#Region " ByteArray "
 
-    Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional ByVal parameter As SqlParameter = Nothing) As Boolean
-        Dim parameterArray As SqlParameter() = Nothing
-        If parameter IsNot Nothing Then
-            parameterArray = {parameter}
-        End If
-        Return SaveBinaryFileFromDB(filePath, query, parameterArray)
-    End Function
+    Public Function GetByteArray(ByVal query As String, ByVal parameterArray As SqlParameter()) As Byte()
+        Throw New NotImplementedException
 
-    Public Function SaveBinaryFileFromDB(filePath As String, query As String, ByVal parameterArray As SqlParameter()) As Boolean
-        Dim byteArray As Byte() = GetByteArrayFromBlob(query, parameterArray)
+        'Using connection As New SqlConnection(ConnectionString)
+        '    Using command As New SqlCommand(query, connection)
+        '        command.CommandType = CommandType.Text
+        '        If parameterArray IsNot Nothing Then
+        '            command.Parameters.AddRange(parameterArray)
+        '        End If
 
-        Try
-            Using fs As New FileStream(filePath, FileMode.Create, FileAccess.Write)
-                Using bw As New BinaryWriter(fs)
-                    bw.Write(byteArray)
-                End Using ' bw
-            End Using ' fs
+        '        Try
+        '            command.Connection.Open()
+        '            Dim dr As SqlDataReader = command.ExecuteReader()
+        '            dr.Read()
 
-            Return True
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
+        '            Dim length As Integer = dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue)
+        '            Dim byteArray(length) As Byte
+        '            dr.GetBytes(0, 0, byteArray, 0, length)
 
-    Private Function GetByteArrayFromBlob(ByVal query As String, ByVal parameterArray As SqlParameter()) As Byte()
-        Dim success As Boolean = True
+        '            dr.Dispose()
+        '            command.Connection.Close()
 
-        Using connection As New SqlConnection(ConnectionString)
-            Using command As New SqlCommand(query, connection)
-                command.CommandType = CommandType.Text
-                If parameterArray IsNot Nothing Then
-                    command.Parameters.AddRange(parameterArray)
-                End If
+        '            Return byteArray
+        '        Catch ee As SqlException
+        '            Return Nothing
+        '        Catch ex As Exception
+        '            Return Nothing
+        '        End Try
 
-                Try
-                    command.Connection.Open()
-                    Dim dr As SqlDataReader = command.ExecuteReader()
-                    dr.Read()
-
-                    Dim length As Integer = dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue)
-                    Dim byteArray(length) As Byte
-                    dr.GetBytes(0, 0, byteArray, 0, length)
-
-                    dr.Dispose()
-                    command.Connection.Close()
-
-                    Return byteArray
-                Catch ee As SqlException
-                    success = False
-                    Return Nothing
-                Catch ex As Exception
-                    success = False
-                    Return Nothing
-                End Try
-
-            End Using
-        End Using
+        '    End Using
+        'End Using
     End Function
 
 #End Region

@@ -109,11 +109,9 @@ This class does not need to be instantiated. It includes several useful shared f
 
 ### TO-DO
 
-* GetByteArrayFromBlob(String, SqlParameter()) As Byte()
-* SaveBinaryFileFromDB(String, String, SqlParameter()) As Boolean
-* SaveBinaryFileFromDB(String, String, SqlParameter) As Boolean
+* GetByteArray(String, SqlParameter()) As Byte()
 
-### Missing Unit Tests
+### Done But Missing Unit Tests
 
 * SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
 
