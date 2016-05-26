@@ -1,4 +1,4 @@
-# EPD-IT DB Helper Class Library
+# EPD-IT Simple DB Helper
 
 The purpose of this library is to simplify interactions with a SQL Server database. 
 
@@ -8,18 +8,11 @@ This library was originally written for working with an Oracle database. It is b
 
 See the status of each method at the bottom of this page. 
 
-## How do I get set up?
-
-* Clone this repository to your local machine.
-* In Visual Studio, open YOUR solution where you want to use this library. 
-* Choose File → Add → Existing Project...
-* Find and select `EpdItDbHelper\EpdItDbHelper.vbproj` from this library.
-* In Solution Explorer, select YOUR project, and choose Project → Add Reference...
-* In the Reference Manager that opens, select Projects and check the box for the EpdItDbHelper project.
-
 ## How do I use the library?
 
-See the automatically-generated documentation in the documentation folder.
+To install Simple DB Helper, run the following command in the [Package Manager Console](https://docs.nuget.org/consume/package-manager-console):
+
+`PM> Install-Package EpdIt.DbHelper`
 
 There are two classes available:
 
@@ -97,7 +90,7 @@ Dim status as Boolean = DB.SPGetBoolean(spName, parameter)
 
 ### `DBUtilities` Class
 
-This class does not need to be instantiated. It includes several useful shared functions for working with database data. The most useful is `DBUtilities.GetNullable(Of T)` which helps handle data retrieved from nullable columns in the database (handling DBNull appropriately).
+This class does not need to be instantiated. It includes two shared functions to simplify handling of NULL values in database data (DBNull).
 
 ## How can I help make it better?
 
@@ -114,6 +107,7 @@ This class does not need to be instantiated. It includes several useful shared f
 ### Done But Missing Unit Tests
 
 * SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
+* GetNullableDateTimeFromString(Object) As DateTime?
 
 ### DONE
 
@@ -143,3 +137,4 @@ This class does not need to be instantiated. It includes several useful shared f
 * SPGetBoolean(String, SqlParameter, Boolean) As Boolean
 * SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
 * SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
+* GetNullable(Of T)(Object) As T
