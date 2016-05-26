@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://tldrlegal.com/license/mit-license#fulltext</licenseUrl>
+    <iconUrl>http://dmu.georgiaair.org/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright © 2016</copyright>
+    <tags>database SQLServer Georgia EPD-IT</tags>
+  </metadata>
+</package>
