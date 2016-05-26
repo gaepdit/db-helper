@@ -7,7 +7,7 @@
     <ProjectGuid>{D069B1F3-FCEF-45EA-9BB4-0737D725BEDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>EpdIt</RootNamespace>
-    <AssemblyName>EpdItDbHelper</AssemblyName>
+    <AssemblyName>EpdIt.DbHelper</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -18,7 +18,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>EpdItDbHelper.xml</DocumentationFile>
+    <DocumentationFile>EpdIt.DbHelper.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -27,7 +27,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>EpdItDbHelper.xml</DocumentationFile>
+    <DocumentationFile>EpdIt.DbHelper.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -115,6 +115,7 @@
   </Target>
   -->
   <Target Name="AfterBuild">
-    <Exec Command="nuget pack $(ProjectFileName) -Prop Configuration=$(ConfigurationName) -Symbols" Condition=" '$(Configuration)' == 'Release'"></Exec>
+    <Exec Command="nuget pack $(ProjectFileName) -Prop Configuration=$(ConfigurationName) -Symbols" Condition=" '$(Configuration)' == 'Release'">
+    </Exec>
   </Target>
 </Project>
