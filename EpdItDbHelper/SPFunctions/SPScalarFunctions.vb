@@ -56,7 +56,7 @@ Partial Public Class DBHelper
                 End If
 
                 command.Connection.Open()
-                Return DBUtilities.GetNullable(Of T)(command.ExecuteNonQuery())
+                Return DBUtilities.GetNullable(Of T)(command.ExecuteScalar())
                 command.Connection.Close()
             End Using
         End Using
