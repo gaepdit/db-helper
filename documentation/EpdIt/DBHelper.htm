@@ -29,9 +29,6 @@
 	<div class="scroll">
 		<ul>
 				<li>
-            <a href="../EpdIt/BooleanDBConversionType.htm">BooleanDBConversionType</a>
-        </li>
-				<li>
             <a href="../EpdIt/DBHelper.htm" class="current">DBHelper</a>
         </li>
 				<li>
@@ -56,6 +53,7 @@
 				<li><a href="../EpdIt/DBHelper.htm#Equals">Equals</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetBoolean">GetBoolean</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetBoolean">GetBoolean</a></li>
+				<li><a href="../EpdIt/DBHelper.htm#GetByteArray">GetByteArray</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataRow">GetDataRow</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataRow">GetDataRow</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataTable">GetDataTable</a></li>
@@ -68,8 +66,6 @@
 				<li><a href="../EpdIt/DBHelper.htm#RunCommand">RunCommand</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#RunCommand">RunCommand</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#RunCommand">RunCommand</a></li>
-				<li><a href="../EpdIt/DBHelper.htm#SaveBinaryFileFromDB">SaveBinaryFileFromDB</a></li>
-				<li><a href="../EpdIt/DBHelper.htm#SaveBinaryFileFromDB">SaveBinaryFileFromDB</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#SPGetBoolean">SPGetBoolean</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#SPGetBoolean">SPGetBoolean</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#SPGetDataRow">SPGetDataRow</a></li>
@@ -103,43 +99,6 @@
 
 
 
-
-		</div>
-	</div>
-	<div id="GetBoolean" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>GetBoolean</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
-		</h4>
-		<div class="content">Retrieves a boolean value from the database. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> query
-						</dt>
-						<dd>The SQL query to send. 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span></code> parameterArray
-						</dt>
-						<dd>An optional SqlParameter array to send. 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.bool">bool</span></code>
-					</dt>
-					<dd>A boolean value. 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>
@@ -180,11 +139,11 @@
 
 		</div>
 	</div>
-	<div id="GetDataRow" class="method">
+	<div id="GetBoolean" class="method">
 		<h4>
-			<span title="System.Data.DataRow">DataRow</span> <strong>GetDataRow</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
+			<span title="System.bool">bool</span> <strong>GetBoolean</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
 		</h4>
-		<div class="content">Retrieves a single row of values from the database. 
+		<div class="content">Retrieves a boolean value from the database. 
 
 
 			<div class="parameters">
@@ -208,12 +167,23 @@
 				<h5>Returns</h5>
 				<dl>
 					<dt>
-						<code><span title="System.Data.DataRow">DataRow</span></code>
+						<code><span title="System.bool">bool</span></code>
 					</dt>
-					<dd>A DataRow of values. 
+					<dd>A boolean value. 
 					</dd>
 				</dl>
 			</div>
+
+		</div>
+	</div>
+	<div id="GetByteArray" class="method">
+		<h4>
+			<span title="System.Byte[]">Byte[]</span> <strong>GetByteArray</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
+		</h4>
+		<div class="content">
+
+
+
 
 		</div>
 	</div>
@@ -236,6 +206,43 @@
 							<code><span title="System.Data.SqlClient.SqlParameter">SqlParameter</span></code> parameter
 						</dt>
 						<dd>An optional SqlParameter to send. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.Data.DataRow">DataRow</span></code>
+					</dt>
+					<dd>A DataRow of values. 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="GetDataRow" class="method">
+		<h4>
+			<span title="System.Data.DataRow">DataRow</span> <strong>GetDataRow</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
+		</h4>
+		<div class="content">Retrieves a single row of values from the database. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> query
+						</dt>
+						<dd>The SQL query to send. 
+						</dd>
+						<dt>
+							<code><span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span></code> parameterArray
+						</dt>
+						<dd>An optional SqlParameter array to send. 
 						</dd>
 				</dl>
 			</div>
@@ -494,28 +501,6 @@
 
 		</div>
 	</div>
-	<div id="SaveBinaryFileFromDB" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>SaveBinaryFileFromDB</strong>(<span title="System.string">string</span> filePath, <span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="SaveBinaryFileFromDB" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>SaveBinaryFileFromDB</strong>(<span title="System.string">string</span> filePath, <span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
 	<div id="SPGetBoolean" class="method">
 		<h4>
 			<span title="System.bool">bool</span> <strong>SPGetBoolean</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
@@ -592,186 +577,56 @@
 	</div>
 	<div id="SPGetDataRow" class="method">
 		<h4>
-			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter)
+			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter)
 		</h4>
-		<div class="content">Retrieves a single row of values from the database. 
+		<div class="content">
 
 
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> spName
-						</dt>
-						<dd>The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR) 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter">SqlParameter</span></code> parameter
-						</dt>
-						<dd>An optional Oracle Parameter to send. 
-						</dd>
-				</dl>
-			</div>
 
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Data.DataRow">DataRow</span></code>
-					</dt>
-					<dd>A DataRow. 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>
 	<div id="SPGetDataRow" class="method">
 		<h4>
-			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
+			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray)
 		</h4>
-		<div class="content">Retrieves a single row of values from the database. 
+		<div class="content">
 
 
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> spName
-						</dt>
-						<dd>The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR) 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span></code> parameterArray
-						</dt>
-						<dd>An optional Oracle Parameter to send. 
-						</dd>
-				</dl>
-			</div>
 
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Data.DataRow">DataRow</span></code>
-					</dt>
-					<dd>A DataRow 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>
 	<div id="SPGetDataTable" class="method">
 		<h4>
-			<span title="System.Data.DataTable">DataTable</span> <strong>SPGetDataTable</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter)
+			<span title="System.Data.DataTable">DataTable</span> <strong>SPGetDataTable</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray)
 		</h4>
-		<div class="content">Retrieves a DataTable of values from the database. 
+		<div class="content">
 
 
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> spName
-						</dt>
-						<dd>The Stored Procedure to call 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter">SqlParameter</span></code> parameter
-						</dt>
-						<dd>An optional SqlParameter to send. 
-						</dd>
-				</dl>
-			</div>
 
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Data.DataTable">DataTable</span></code>
-					</dt>
-					<dd>A DataTable 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>
 	<div id="SPGetDataTable" class="method">
 		<h4>
-			<span title="System.Data.DataTable">DataTable</span> <strong>SPGetDataTable</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray)
+			<span title="System.Data.DataTable">DataTable</span> <strong>SPGetDataTable</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter)
 		</h4>
-		<div class="content">Retrieves a DataTable of values from the database. 
+		<div class="content">
 
 
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> spName
-						</dt>
-						<dd>The Stored Procedure to call 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span></code> parameterArray
-						</dt>
-						<dd>An SqlParameter array to send. 
-						</dd>
-				</dl>
-			</div>
 
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Data.DataTable">DataTable</span></code>
-					</dt>
-					<dd>A DataTable 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>
 	<div id="SPGetLookupDictionary" class="method">
 		<h4>
-			<span title="System.Collections.Generic.Dictionary<int, string>">Dictionary&lt;int, string&gt;</span> <strong>SPGetLookupDictionary</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter)
+			<span title="System.Collections.Generic.Dictionary<int, string>">Dictionary&lt;int, string&gt;</span> <strong>SPGetLookupDictionary</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter)
 		</h4>
-		<div class="content">Retrieves a dictionary of (integer -> string) values from the database 
+		<div class="content">
 
 
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> spName
-						</dt>
-						<dd>The SQL query to send. 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter">SqlParameter</span></code> parameter
-						</dt>
-						<dd>An optional SqlParameter to send. 
-						</dd>
-				</dl>
-			</div>
 
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Collections.Generic.Dictionary<int, string>">Dictionary&lt;int, string&gt;</span></code>
-					</dt>
-					<dd>A lookup dictionary. 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>

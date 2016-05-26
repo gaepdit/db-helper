@@ -29,9 +29,6 @@
 	<div class="scroll">
 		<ul>
 				<li>
-            <a href="../EpdIt/BooleanDBConversionType.htm">BooleanDBConversionType</a>
-        </li>
-				<li>
             <a href="../EpdIt/DBHelper.htm">DBHelper</a>
         </li>
 				<li>
@@ -53,13 +50,8 @@
 		
 			<h3 class="section">Methods</h3>
 			<ul>
-				<li><a href="../EpdIt/DBUtilities.htm#ConvertBooleanToDBValue">ConvertBooleanToDBValue</a></li>
-				<li><a href="../EpdIt/DBUtilities.htm#ConvertDBValueToBoolean">ConvertDBValueToBoolean</a></li>
 				<li><a href="../EpdIt/DBUtilities.htm#GetNullable``1">GetNullable&lt;T&gt;</a></li>
 				<li><a href="../EpdIt/DBUtilities.htm#GetNullableDateTimeFromString">GetNullableDateTimeFromString</a></li>
-				<li><a href="../EpdIt/DBUtilities.htm#ReadByteArrayFromFile">ReadByteArrayFromFile</a></li>
-				<li><a href="../EpdIt/DBUtilities.htm#StoreNothingIfZero">StoreNothingIfZero</a></li>
-				<li><a href="../EpdIt/DBUtilities.htm#StoreNothingIfZero">StoreNothingIfZero</a></li>
 			</ul>
 		
 		
@@ -68,28 +60,6 @@
 	
 	<h3 class="section">Public static methods</h3>
 
-	<div id="ConvertBooleanToDBValue" class="method">
-		<h4>
-			<span title="System.string">string</span> <strong>ConvertBooleanToDBValue</strong>(<span title="System.bool">bool</span> value, <a href="../EpdIt/BooleanDBConversionType.htm">BooleanDBConversionType</a> conversionType)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="ConvertDBValueToBoolean" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>ConvertDBValueToBoolean</strong>(<span title="System.string">string</span> value, <a href="../EpdIt/BooleanDBConversionType.htm">BooleanDBConversionType</a> conversionType)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
 	<div id="GetNullable``1" class="method">
 		<h4>
 			<span title="EpdIt.T">T</span> <strong>GetNullable&lt;T&gt;</strong>(<span title="System.object">object</span> obj)
@@ -148,102 +118,6 @@
 						<code><span title="System.Nullable<DateTime>">Nullable&lt;DateTime&gt;</span></code>
 					</dt>
 					<dd>If database value is DBNull or value cannot be converted to a DateTime, returns Nothing; otherwise, returns the value converted to a DateTime. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
-	<div id="ReadByteArrayFromFile" class="method">
-		<h4>
-			<span title="System.Byte[]">Byte[]</span> <strong>ReadByteArrayFromFile</strong>(<span title="System.string">string</span> pathToFile)
-		</h4>
-		<div class="content">Reads a binary file into a Byte array. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> pathToFile
-						</dt>
-						<dd>The path to the file to read. 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Byte[]">Byte[]</span></code>
-					</dt>
-					<dd>A Byte array. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
-	<div id="StoreNothingIfZero" class="method">
-		<h4>
-			<span title="System.Nullable<decimal>">Nullable&lt;decimal&gt;</span> <strong>StoreNothingIfZero</strong>(<span title="System.decimal">decimal</span> i)
-		</h4>
-		<div class="content">Utility for storing zeroed decimals as null in the database 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.decimal">decimal</span></code> i
-						</dt>
-						<dd>The decimal to store 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Nullable<decimal>">Nullable&lt;decimal&gt;</span></code>
-					</dt>
-					<dd>Nothing if i is equal to 0; otherwise, returns i. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
-	<div id="StoreNothingIfZero" class="method">
-		<h4>
-			<span title="System.Nullable<int>">Nullable&lt;int&gt;</span> <strong>StoreNothingIfZero</strong>(<span title="System.int">int</span> i)
-		</h4>
-		<div class="content">Utility for storing zeroed integers as null in the database 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.int">int</span></code> i
-						</dt>
-						<dd>The integer to store 
-						</dd>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.Nullable<int>">Nullable&lt;int&gt;</span></code>
-					</dt>
-					<dd>Nothing if i is equal to 0; otherwise, returns i. 
 					</dd>
 				</dl>
 			</div>
