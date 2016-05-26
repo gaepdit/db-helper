@@ -7,6 +7,7 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://tldrlegal.com/license/mit-license#fulltext</licenseUrl>
+    <projectUrl>https://github.com/ga-epd-it/db-helper</projectUrl>
     <iconUrl>http://dmu.georgiaair.org/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
