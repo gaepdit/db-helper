@@ -109,6 +109,10 @@ This class does not need to be instantiated. It includes two shared functions to
 
 * SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
 * GetNullableDateTimeFromString(Object) As DateTime?
+* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
+* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
+* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
+* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
 
 ### DONE
 
@@ -134,8 +138,8 @@ This class does not need to be instantiated. It includes two shared functions to
 * SPGetDataTable(String, SqlParameter()) As DataTable
 * SPGetDataTable(String, SqlParameter) As DataTable
 * SPGetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
-* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
-* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
-* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
-* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
+* SPGetBooleanReturnValue(String, SqlParameter(), Boolean) As Boolean
+* SPGetBooleanReturnValue(String, SqlParameter, Boolean) As Boolean
+* SPGetSingleReturnValue(Of T)(String, SqlParameter(), Boolean) As T
+* SPGetSingleReturnValue(Of T)(String, SqlParameter, Boolean) As T
 * GetNullable(Of T)(Object) As T

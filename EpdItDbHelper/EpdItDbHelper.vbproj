@@ -83,6 +83,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SPFunctions\SPScalarFunctions.vb" />
+    <Compile Include="SPFunctions\SPReturnValueFunctions.vb" />
     <Compile Include="SPFunctions\SPTableFunctions.vb" />
     <Compile Include="QueryFunctions\TableFunctions.vb" />
     <Compile Include="QueryFunctions\ScalarFunctions.vb" />

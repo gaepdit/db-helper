@@ -95,7 +95,7 @@
     <Compile Include="QueryFunctionTests\ScalarFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\UdfScalarFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\TableFunctionsTests.vb" />
-    <Compile Include="SPFunctionTests\SPScalarFunctionsTests.vb" />
+    <Compile Include="SPFunctionTests\SPReturnValueFunctionsTests.vb" />
     <Compile Include="SPFunctionTests\SPOutputParameterTests.vb" />
     <Compile Include="SPFunctionTests\SPTableFunctionsTests.vb" />
     <Compile Include="SPFunctionTests\SPNonQueryFunctionsTests.vb" />

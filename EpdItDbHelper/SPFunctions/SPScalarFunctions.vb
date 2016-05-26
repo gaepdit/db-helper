@@ -1,7 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
-' These functions call Stored Procedures that are written using a single OUTPUT parameter named "@return_value_argument".
-' These are just a convenience to avoid having to code the output parameter and do the type conversion yourself.
+' These functions call Stored Procedures and return the first field of the first record of the result
 
 Partial Public Class DBHelper
 
@@ -56,80 +55,11 @@ Partial Public Class DBHelper
                     command.Parameters.AddRange(parameterArray)
                 End If
 
-                Dim outputParameter As New SqlParameter(SPReturnValueParameterName, TypeToSqlDbType(Of T)) With {
-                    .Direction = ParameterDirection.Output,
-                    .Size = Integer.MaxValue
-                }
-                command.Parameters.Add(outputParameter)
-
                 command.Connection.Open()
-                result = command.ExecuteNonQuery()
+                Return DBUtilities.GetNullable(Of T)(command.ExecuteNonQuery())
                 command.Connection.Close()
-
-                Return DBUtilities.GetNullable(Of T)(command.Parameters(SPReturnValueParameterName).Value)
             End Using
         End Using
-    End Function
-
-    Private Function TypeToSqlDbType(Of T)() As SqlDbType
-        ' See https://msdn.microsoft.com/en-us/library/yy6y35y8.aspx
-
-        Select Case GetType(T)
-            Case GetType(Boolean)
-                Return SqlDbType.Bit
-            Case GetType(Boolean?)
-                Return SqlDbType.Bit
-            Case GetType(Byte)
-                Return SqlDbType.TinyInt
-            Case GetType(Byte?)
-                Return SqlDbType.TinyInt
-            Case GetType(Byte())
-                Return SqlDbType.VarBinary
-            Case GetType(Char)
-                Return SqlDbType.VarChar
-            Case GetType(Date)
-                Return SqlDbType.DateTime
-            Case GetType(Date?)
-                Return SqlDbType.DateTime
-            Case GetType(DateTimeOffset)
-                Return SqlDbType.DateTimeOffset
-            Case GetType(Decimal)
-                Return SqlDbType.Decimal
-            Case GetType(Decimal?)
-                Return SqlDbType.Decimal
-            Case GetType(Double)
-                Return SqlDbType.Float
-            Case GetType(Double?)
-                Return SqlDbType.Float
-            Case GetType(Single)
-                Return SqlDbType.Real
-            Case GetType(Single?)
-                Return SqlDbType.Real
-            Case GetType(Guid)
-                Return SqlDbType.UniqueIdentifier
-            Case GetType(Short)
-                Return SqlDbType.SmallInt
-            Case GetType(Short?)
-                Return SqlDbType.SmallInt
-            Case GetType(Integer)
-                Return SqlDbType.Int
-            Case GetType(Integer?)
-                Return SqlDbType.Int
-            Case GetType(Long)
-                Return SqlDbType.BigInt
-            Case GetType(Long?)
-                Return SqlDbType.BigInt
-            Case GetType(Object)
-                Return SqlDbType.Variant
-            Case GetType(String)
-                Return SqlDbType.NVarChar
-            Case GetType(TimeSpan)
-                Return SqlDbType.Time
-            Case GetType(TimeSpan?)
-                Return SqlDbType.Time
-            Case Else
-                Throw New ArgumentException("No SQL data type mapping defined for " & GetType(T).ToString & ". Use SPRunCommand instead.")
-        End Select
     End Function
 
 End Class
