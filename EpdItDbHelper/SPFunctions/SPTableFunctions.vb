@@ -83,13 +83,12 @@ Partial Public Class DBHelper
                     command.Parameters.AddRange(parameterArray)
                 End If
                 Using adapter As New SqlDataAdapter(command)
-                    command.Connection.Open()
                     adapter.Fill(table)
-                    command.Connection.Close()
                     If parameterArray IsNot Nothing Then
                         command.Parameters.CopyTo(parameterArray, 0)
                     End If
                 End Using
+                command.Parameters.Clear()
             End Using
         End Using
 

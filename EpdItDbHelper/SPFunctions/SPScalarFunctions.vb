@@ -46,20 +46,22 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleValue(Of T)(spName As String, parameterArray As SqlParameter()) As T
-        Dim result As Boolean = False
+        Dim result As Object = Nothing
+
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)
                 command.CommandType = CommandType.StoredProcedure
-
                 If parameterArray IsNot Nothing Then
                     command.Parameters.AddRange(parameterArray)
                 End If
-
                 command.Connection.Open()
-                Return DBUtilities.GetNullable(Of T)(command.ExecuteScalar())
+                result = command.ExecuteScalar()
                 command.Connection.Close()
+                command.Parameters.Clear()
             End Using
         End Using
+
+        Return DBUtilities.GetNullable(Of T)(result)
     End Function
 
 End Class

@@ -52,6 +52,7 @@ Partial Public Class DBHelper
                                          parameterArray As SqlParameter()
                                          ) As T
         Dim result As Object = Nothing
+
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
@@ -61,6 +62,7 @@ Partial Public Class DBHelper
                 command.Connection.Open()
                 result = command.ExecuteScalar()
                 command.Connection.Close()
+                command.Parameters.Clear()
             End Using
         End Using
 
@@ -103,6 +105,7 @@ Partial Public Class DBHelper
                 command.Connection.Open()
                 result = command.ExecuteScalar()
                 command.Connection.Close()
+                command.Parameters.Clear()
             End Using
         End Using
 

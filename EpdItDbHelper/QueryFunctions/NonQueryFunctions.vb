@@ -75,13 +75,13 @@ Partial Public Class DBHelper
 
                     Try
                         For index As Integer = 0 To queryList.Count - 1
-                            command.Parameters.Clear()
                             command.CommandText = queryList(index)
                             If parametersList(index) IsNot Nothing Then
                                 command.Parameters.AddRange(parametersList(index))
                             End If
                             Dim rowsAffected As Integer = command.ExecuteNonQuery()
                             countList.Insert(index, rowsAffected)
+                            command.Parameters.Clear()
                         Next
                         transaction.Commit()
                     Catch ee As SqlException

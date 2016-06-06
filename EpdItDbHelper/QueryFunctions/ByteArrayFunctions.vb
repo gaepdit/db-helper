@@ -10,11 +10,11 @@ Partial Public Class DBHelper
         'Using connection As New SqlConnection(ConnectionString)
         '    Using command As New SqlCommand(query, connection)
         '        command.CommandType = CommandType.Text
-        '        If parameterArray IsNot Nothing Then
-        '            command.Parameters.AddRange(parameterArray)
-        '        End If
-
         '        Try
+        '           If parameterArray IsNot Nothing Then
+        '                command.Parameters.AddRange(parameterArray)
+        '           End If
+
         '            command.Connection.Open()
         '            Dim dr As SqlDataReader = command.ExecuteReader()
         '            dr.Read()
@@ -31,6 +31,8 @@ Partial Public Class DBHelper
         '            Return Nothing
         '        Catch ex As Exception
         '            Return Nothing
+        '        Finally
+        '            command.Parameters.Clear()
         '        End Try
 
         '    End Using

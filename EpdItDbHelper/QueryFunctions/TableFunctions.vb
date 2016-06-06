@@ -67,16 +67,11 @@ Partial Public Class DBHelper
                     command.Parameters.AddRange(parameterArray)
                 End If
                 Using adapter As New SqlDataAdapter(command)
-                    Try
-
-                        command.Connection.Open()
-                        adapter.Fill(table)
-                        command.Connection.Close()
-                    Catch ex As Exception
-                        Throw
-                    End Try
-
+                    command.Connection.Open()
+                    adapter.Fill(table)
+                    command.Connection.Close()
                 End Using
+                command.Parameters.Clear()
             End Using
         End Using
 

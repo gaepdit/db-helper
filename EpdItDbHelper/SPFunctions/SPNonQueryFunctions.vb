@@ -53,6 +53,7 @@ Partial Public Class DBHelper
                 If parameterArray IsNot Nothing Then
                     command.Parameters.CopyTo(parameterArray, 0)
                 End If
+                command.Parameters.Clear()
                 success = True
             End Using
         End Using
