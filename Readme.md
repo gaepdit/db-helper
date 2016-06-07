@@ -16,7 +16,7 @@ To install Simple DB Helper, run the following command in the [Package Manager C
 
 There are two classes available:
 
-### `DB` Class
+### The `DB` Class
 
 The DB class must be instantiated with a connection string. (In the future, there may be more options for instantiating. Let me know if this is a priority for you.) 
 
@@ -88,7 +88,7 @@ Dim parameter As New SqlParameter("id", userId)
 Dim status as Boolean = DB.SPGetBoolean(spName, parameter)
 ```
 
-### `DBUtilities` Class
+### The `DBUtilities` Class
 
 This class does not need to be instantiated. It includes two shared functions to simplify handling of NULL values in database data (DBNull).
 
@@ -108,11 +108,6 @@ This class does not need to be instantiated. It includes two shared functions to
 ### Done But Missing Unit Tests
 
 * SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
-* GetNullableDateTimeFromString(Object) As DateTime?
-* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
-* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
-* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
-* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
 
 ### DONE
 
@@ -143,3 +138,8 @@ This class does not need to be instantiated. It includes two shared functions to
 * SPGetSingleReturnValue(Of T)(String, SqlParameter(), Boolean) As T
 * SPGetSingleReturnValue(Of T)(String, SqlParameter, Boolean) As T
 * GetNullable(Of T)(Object) As T
+* GetNullableDateTimeFromString(Object) As DateTime?
+* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
+* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
+* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
+* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T

@@ -91,6 +91,8 @@
     <Import Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SPFunctionTests\SPScalarFunctionsTests.vb" />
+    <Compile Include="UtilityTests\NullableDateTimeUtilitiesTests.vb" />
     <Compile Include="QueryFunctionTests\NonQueryFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\ScalarFunctionsTests.vb" />
     <Compile Include="QueryFunctionTests\UdfScalarFunctionsTests.vb" />
