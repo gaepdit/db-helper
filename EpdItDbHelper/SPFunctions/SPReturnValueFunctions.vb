@@ -88,9 +88,9 @@ Partial Public Class DBHelper
             Case GetType(Char)
                 Return SqlDbType.VarChar
             Case GetType(Date)
-                Return SqlDbType.DateTime
+                Return SqlDbType.DateTime2
             Case GetType(Date?)
-                Return SqlDbType.DateTime
+                Return SqlDbType.DateTime2
             Case GetType(DateTimeOffset)
                 Return SqlDbType.DateTimeOffset
             Case GetType(Decimal)
