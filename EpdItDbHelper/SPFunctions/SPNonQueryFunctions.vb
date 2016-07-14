@@ -23,7 +23,7 @@ Partial Public Class DBHelper
             parameterArray = {parameter}
         End If
         Dim result As Boolean = SPRunCommand(spName, parameterArray, rowsAffected)
-        If result AndAlso parameterArray IsNot Nothing Then
+        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
             parameter = parameterArray(0)
         End If
         Return result
@@ -47,14 +47,20 @@ Partial Public Class DBHelper
                 If parameterArray IsNot Nothing Then
                     command.Parameters.AddRange(parameterArray)
                 End If
+                Dim returnParameter As New SqlParameter("@ReturnValue", SqlDbType.Int) With {
+                    .Direction = ParameterDirection.ReturnValue
+                }
+                command.Parameters.Add(returnParameter)
                 command.Connection.Open()
                 rowsAffected = command.ExecuteNonQuery()
                 command.Connection.Close()
-                If parameterArray IsNot Nothing Then
-                    command.Parameters.CopyTo(parameterArray, 0)
+                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                    Dim newArray(command.Parameters.Count) As SqlParameter
+                    command.Parameters.CopyTo(newArray, 0)
+                    Array.Copy(newArray, parameterArray, parameterArray.Length)
                 End If
                 command.Parameters.Clear()
-                success = True
+                success = (returnParameter.Value = 0)
             End Using
         End Using
 
