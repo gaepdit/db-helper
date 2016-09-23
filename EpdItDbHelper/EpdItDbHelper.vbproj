@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="QueryFunctions\NonQueryFunctions.vb" />
     <Compile Include="SPFunctions\SPNonQueryFunctions.vb" />
-    <Compile Include="QueryFunctions\ByteArrayFunctions.vb" />
     <Compile Include="DBHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

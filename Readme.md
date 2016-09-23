@@ -103,10 +103,6 @@ This class does not need to be instantiated. It includes two shared functions to
 * Review the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
 * To push changes to NuGet.org, build a Release version and use `nuget push EpdIt.DbHelper.x.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
 
-### TO-DO
-
-* GetByteArray(String, SqlParameter()) As Byte()
-
 ### Done But Missing Unit Tests
 
 * SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
