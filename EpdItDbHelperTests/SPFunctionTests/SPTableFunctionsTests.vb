@@ -57,7 +57,7 @@ Public Class SPTableFunctionsTests
     Public Sub SPGetDataRow_NoParam()
         Dim key As Integer = DBO_SP_Row_NoParameters_VALUE_int
         Dim spName As String = DBO_SP_Row_NoParameters_NAME
-        Dim dr As DataRow = DB.GetDataRow(spName)
+        Dim dr As DataRow = DB.SPGetDataRow(spName)
 
         Dim th As Thing = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key)
 

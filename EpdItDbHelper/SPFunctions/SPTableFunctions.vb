@@ -83,6 +83,7 @@ Partial Public Class DBHelper
                     command.Parameters.AddRange(parameterArray)
                 End If
                 Using adapter As New SqlDataAdapter(command)
+                    adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
                     adapter.Fill(table)
                     If parameterArray IsNot Nothing Then
                         command.Parameters.CopyTo(parameterArray, 0)

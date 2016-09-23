@@ -67,6 +67,7 @@ Partial Public Class DBHelper
                     command.Parameters.AddRange(parameterArray)
                 End If
                 Using adapter As New SqlDataAdapter(command)
+                    adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
                     command.Connection.Open()
                     adapter.Fill(table)
                     command.Connection.Close()
