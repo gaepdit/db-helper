@@ -9,9 +9,10 @@ Partial Public Class DBHelper
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A boolean value.</returns>
     Public Function GetBoolean(query As String,
-                               Optional parameter As SqlParameter = Nothing
+                               Optional parameter As SqlParameter = Nothing,
+                               Optional forceAddNullableParameters As Boolean = False
                                ) As Boolean
-        Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter))
+        Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter, forceAddNullableParameters))
     End Function
 
     ''' <summary>
@@ -21,9 +22,10 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A boolean value.</returns>
     Public Function GetBoolean(query As String,
-                               parameterArray As SqlParameter()
+                               parameterArray As SqlParameter(),
+                               Optional forceAddNullableParameters As Boolean = False
                                ) As Boolean
-        Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray))
+        Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray, forceAddNullableParameters))
     End Function
 
     ''' <summary>
@@ -33,13 +35,14 @@ Partial Public Class DBHelper
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(query As String,
-                                         Optional parameter As SqlParameter = Nothing
+                                         Optional parameter As SqlParameter = Nothing,
+                                         Optional forceAddNullableParameters As Boolean = False
                                          ) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return GetSingleValue(Of T)(query, parameterArray)
+        Return GetSingleValue(Of T)(query, parameterArray, forceAddNullableParameters)
     End Function
 
     ''' <summary>
@@ -49,7 +52,8 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(query As String,
-                                         parameterArray As SqlParameter()
+                                         parameterArray As SqlParameter(),
+                                         Optional forceAddNullableParameters As Boolean = False
                                          ) As T
         Dim result As Object = Nothing
 
@@ -57,6 +61,9 @@ Partial Public Class DBHelper
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
                 If parameterArray IsNot Nothing Then
+                    If forceAddNullableParameters Then
+                        DBNullifyParameters(parameterArray)
+                    End If
                     command.Parameters.AddRange(parameterArray)
                 End If
                 command.Connection.Open()
@@ -76,13 +83,14 @@ Partial Public Class DBHelper
     ''' <param name="parameter">An optional SqlParameter array to send.</param>
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String,
-                                Optional parameter As SqlParameter = Nothing
+                                Optional parameter As SqlParameter = Nothing,
+                                Optional forceAddNullableParameters As Boolean = False
                                 ) As Boolean
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return ValueExists(query, parameterArray)
+        Return ValueExists(query, parameterArray, forceAddNullableParameters)
     End Function
 
     ''' <summary>
@@ -92,7 +100,8 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String,
-                                parameterArray As SqlParameter()
+                                parameterArray As SqlParameter(),
+                                Optional forceAddNullableParameters As Boolean = False
                                 ) As Boolean
         Dim result As Object = Nothing
 
@@ -100,6 +109,9 @@ Partial Public Class DBHelper
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
                 If parameterArray IsNot Nothing Then
+                    If forceAddNullableParameters Then
+                        DBNullifyParameters(parameterArray)
+                    End If
                     command.Parameters.AddRange(parameterArray)
                 End If
                 command.Connection.Open()

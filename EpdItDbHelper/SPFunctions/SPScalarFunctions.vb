@@ -10,8 +10,11 @@ Partial Public Class DBHelper
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A boolean value.</returns>
-    Public Function SPGetBoolean(spName As String, Optional parameter As SqlParameter = Nothing) As Boolean
-        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameter))
+    Public Function SPGetBoolean(spName As String,
+                                 Optional parameter As SqlParameter = Nothing,
+                                 Optional forceAddNullableParameters As Boolean = False
+                                 ) As Boolean
+        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameter, forceAddNullableParameters))
     End Function
 
     ''' <summary>
@@ -20,8 +23,11 @@ Partial Public Class DBHelper
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A boolean value.</returns>
-    Public Function SPGetBoolean(spName As String, parameterArray As SqlParameter()) As Boolean
-        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray))
+    Public Function SPGetBoolean(spName As String,
+                                 parameterArray As SqlParameter(),
+                                 Optional forceAddNullableParameters As Boolean = False
+                               ) As Boolean
+        Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray, forceAddNullableParameters))
     End Function
 
     ''' <summary>
@@ -30,12 +36,15 @@ Partial Public Class DBHelper
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <returns>A value of the specified type.</returns>
-    Public Function SPGetSingleValue(Of T)(spName As String, Optional parameter As SqlParameter = Nothing) As T
+    Public Function SPGetSingleValue(Of T)(spName As String,
+                                           Optional parameter As SqlParameter = Nothing,
+                                           Optional forceAddNullableParameters As Boolean = False
+                                           ) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return SPGetSingleValue(Of T)(spName, parameterArray)
+        Return SPGetSingleValue(Of T)(spName, parameterArray, forceAddNullableParameters)
     End Function
 
 
@@ -45,13 +54,19 @@ Partial Public Class DBHelper
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <returns>A value of the specified type.</returns>
-    Public Function SPGetSingleValue(Of T)(spName As String, parameterArray As SqlParameter()) As T
+    Public Function SPGetSingleValue(Of T)(spName As String,
+                                           parameterArray As SqlParameter(),
+                                           Optional forceAddNullableParameters As Boolean = False
+                                           ) As T
         Dim result As Object = Nothing
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)
                 command.CommandType = CommandType.StoredProcedure
                 If parameterArray IsNot Nothing Then
+                    If forceAddNullableParameters Then
+                        DBNullifyParameters(parameterArray)
+                    End If
                     command.Parameters.AddRange(parameterArray)
                 End If
                 command.Connection.Open()

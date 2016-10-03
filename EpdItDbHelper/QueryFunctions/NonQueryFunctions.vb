@@ -11,14 +11,15 @@ Partial Public Class DBHelper
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(query As String,
                                Optional parameter As SqlParameter = Nothing,
-                               Optional ByRef rowsAffected As Integer = 0
+                               Optional ByRef rowsAffected As Integer = 0,
+                               Optional forceAddNullableParameters As Boolean = False
                                ) As Boolean
         rowsAffected = 0
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return RunCommand(query, parameterArray, rowsAffected)
+        Return RunCommand(query, parameterArray, rowsAffected, forceAddNullableParameters)
     End Function
 
     ''' <summary>
@@ -30,7 +31,8 @@ Partial Public Class DBHelper
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(query As String,
                                parameterArray As SqlParameter(),
-                               Optional ByRef rowsAffected As Integer = 0
+                               Optional ByRef rowsAffected As Integer = 0,
+                               Optional forceAddNullableParameters As Boolean = False
                                ) As Boolean
         rowsAffected = 0
         Dim queryList As New List(Of String)
@@ -40,7 +42,7 @@ Partial Public Class DBHelper
 
         Dim countList As New List(Of Integer)
 
-        Dim result As Boolean = RunCommand(queryList, parameterArrayList, countList)
+        Dim result As Boolean = RunCommand(queryList, parameterArrayList, countList, forceAddNullableParameters)
 
         If result AndAlso countList.Count > 0 Then rowsAffected = countList(0)
 
@@ -56,7 +58,8 @@ Partial Public Class DBHelper
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(queryList As List(Of String),
                                parametersList As List(Of SqlParameter()),
-                               Optional ByRef countList As List(Of Integer) = Nothing
+                               Optional ByRef countList As List(Of Integer) = Nothing,
+                               Optional forceAddNullableParameters As Boolean = False
                                ) As Boolean
         If countList Is Nothing Then countList = New List(Of Integer)
         countList.Clear()
@@ -77,6 +80,9 @@ Partial Public Class DBHelper
                         For index As Integer = 0 To queryList.Count - 1
                             command.CommandText = queryList(index)
                             If parametersList(index) IsNot Nothing Then
+                                If forceAddNullableParameters Then
+                                    DBNullifyParameters(parametersList(index))
+                                End If
                                 command.Parameters.AddRange(parametersList(index))
                             End If
                             Dim rowsAffected As Integer = command.ExecuteNonQuery()

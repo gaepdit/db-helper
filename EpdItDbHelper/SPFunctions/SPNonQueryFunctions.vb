@@ -15,14 +15,15 @@ Partial Public Class DBHelper
     ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
                                  Optional ByRef parameter As SqlParameter = Nothing,
-                                 Optional ByRef rowsAffected As Integer = 0
+                                 Optional ByRef rowsAffected As Integer = 0,
+                                 Optional forceAddNullableParameters As Boolean = False
                                  ) As Boolean
         rowsAffected = 0
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Dim result As Boolean = SPRunCommand(spName, parameterArray, rowsAffected)
+        Dim result As Boolean = SPRunCommand(spName, parameterArray, rowsAffected, forceAddNullableParameters)
         If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
             parameter = parameterArray(0)
         End If
@@ -37,7 +38,8 @@ Partial Public Class DBHelper
     ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
                                  ByRef parameterArray As SqlParameter(),
-                                 Optional ByRef rowsAffected As Integer = 0
+                                 Optional ByRef rowsAffected As Integer = 0,
+                                 Optional forceAddNullableParameters As Boolean = False
                                  ) As Boolean
         Dim success As Boolean = False
 
@@ -45,6 +47,9 @@ Partial Public Class DBHelper
             Using command As New SqlCommand(spName, connection)
                 command.CommandType = CommandType.StoredProcedure
                 If parameterArray IsNot Nothing Then
+                    If forceAddNullableParameters Then
+                        DBNullifyParameters(parameterArray)
+                    End If
                     command.Parameters.AddRange(parameterArray)
                 End If
                 Dim returnParameter As New SqlParameter("@ReturnValue", SqlDbType.Int) With {
