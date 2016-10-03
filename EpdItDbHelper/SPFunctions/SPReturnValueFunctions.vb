@@ -10,6 +10,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value.</returns>
     Public Function SPGetBooleanReturnValue(spName As String,
                                             Optional parameter As SqlParameter = Nothing,
@@ -23,6 +24,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value.</returns>
     Public Function SPGetBooleanReturnValue(spName As String,
                                             parameterArray As SqlParameter(),
@@ -36,6 +38,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleReturnValue(Of T)(spName As String,
                                                  Optional parameter As SqlParameter = Nothing,
@@ -54,6 +57,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleReturnValue(Of T)(spName As String,
                                                  parameterArray As SqlParameter(),

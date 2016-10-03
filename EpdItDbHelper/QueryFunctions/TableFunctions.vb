@@ -9,6 +9,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataRow of values.</returns>
     Public Function GetDataRow(query As String,
                                Optional parameter As SqlParameter = Nothing,
@@ -26,6 +27,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataRow of values.</returns>
     Public Function GetDataRow(query As String,
                                parameterArray As SqlParameter(),
@@ -48,6 +50,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataTable of values.</returns>
     Public Function GetDataTable(query As String,
                                  Optional parameter As SqlParameter = Nothing,
@@ -65,6 +68,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataTable of values.</returns>
     Public Function GetDataTable(query As String,
                                  parameterArray As SqlParameter(),
@@ -103,6 +107,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A lookup dictionary.</returns>
     Public Function GetLookupDictionary(query As String,
                                         Optional parameter As SqlParameter = Nothing,

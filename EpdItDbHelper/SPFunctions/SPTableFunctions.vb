@@ -9,6 +9,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
     ''' <param name="parameter">An optional Oracle Parameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataRow.</returns>
     Public Function SPGetDataRow(spName As String,
                                  ByRef Optional parameter As SqlParameter = Nothing,
@@ -26,6 +27,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The Oracle Stored Procedure to call (SP must be a function that returns a REFCURSOR)</param>
     ''' <param name="parameterArray">An optional Oracle Parameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataRow</returns>
     Public Function SPGetDataRow(spName As String,
                                  ByRef parameterArray As SqlParameter(),
@@ -48,6 +50,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The Stored Procedure to call</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataTable</returns>
     Public Function SPGetDataTable(spName As String,
                                    Optional ByRef parameter As SqlParameter = Nothing,
@@ -69,6 +72,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The Stored Procedure to call</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A DataTable</returns>
     Public Function SPGetDataTable(spName As String,
                                    ByRef parameterArray As SqlParameter(),
@@ -112,6 +116,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A lookup dictionary.</returns>
     Public Function SPGetLookupDictionary(spName As String,
                                           ByRef Optional parameter As SqlParameter = Nothing,

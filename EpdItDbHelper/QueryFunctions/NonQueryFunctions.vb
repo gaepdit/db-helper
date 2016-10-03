@@ -8,6 +8,7 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL statement to execute.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(query As String,
                                Optional parameter As SqlParameter = Nothing,
@@ -28,6 +29,7 @@ Partial Public Class DBHelper
     ''' <param name="query">The SQL statement to execute.</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
     ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(query As String,
                                parameterArray As SqlParameter(),
@@ -55,6 +57,7 @@ Partial Public Class DBHelper
     ''' <param name="queryList">The SQL statements to execute.</param>
     ''' <param name="parametersList">A List of SqlParameter arrays to send.</param>
     ''' <param name="countList">A List of rows affected by each SQL statement.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(queryList As List(Of String),
                                parametersList As List(Of SqlParameter()),

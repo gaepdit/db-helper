@@ -12,6 +12,7 @@ Partial Public Class DBHelper
     ''' <param name="spName">The name of the Stored Procedure to execute.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <param name="rowsAffected">For UPDATE, INSERT, and DELETE statements, stores the number of rows affected by the command.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
                                  Optional ByRef parameter As SqlParameter = Nothing,
@@ -35,6 +36,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="spName">The name of the Stored Procedure to execute.</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>True if the Stored Procedure ran successfully. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
                                  ByRef parameterArray As SqlParameter(),

@@ -96,48 +96,15 @@ This class does not need to be instantiated. It includes two shared functions to
 
 ## How can I help make it better?
 
-* See the TO-DO list below for functions that have not been completed or tested.
+* **Write documentation for all available functions.** 
 * Add new functions as needed.
 * Write unit tests for any functions not yet covered. 
 * Run the unit tests and fix any code that is broken.
 * Review the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
-* To push changes to NuGet.org, build a Release version and run `nuget push EpdIt.DbHelper.x.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
 
-### Done But Missing Unit Tests
+Note to self: To push changes to NuGet.org, build a Release version and run `nuget push EpdIt.DbHelper.x.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
 
-* SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
+### TO-DO
 
-### DONE
-
-* GetBoolean(String, SqlParameter(), Boolean) As Boolean
-* GetBoolean(String, SqlParameter, Boolean) As Boolean
-* GetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
-* GetSingleValue(Of T)(String, SqlParameter, Boolean) As T
-* ValueExists(String, SqlParameter()) As Boolean
-* ValueExists(String, SqlParameter) As Boolean
-* RunCommand(String, SqlParameter(), Integer, Boolean) As Boolean
-* RunCommand(String, SqlParameter, Integer, Boolean) As Boolean
-* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
-* RunCommand(List(Of String), List(Of SqlParameter()), List(Of Integer), Boolean) As Boolean
-* SPRunCommand(String, SqlParameter()) As Boolean
-* SPRunCommand(String, SqlParameter) As Boolean
-* GetDataRow(String, SqlParameter()) As DataRow
-* GetDataRow(String, SqlParameter) As DataRow
-* GetDataTable(String, SqlParameter()) As DataTable
-* GetDataTable(String, SqlParameter) As DataTable
-* GetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
-* SPGetDataRow(String, SqlParameter()) As DataRow
-* SPGetDataRow(String, SqlParameter) As DataRow
-* SPGetDataTable(String, SqlParameter()) As DataTable
-* SPGetDataTable(String, SqlParameter) As DataTable
-* SPGetLookupDictionary(String, SqlParameter) As Dictionary(Of Integer, String)
-* SPGetBooleanReturnValue(String, SqlParameter(), Boolean) As Boolean
-* SPGetBooleanReturnValue(String, SqlParameter, Boolean) As Boolean
-* SPGetSingleReturnValue(Of T)(String, SqlParameter(), Boolean) As T
-* SPGetSingleReturnValue(Of T)(String, SqlParameter, Boolean) As T
-* GetNullable(Of T)(Object) As T
-* GetNullableDateTimeFromString(Object) As DateTime?
-* SPGetBoolean(String, SqlParameter(), Boolean) As Boolean
-* SPGetBoolean(String, SqlParameter, Boolean) As Boolean
-* SPGetSingleValue(Of T)(String, SqlParameter(), Boolean) As T
-* SPGetSingleValue(Of T)(String, SqlParameter, Boolean) As T
+* Add unit tests for SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
+* Add unit tests for the `forceAddNullableParameters` parameter

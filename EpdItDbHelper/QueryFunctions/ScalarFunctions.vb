@@ -7,6 +7,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value.</returns>
     Public Function GetBoolean(query As String,
                                Optional parameter As SqlParameter = Nothing,
@@ -20,6 +21,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value.</returns>
     Public Function GetBoolean(query As String,
                                parameterArray As SqlParameter(),
@@ -33,6 +35,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(query As String,
                                          Optional parameter As SqlParameter = Nothing,
@@ -50,6 +53,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(query As String,
                                          parameterArray As SqlParameter(),
@@ -81,6 +85,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameter">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String,
                                 Optional parameter As SqlParameter = Nothing,
@@ -98,6 +103,7 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The SQL query to send.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String,
                                 parameterArray As SqlParameter(),
