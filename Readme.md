@@ -96,6 +96,7 @@ This class does not need to be instantiated and only includes shared functions:
 
 * `GetNullable(Of T)` converts a database value to a generic, useable .NET value, handling DBNull appropriately
 * `GetNullableDateTime` converts a database value to a nullable DateTime object, handling DBNull appropriately
+* `TvpSqlParameter(Of T)` converts an IEnumerable of type T to a structured, table-valued SqlParameter
 
 ## How can I help make it better?
 
@@ -111,3 +112,4 @@ Note to self: To push changes to NuGet.org, build a Release version and run `nug
 
 * Add unit tests for SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
 * Add unit tests for the `forceAddNullableParameters` parameter
+* Add unit tests for table-valued parameters (`TvpSqlParameter`)

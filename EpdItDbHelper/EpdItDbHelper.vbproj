@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBUtilities\TableValuedParameter.vb" />
     <Compile Include="QueryFunctions\NonQueryFunctions.vb" />
     <Compile Include="SPFunctions\SPNonQueryFunctions.vb" />
     <Compile Include="DBHelper.vb" />
