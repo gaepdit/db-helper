@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports EpdIt.DBUtilities
 
 ' These functions call Stored Procedures that are written using a single OUTPUT parameter named "@return_value_argument".
 ' These are just a convenience to avoid having to code the output parameter and do the type conversion yourself.

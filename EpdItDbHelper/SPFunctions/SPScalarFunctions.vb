@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports EpdIt.DBUtilities
 
 ' These functions call Stored Procedures and return the first field of the first record of the result
 

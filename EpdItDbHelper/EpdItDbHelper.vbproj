@@ -88,7 +88,6 @@
     <Compile Include="QueryFunctions\ScalarFunctions.vb" />
     <Compile Include="DBUtilities.vb" />
     <Compile Include="DBUtilities\Nullables.vb" />
-    <Compile Include="util\Utilities.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
