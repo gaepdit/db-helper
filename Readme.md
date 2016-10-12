@@ -92,7 +92,10 @@ Dim status as Boolean = DB.SPGetBoolean(spName, parameter)
 
 ### The `DBUtilities` Class
 
-This class does not need to be instantiated. It includes two shared functions to simplify handling of NULL values in database data (DBNull).
+This class does not need to be instantiated and only includes shared functions:
+
+* `GetNullable(Of T)` converts a database value to a generic, useable .NET value, handling DBNull appropriately
+* `GetNullableDateTime` converts a database value to a nullable DateTime object, handling DBNull appropriately
 
 ## How can I help make it better?
 
