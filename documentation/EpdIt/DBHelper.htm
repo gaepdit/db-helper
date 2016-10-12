@@ -50,19 +50,15 @@
 		
 			<h3 class="section">Methods</h3>
 			<ul>
-				<li><a href="../EpdIt/DBHelper.htm#DBNullifyParameters">DBNullifyParameters</a></li>
-				<li><a href="../EpdIt/DBHelper.htm#Equals">Equals</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetBoolean">GetBoolean</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetBoolean">GetBoolean</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataRow">GetDataRow</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataRow">GetDataRow</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataTable">GetDataTable</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetDataTable">GetDataTable</a></li>
-				<li><a href="../EpdIt/DBHelper.htm#GetHashCode">GetHashCode</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetLookupDictionary">GetLookupDictionary</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetSingleValue``1">GetSingleValue&lt;T&gt;</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#GetSingleValue``1">GetSingleValue&lt;T&gt;</a></li>
-				<li><a href="../EpdIt/DBHelper.htm#GetType">GetType</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#RunCommand">RunCommand</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#RunCommand">RunCommand</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#RunCommand">RunCommand</a></li>
@@ -81,7 +77,6 @@
 				<li><a href="../EpdIt/DBHelper.htm#SPGetSingleValue``1">SPGetSingleValue&lt;T&gt;</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#SPRunCommand">SPRunCommand</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#SPRunCommand">SPRunCommand</a></li>
-				<li><a href="../EpdIt/DBHelper.htm#ToString">ToString</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#ValueExists">ValueExists</a></li>
 				<li><a href="../EpdIt/DBHelper.htm#ValueExists">ValueExists</a></li>
 			</ul>
@@ -95,14 +90,45 @@
 	
 	<h3 class="section">Public instance methods</h3>
 
-	<div id="Equals" class="method">
+	<div id="GetBoolean" class="method">
 		<h4>
-			<span title="System.bool">bool</span> <strong>Equals</strong>(<span title="System.object">object</span> obj)
+			<span title="System.bool">bool</span> <strong>GetBoolean</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
-		<div class="content">
+		<div class="content">Retrieves a boolean value from the database. 
 
 
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> query
+						</dt>
+						<dd>The SQL query to send. 
+						</dd>
+						<dt>
+							<code><span title="System.Data.SqlClient.SqlParameter">SqlParameter</span></code> parameter
+						</dt>
+						<dd>An optional SqlParameter to send. 
+						</dd>
+						<dt>
+							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
+						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
+				</dl>
+			</div>
 
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="System.bool">bool</span></code>
+					</dt>
+					<dd>A boolean value. 
+					</dd>
+				</dl>
+			</div>
 
 		</div>
 	</div>
@@ -129,46 +155,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
-				</dl>
-			</div>
-
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="System.bool">bool</span></code>
-					</dt>
-					<dd>A boolean value. 
-					</dd>
-				</dl>
-			</div>
-
-		</div>
-	</div>
-	<div id="GetBoolean" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>GetBoolean</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter, <span title="System.bool">bool</span> forceAddNullableParameters)
-		</h4>
-		<div class="content">Retrieves a boolean value from the database. 
-
-
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> query
-						</dt>
-						<dd>The SQL query to send. 
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
 						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter">SqlParameter</span></code> parameter
-						</dt>
-						<dd>An optional SqlParameter to send. 
-						</dd>
-						<dt>
-							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
-						</dt>
 				</dl>
 			</div>
 
@@ -209,6 +197,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -249,6 +239,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -289,6 +281,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -329,6 +323,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -343,17 +339,6 @@
 					</dd>
 				</dl>
 			</div>
-
-		</div>
-	</div>
-	<div id="GetHashCode" class="method">
-		<h4>
-			<span title="System.int">int</span> <strong>GetHashCode</strong>()
-		</h4>
-		<div class="content">
-
-
-
 
 		</div>
 	</div>
@@ -380,6 +365,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -420,6 +407,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -460,6 +449,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -477,9 +468,9 @@
 
 		</div>
 	</div>
-	<div id="GetType" class="method">
+	<div id="RunCommand" class="method">
 		<h4>
-			<span title="System.Type">Type</span> <strong>GetType</strong>()
+			<span title="System.bool">bool</span> <strong>RunCommand</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -491,17 +482,6 @@
 	<div id="RunCommand" class="method">
 		<h4>
 			<span title="System.bool">bool</span> <strong>RunCommand</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter">SqlParameter</span> parameter, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="RunCommand" class="method">
-		<h4>
-			<span title="System.bool">bool</span> <strong>RunCommand</strong>(<span title="System.string">string</span> query, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -544,6 +524,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -584,6 +566,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -624,6 +608,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -664,6 +650,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -683,7 +671,7 @@
 	</div>
 	<div id="SPGetDataRow" class="method">
 		<h4>
-			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter, <span title="System.bool">bool</span> forceAddNullableParameters)
+			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -694,18 +682,7 @@
 	</div>
 	<div id="SPGetDataRow" class="method">
 		<h4>
-			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray, <span title="System.bool">bool</span> forceAddNullableParameters)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="SPGetDataTable" class="method">
-		<h4>
-			<span title="System.Data.DataTable">DataTable</span> <strong>SPGetDataTable</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray, <span title="System.bool">bool</span> forceAddNullableParameters)
+			<span title="System.Data.DataRow">DataRow</span> <strong>SPGetDataRow</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -725,9 +702,9 @@
 
 		</div>
 	</div>
-	<div id="SPGetLookupDictionary" class="method">
+	<div id="SPGetDataTable" class="method">
 		<h4>
-			<span title="System.Collections.Generic.Dictionary<int, string>">Dictionary&lt;int, string&gt;</span> <strong>SPGetLookupDictionary</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter, <span title="System.bool">bool</span> forceAddNullableParameters)
+			<span title="System.Data.DataTable">DataTable</span> <strong>SPGetDataTable</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -736,43 +713,14 @@
 
 		</div>
 	</div>
-	<div id="SPGetSingleReturnValue``1" class="method">
+	<div id="SPGetLookupDictionary" class="method">
 		<h4>
-			<span title="EpdIt.T">T</span> <strong>SPGetSingleReturnValue&lt;T&gt;</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray, <span title="System.bool">bool</span> forceAddNullableParameters)
+			<span title="System.Collections.Generic.Dictionary<int, string>">Dictionary&lt;int, string&gt;</span> <strong>SPGetLookupDictionary</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
-		<div class="content">Retrieves a single value of the specified type from the database by calling a stored procedure. 
+		<div class="content">
 
 
-			<div class="parameters">
-				<h5>Parameters</h5>
-				<dl>
-						<dt>
-							<code><span title="System.string">string</span></code> spName
-						</dt>
-						<dd>The stored procedure to call. 
-						</dd>
-						<dt>
-							<code><span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span></code> parameterArray
-						</dt>
-						<dd>An optional SqlParameter array to send. 
-						</dd>
-						<dt>
-							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
-						</dt>
-				</dl>
-			</div>
 
-			<div class="return">
-
-				<h5>Returns</h5>
-				<dl>
-					<dt>
-						<code><span title="EpdIt.T">T</span></code>
-					</dt>
-					<dd>A value of the specified type. 
-					</dd>
-				</dl>
-			</div>
 
 		</div>
 	</div>
@@ -799,6 +747,50 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
+				</dl>
+			</div>
+
+			<div class="return">
+
+				<h5>Returns</h5>
+				<dl>
+					<dt>
+						<code><span title="EpdIt.T">T</span></code>
+					</dt>
+					<dd>A value of the specified type. 
+					</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+	<div id="SPGetSingleReturnValue``1" class="method">
+		<h4>
+			<span title="EpdIt.T">T</span> <strong>SPGetSingleReturnValue&lt;T&gt;</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span> parameterArray, <span title="System.bool">bool</span> forceAddNullableParameters)
+		</h4>
+		<div class="content">Retrieves a single value of the specified type from the database by calling a stored procedure. 
+
+
+			<div class="parameters">
+				<h5>Parameters</h5>
+				<dl>
+						<dt>
+							<code><span title="System.string">string</span></code> spName
+						</dt>
+						<dd>The stored procedure to call. 
+						</dd>
+						<dt>
+							<code><span title="System.Data.SqlClient.SqlParameter[]">SqlParameter[]</span></code> parameterArray
+						</dt>
+						<dd>An optional SqlParameter array to send. 
+						</dd>
+						<dt>
+							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
+						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -839,6 +831,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -879,6 +873,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -898,7 +894,7 @@
 	</div>
 	<div id="SPRunCommand" class="method">
 		<h4>
-			<span title="System.bool">bool</span> <strong>SPRunCommand</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
+			<span title="System.bool">bool</span> <strong>SPRunCommand</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -909,18 +905,7 @@
 	</div>
 	<div id="SPRunCommand" class="method">
 		<h4>
-			<span title="System.bool">bool</span> <strong>SPRunCommand</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter&">SqlParameter&amp;</span> parameter, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
-	<div id="ToString" class="method">
-		<h4>
-			<span title="System.string">string</span> <strong>ToString</strong>()
+			<span title="System.bool">bool</span> <strong>SPRunCommand</strong>(<span title="System.string">string</span> spName, <span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> parameterArray, <span title="System.Int32&">Int32&amp;</span> rowsAffected, <span title="System.bool">bool</span> forceAddNullableParameters)
 		</h4>
 		<div class="content">
 
@@ -952,6 +937,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -992,6 +979,8 @@
 						<dt>
 							<code><span title="System.bool">bool</span></code> forceAddNullableParameters
 						</dt>
+						<dd>True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters. 
+						</dd>
 				</dl>
 			</div>
 
@@ -1010,19 +999,6 @@
 		</div>
 	</div>
 	
-	<h3 class="section">Public static methods</h3>
-
-	<div id="DBNullifyParameters" class="method">
-		<h4>
-			<span title="System.void">void</span> <strong>DBNullifyParameters</strong>(<span title="System.Data.SqlClient.SqlParameter[]&">SqlParameter[]&amp;</span> sqlParameter)
-		</h4>
-		<div class="content">
-
-
-
-
-		</div>
-	</div>
 	
   <h3 class="section">Public fields</h3>
 
@@ -1040,7 +1016,7 @@
   </div>
 	</section>
 	</article><footer>
-	<span id="version">Built from v1.0.6.0 of Simple DB Helper</span>
+	<span id="version">Built from v1.1.0.0 of Simple DB Helper</span>
 	<span id="docu-link">
 		Generated by <a href="http://docu.jagregory.com">docu</a>
 	</span>
