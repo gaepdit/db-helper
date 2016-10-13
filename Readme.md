@@ -2,7 +2,8 @@
 
 The purpose of this library is to simplify interactions with a SQL Server database. 
 
-[![NuGet](https://img.shields.io/nuget/v/EpdIt.DbHelper.svg?maxAge=2592000)](https://www.nuget.org/packages/EpdIt.DbHelper/) [![AppVeyor](https://img.shields.io/appveyor/ci/dougwaldron/db-helper.svg?maxAge=2592000)](https://ci.appveyor.com/project/dougwaldron/db-helper)
+[![NuGet](https://img.shields.io/nuget/v/EpdIt.DbHelper.svg?maxAge=86400)](https://www.nuget.org/packages/EpdIt.DbHelper/) 
+[![AppVeyor](https://img.shields.io/appveyor/ci/dougwaldron/db-helper.svg?maxAge=86400)](https://ci.appveyor.com/project/dougwaldron/db-helper)
 
 ## What is this?
 
