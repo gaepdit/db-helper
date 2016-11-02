@@ -6,7 +6,7 @@ Imports EpdIt.DBUtilities
 Partial Public Class DBHelper
 
     ''' <summary>
-    ''' Retrieves a boolean value from the database by calling a stored procedure.
+    ''' Retrieves a scalar boolean value from the database by calling a stored procedure.
     ''' </summary>
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
@@ -20,7 +20,7 @@ Partial Public Class DBHelper
     End Function
 
     ''' <summary>
-    ''' Retrieves a boolean value from the database by calling a stored procedure.
+    ''' Retrieves a scalar boolean value from the database by calling a stored procedure.
     ''' </summary>
     ''' <param name="spName">The stored procedure to call.</param>
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
@@ -31,6 +31,62 @@ Partial Public Class DBHelper
                                  Optional forceAddNullableParameters As Boolean = False
                                ) As Boolean
         Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray, forceAddNullableParameters))
+    End Function
+
+    ''' <summary>
+    ''' Retrieves a scalar integer value from the database by calling a stored procedure.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>An integer value.</returns>
+    Public Function SPGetInteger(spName As String,
+                                 Optional parameter As SqlParameter = Nothing,
+                                 Optional forceAddNullableParameters As Boolean = False
+                                 ) As Integer
+        Return SPGetSingleValue(Of Integer)(spName, parameter, forceAddNullableParameters)
+    End Function
+
+    ''' <summary>
+    ''' Retrieves a scalar integer value from the database by calling a stored procedure.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>An integer value.</returns>
+    Public Function SPGetInteger(spName As String,
+                                 parameterArray As SqlParameter(),
+                                 Optional forceAddNullableParameters As Boolean = False
+                               ) As Integer
+        Return SPGetSingleValue(Of Integer)(spName, parameterArray, forceAddNullableParameters)
+    End Function
+
+    ''' <summary>
+    ''' Retrieves a scalar string value from the database by calling a stored procedure.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>A string value.</returns>
+    Public Function SPGetString(spName As String,
+                                 Optional parameter As SqlParameter = Nothing,
+                                 Optional forceAddNullableParameters As Boolean = False
+                                 ) As String
+        Return SPGetSingleValue(Of String)(spName, parameter, forceAddNullableParameters)
+    End Function
+
+    ''' <summary>
+    ''' Retrieves a scalar string value from the database by calling a stored procedure.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>A string value.</returns>
+    Public Function SPGetString(spName As String,
+                                 parameterArray As SqlParameter(),
+                                 Optional forceAddNullableParameters As Boolean = False
+                               ) As String
+        Return SPGetSingleValue(Of String)(spName, parameterArray, forceAddNullableParameters)
     End Function
 
     ''' <summary>

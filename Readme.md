@@ -101,7 +101,7 @@ This class does not need to be instantiated and only includes shared functions:
 
 ## How can I help make it better?
 
-* **Write documentation for all available functions.** 
+* Write documentation for all available functions. 
 * Add new functions as needed.
 * Write unit tests for any functions not yet covered. 
 * Run the unit tests and fix any code that is broken.
