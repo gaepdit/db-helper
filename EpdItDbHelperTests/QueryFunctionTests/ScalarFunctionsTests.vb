@@ -90,6 +90,32 @@ Public Class ScalarFunctionsTests
     End Sub
 
     <TestMethod()>
+    Public Sub GetSingleValue_String_FromNull()
+        Dim query As String = "SELECT null"
+        Dim Expected_Result As String = Nothing
+        Dim Actual_Result As String = DB.GetString(query)
+        Assert.AreEqual(Expected_Result, Actual_Result)
+        Assert.IsNull(Actual_Result)
+        Assert.IsTrue(IsNothing(Actual_Result))
+    End Sub
+
+    <TestMethod()>
+    Public Sub GetSingleValue_NonNullableInt_FromNull()
+        Dim query As String = "SELECT null"
+        Dim Expected_Result As Integer = 0
+        Dim Actual_Result As Integer = DB.GetSingleValue(Of Integer)(query)
+        Assert.AreEqual(Expected_Result, Actual_Result)
+    End Sub
+
+    <TestMethod()>
+    Public Sub GetSingleValue_NonNullableDecimal_FromNull()
+        Dim query As String = "SELECT null"
+        Dim Expected_Result As Decimal = 0
+        Dim Actual_Result As Decimal = DB.GetSingleValue(Of Decimal)(query)
+        Assert.AreEqual(Expected_Result, Actual_Result)
+    End Sub
+
+    <TestMethod()>
     Public Sub GetBoolean_True()
         Dim key As Integer = 1
         Dim query As String = "SELECT [Status] from dbo.Things where [ID] = @id"
