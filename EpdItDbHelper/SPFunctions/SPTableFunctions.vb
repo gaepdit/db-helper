@@ -14,7 +14,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataRow.</returns>
     Public Function SPGetDataRow(spName As String,
                                  ByRef Optional parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As DataRow
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -32,7 +32,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataRow</returns>
     Public Function SPGetDataRow(spName As String,
                                  ByRef parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As DataRow
         Dim resultTable As DataTable = SPGetDataTable(spName, parameterArray, forceAddNullableParameters)
         If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
@@ -55,7 +55,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataTable</returns>
     Public Function SPGetDataTable(spName As String,
                                    Optional ByRef parameter As SqlParameter = Nothing,
-                                   Optional forceAddNullableParameters As Boolean = False
+                                   Optional forceAddNullableParameters As Boolean = True
                                    ) As DataTable
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -77,7 +77,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataTable</returns>
     Public Function SPGetDataTable(spName As String,
                                    ByRef parameterArray As SqlParameter(),
-                                   Optional forceAddNullableParameters As Boolean = False
+                                   Optional forceAddNullableParameters As Boolean = True
                                    ) As DataTable
         If String.IsNullOrEmpty(spName) Then
             Return Nothing
@@ -121,7 +121,7 @@ Partial Public Class DBHelper
     ''' <returns>A lookup dictionary.</returns>
     Public Function SPGetLookupDictionary(spName As String,
                                           ByRef Optional parameter As SqlParameter = Nothing,
-                                          Optional forceAddNullableParameters As Boolean = False
+                                          Optional forceAddNullableParameters As Boolean = True
                                           ) As Dictionary(Of Integer, String)
         Dim d As New Dictionary(Of Integer, String)
 

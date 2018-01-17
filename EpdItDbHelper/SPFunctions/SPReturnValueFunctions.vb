@@ -15,7 +15,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value.</returns>
     Public Function SPGetBooleanReturnValue(spName As String,
                                             Optional parameter As SqlParameter = Nothing,
-                                            Optional forceAddNullableParameters As Boolean = False
+                                            Optional forceAddNullableParameters As Boolean = True
                                             ) As Boolean
         Return Convert.ToBoolean(SPGetSingleReturnValue(Of Boolean)(spName, parameter, forceAddNullableParameters))
     End Function
@@ -29,7 +29,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value.</returns>
     Public Function SPGetBooleanReturnValue(spName As String,
                                             parameterArray As SqlParameter(),
-                                            Optional forceAddNullableParameters As Boolean = False
+                                            Optional forceAddNullableParameters As Boolean = True
                                             ) As Boolean
         Return Convert.ToBoolean(SPGetSingleReturnValue(Of Boolean)(spName, parameterArray, forceAddNullableParameters))
     End Function
@@ -43,7 +43,7 @@ Partial Public Class DBHelper
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleReturnValue(Of T)(spName As String,
                                                  Optional parameter As SqlParameter = Nothing,
-                                                 Optional forceAddNullableParameters As Boolean = False
+                                                 Optional forceAddNullableParameters As Boolean = True
                                                  ) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -62,7 +62,7 @@ Partial Public Class DBHelper
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleReturnValue(Of T)(spName As String,
                                                  parameterArray As SqlParameter(),
-                                                 Optional forceAddNullableParameters As Boolean = False
+                                                 Optional forceAddNullableParameters As Boolean = True
                                                  ) As T
         Dim result As Boolean = False
         Using connection As New SqlConnection(ConnectionString)

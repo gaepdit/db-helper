@@ -18,7 +18,7 @@ Partial Public Class DBHelper
     Public Function SPRunCommand(spName As String,
                                  Optional ByRef parameter As SqlParameter = Nothing,
                                  Optional ByRef rowsAffected As Integer = 0,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As Boolean
         rowsAffected = 0
         Dim parameterArray As SqlParameter() = Nothing
@@ -42,7 +42,7 @@ Partial Public Class DBHelper
     Public Function SPRunCommand(spName As String,
                                  ByRef parameterArray As SqlParameter(),
                                  Optional ByRef rowsAffected As Integer = 0,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As Boolean
         Dim success As Boolean = False
 

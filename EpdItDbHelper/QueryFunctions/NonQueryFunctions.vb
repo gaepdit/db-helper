@@ -14,7 +14,7 @@ Partial Public Class DBHelper
     Public Function RunCommand(query As String,
                                Optional parameter As SqlParameter = Nothing,
                                Optional ByRef rowsAffected As Integer = 0,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Boolean
         rowsAffected = 0
         Dim parameterArray As SqlParameter() = Nothing
@@ -35,7 +35,7 @@ Partial Public Class DBHelper
     Public Function RunCommand(query As String,
                                parameterArray As SqlParameter(),
                                Optional ByRef rowsAffected As Integer = 0,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Boolean
         rowsAffected = 0
         Dim queryList As New List(Of String)
@@ -63,7 +63,7 @@ Partial Public Class DBHelper
     Public Function RunCommand(queryList As List(Of String),
                                parametersList As List(Of SqlParameter()),
                                Optional ByRef countList As List(Of Integer) = Nothing,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Boolean
         If countList Is Nothing Then countList = New List(Of Integer)
         countList.Clear()

@@ -14,7 +14,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataRow of values.</returns>
     Public Function GetDataRow(query As String,
                                Optional parameter As SqlParameter = Nothing,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As DataRow
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -32,7 +32,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataRow of values.</returns>
     Public Function GetDataRow(query As String,
                                parameterArray As SqlParameter(),
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As DataRow
         Dim resultTable As DataTable = GetDataTable(query, parameterArray, forceAddNullableParameters)
         If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
@@ -55,7 +55,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataTable of values.</returns>
     Public Function GetDataTable(query As String,
                                  Optional parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As DataTable
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -73,7 +73,7 @@ Partial Public Class DBHelper
     ''' <returns>A DataTable of values.</returns>
     Public Function GetDataTable(query As String,
                                  parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As DataTable
         Dim table As New DataTable
 
@@ -112,7 +112,7 @@ Partial Public Class DBHelper
     ''' <returns>A lookup dictionary.</returns>
     Public Function GetLookupDictionary(query As String,
                                         Optional parameter As SqlParameter = Nothing,
-                                        Optional forceAddNullableParameters As Boolean = False
+                                        Optional forceAddNullableParameters As Boolean = True
                                         ) As Dictionary(Of Integer, String)
         Dim d As New Dictionary(Of Integer, String)
 

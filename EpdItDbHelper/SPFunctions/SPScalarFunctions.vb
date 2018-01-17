@@ -14,7 +14,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value.</returns>
     Public Function SPGetBoolean(spName As String,
                                  Optional parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As Boolean
         Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameter, forceAddNullableParameters))
     End Function
@@ -28,7 +28,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value.</returns>
     Public Function SPGetBoolean(spName As String,
                                  parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                ) As Boolean
         Return Convert.ToBoolean(SPGetSingleValue(Of Boolean)(spName, parameterArray, forceAddNullableParameters))
     End Function
@@ -42,7 +42,7 @@ Partial Public Class DBHelper
     ''' <returns>An integer value.</returns>
     Public Function SPGetInteger(spName As String,
                                  Optional parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As Integer
         Return SPGetSingleValue(Of Integer)(spName, parameter, forceAddNullableParameters)
     End Function
@@ -56,7 +56,7 @@ Partial Public Class DBHelper
     ''' <returns>An integer value.</returns>
     Public Function SPGetInteger(spName As String,
                                  parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                ) As Integer
         Return SPGetSingleValue(Of Integer)(spName, parameterArray, forceAddNullableParameters)
     End Function
@@ -70,7 +70,7 @@ Partial Public Class DBHelper
     ''' <returns>A string value.</returns>
     Public Function SPGetString(spName As String,
                                  Optional parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                  ) As String
         Return SPGetSingleValue(Of String)(spName, parameter, forceAddNullableParameters)
     End Function
@@ -84,7 +84,7 @@ Partial Public Class DBHelper
     ''' <returns>A string value.</returns>
     Public Function SPGetString(spName As String,
                                  parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = False
+                                 Optional forceAddNullableParameters As Boolean = True
                                ) As String
         Return SPGetSingleValue(Of String)(spName, parameterArray, forceAddNullableParameters)
     End Function
@@ -98,7 +98,7 @@ Partial Public Class DBHelper
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleValue(Of T)(spName As String,
                                            Optional parameter As SqlParameter = Nothing,
-                                           Optional forceAddNullableParameters As Boolean = False
+                                           Optional forceAddNullableParameters As Boolean = True
                                            ) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -117,7 +117,7 @@ Partial Public Class DBHelper
     ''' <returns>A value of the specified type.</returns>
     Public Function SPGetSingleValue(Of T)(spName As String,
                                            parameterArray As SqlParameter(),
-                                           Optional forceAddNullableParameters As Boolean = False
+                                           Optional forceAddNullableParameters As Boolean = True
                                            ) As T
         Dim result As Object = Nothing
 

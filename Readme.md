@@ -3,7 +3,6 @@
 The purpose of this library is to simplify interactions with a SQL Server database. 
 
 [![NuGet](https://img.shields.io/nuget/v/EpdIt.DbHelper.svg?maxAge=86400)](https://www.nuget.org/packages/EpdIt.DbHelper/) 
-<!--[![AppVeyor](https://img.shields.io/appveyor/ci/dougwaldron/db-helper.svg?maxAge=86400)](https://ci.appveyor.com/project/dougwaldron/db-helper)-->
 
 ## What is this?
 
@@ -98,6 +97,12 @@ This class does not need to be instantiated and only includes shared functions:
 * `GetNullable(Of T)` converts a database value to a generic, useable .NET value, handling DBNull appropriately
 * `GetNullableDateTime` converts a database value to a nullable DateTime object, handling DBNull appropriately
 * `TvpSqlParameter(Of T)` converts an IEnumerable of type T to a structured, table-valued SqlParameter
+
+## Breaking change in version 2.0.0!
+
+*The `forceAddNullableParameters` parameter now defaults to `true`.* 
+
+If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
 
 ## How can I help make it better?
 

@@ -13,7 +13,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value.</returns>
     Public Function GetBoolean(query As String,
                                Optional parameter As SqlParameter = Nothing,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Boolean
         Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameter, forceAddNullableParameters))
     End Function
@@ -28,7 +28,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value.</returns>
     Public Function GetBoolean(query As String,
                                parameterArray As SqlParameter(),
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Boolean
         Return Convert.ToBoolean(GetSingleValue(Of Boolean)(query, parameterArray, forceAddNullableParameters))
     End Function
@@ -43,7 +43,7 @@ Partial Public Class DBHelper
     ''' <returns>An integer value.</returns>
     Public Function GetInteger(query As String,
                                Optional parameter As SqlParameter = Nothing,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Integer
         Return GetSingleValue(Of Integer)(query, parameter, forceAddNullableParameters)
     End Function
@@ -58,7 +58,7 @@ Partial Public Class DBHelper
     ''' <returns>An integer value.</returns>
     Public Function GetInteger(query As String,
                                parameterArray As SqlParameter(),
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As Integer
         Return GetSingleValue(Of Integer)(query, parameterArray, forceAddNullableParameters)
     End Function
@@ -73,7 +73,7 @@ Partial Public Class DBHelper
     ''' <returns>A string value.</returns>
     Public Function GetString(query As String,
                                Optional parameter As SqlParameter = Nothing,
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As String
         Return GetSingleValue(Of String)(query, parameter, forceAddNullableParameters)
     End Function
@@ -88,7 +88,7 @@ Partial Public Class DBHelper
     ''' <returns>A string value.</returns>
     Public Function GetString(query As String,
                                parameterArray As SqlParameter(),
-                               Optional forceAddNullableParameters As Boolean = False
+                               Optional forceAddNullableParameters As Boolean = True
                                ) As String
         Return GetSingleValue(Of String)(query, parameterArray, forceAddNullableParameters)
     End Function
@@ -103,7 +103,7 @@ Partial Public Class DBHelper
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(query As String,
                                          Optional parameter As SqlParameter = Nothing,
-                                         Optional forceAddNullableParameters As Boolean = False
+                                         Optional forceAddNullableParameters As Boolean = True
                                          ) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -122,7 +122,7 @@ Partial Public Class DBHelper
     ''' <returns>A value of the specified type.</returns>
     Public Function GetSingleValue(Of T)(query As String,
                                          parameterArray As SqlParameter(),
-                                         Optional forceAddNullableParameters As Boolean = False
+                                         Optional forceAddNullableParameters As Boolean = True
                                          ) As T
         Dim result As Object = Nothing
 
@@ -155,7 +155,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String,
                                 Optional parameter As SqlParameter = Nothing,
-                                Optional forceAddNullableParameters As Boolean = False
+                                Optional forceAddNullableParameters As Boolean = True
                                 ) As Boolean
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -174,7 +174,7 @@ Partial Public Class DBHelper
     ''' <returns>A boolean value signifying whether the indicated value exists.</returns>
     Public Function ValueExists(query As String,
                                 parameterArray As SqlParameter(),
-                                Optional forceAddNullableParameters As Boolean = False
+                                Optional forceAddNullableParameters As Boolean = True
                                 ) As Boolean
         Dim result As Object = Nothing
 
