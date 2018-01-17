@@ -6,7 +6,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("A library to simplify database interactions (not an ORM)")>
 <Assembly: AssemblyCompany("State of Georgia, EPD-IT, Doug Waldron")>
 <Assembly: AssemblyProduct("Simple DB Helper")>
-<Assembly: AssemblyCopyright("Copyright ©  2016")> 
+<Assembly: AssemblyCopyright("Copyright © 2018")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
