@@ -12,6 +12,12 @@ Namespace EpdItDbHelper.Tests
         End Sub
 
         <TestMethod>
+        Public Sub GetNullableString_FromDBNull()
+            Dim result As String = GetNullableString(DBNull.Value)
+            Assert.AreEqual(Nothing, result)
+        End Sub
+
+        <TestMethod>
         Public Sub GetNullable_ToBool_FromDBNull()
             Dim result As Boolean = GetNullable(Of Boolean)(DBNull.Value)
             Assert.AreEqual(False, result)
@@ -30,6 +36,12 @@ Namespace EpdItDbHelper.Tests
         End Sub
 
         <TestMethod>
+        Public Sub GetNullableString_FromNull()
+            Dim result As String = GetNullableString(Nothing)
+            Assert.AreEqual(Nothing, result)
+        End Sub
+
+        <TestMethod>
         Public Sub GetNullable_ToBool_FromNull()
             Dim result As Boolean = GetNullable(Of Boolean)(Nothing)
             Assert.AreEqual(False, result)
@@ -44,6 +56,12 @@ Namespace EpdItDbHelper.Tests
         <TestMethod>
         Public Sub GetNullable_ToString_FromString()
             Dim result As String = GetNullable(Of String)("test")
+            Assert.AreEqual("test", result)
+        End Sub
+
+        <TestMethod>
+        Public Sub GetNullableString_FromString()
+            Dim result As String = GetNullableString("test")
             Assert.AreEqual("test", result)
         End Sub
 

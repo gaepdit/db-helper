@@ -21,6 +21,21 @@ Partial Public Class DBUtilities
     End Function
 
     ''' <summary>
+    ''' Generic function for converting database values to useable .NET strings, handling DBNull values appropriately.
+    ''' </summary>
+    ''' <param name="obj">The database value to convert.</param>
+    ''' <returns>If database value is DBNull, returns the default value for the requested data type; otherwise, returns the value unchanged.</returns>
+    <DebuggerStepThrough()>
+    Public Shared Function GetNullableString(ByVal obj As Object) As String
+        If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
+            ' returns the default value for the type
+            Return Nothing
+        Else
+            Return CStr(obj)
+        End If
+    End Function
+
+    ''' <summary>
     ''' Converts a database value to a nullable DateTime object, handling DBNull values appropriately.
     ''' </summary>
     ''' <param name="obj">The database value to convert.</param>
