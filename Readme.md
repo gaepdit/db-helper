@@ -79,7 +79,7 @@ Dim parameterArray As SqlParameter() = {
 Dim facilities as DataTable = DB.SPGetDataTable(spName, parameterArray)
 ```
 
-Some convenience functions are available that return a single value from a stored procedure. These require the stored procedure to be written with a single OUTPUT parameter named `@return_value_argument`. The OUTPUT parameter does not need to be specified when calling the function.
+Some convenience functions are available for stored procedures with a single OUTPUT parameter. These require the stored procedure to be written with a single OUTPUT parameter named `@return_value_argument`. The OUTPUT parameter does not need to be specified when calling the function.
 
 **Example 2:** Single implied OUTPUT parameter
 
@@ -87,7 +87,7 @@ Some convenience functions are available that return a single value from a store
 Dim spName as String = "RetrieveUserStatus" 
 ' RetrieveUserStatus must have an OUTPUT bit parameter named @return_value_argument
 Dim parameter As New SqlParameter("id", userId)
-Dim status as Boolean = DB.SPGetBoolean(spName, parameter)
+Dim status as Boolean = DB.SPGetBooleanOutputParameter(spName, parameter)
 ```
 
 ### The `DBUtilities` Class

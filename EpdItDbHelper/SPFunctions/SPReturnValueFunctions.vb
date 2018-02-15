@@ -13,11 +13,11 @@ Partial Public Class DBHelper
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value.</returns>
-    Public Function SPGetBooleanReturnValue(spName As String,
-                                            Optional parameter As SqlParameter = Nothing,
-                                            Optional forceAddNullableParameters As Boolean = True
-                                            ) As Boolean
-        Return Convert.ToBoolean(SPGetSingleReturnValue(Of Boolean)(spName, parameter, forceAddNullableParameters))
+    Public Function SPGetBooleanOutputParameter(spName As String,
+                                                Optional parameter As SqlParameter = Nothing,
+                                                Optional forceAddNullableParameters As Boolean = True
+                                                ) As Boolean
+        Return Convert.ToBoolean(SPGetOutputParameter(Of Boolean)(spName, parameter, forceAddNullableParameters))
     End Function
 
     ''' <summary>
@@ -27,11 +27,11 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A boolean value.</returns>
-    Public Function SPGetBooleanReturnValue(spName As String,
-                                            parameterArray As SqlParameter(),
-                                            Optional forceAddNullableParameters As Boolean = True
-                                            ) As Boolean
-        Return Convert.ToBoolean(SPGetSingleReturnValue(Of Boolean)(spName, parameterArray, forceAddNullableParameters))
+    Public Function SPGetBooleanOutputParameter(spName As String,
+                                                parameterArray As SqlParameter(),
+                                                Optional forceAddNullableParameters As Boolean = True
+                                                ) As Boolean
+        Return Convert.ToBoolean(SPGetOutputParameter(Of Boolean)(spName, parameterArray, forceAddNullableParameters))
     End Function
 
     ''' <summary>
@@ -41,17 +41,16 @@ Partial Public Class DBHelper
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A value of the specified type.</returns>
-    Public Function SPGetSingleReturnValue(Of T)(spName As String,
-                                                 Optional parameter As SqlParameter = Nothing,
-                                                 Optional forceAddNullableParameters As Boolean = True
-                                                 ) As T
+    Public Function SPGetOutputParameter(Of T)(spName As String,
+                                               Optional parameter As SqlParameter = Nothing,
+                                               Optional forceAddNullableParameters As Boolean = True
+                                               ) As T
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
-        Return SPGetSingleReturnValue(Of T)(spName, parameterArray, forceAddNullableParameters)
+        Return SPGetOutputParameter(Of T)(spName, parameterArray, forceAddNullableParameters)
     End Function
-
 
     ''' <summary>
     ''' Retrieves a single value of the specified type from the database by calling a stored procedure.
@@ -60,10 +59,10 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
     ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
     ''' <returns>A value of the specified type.</returns>
-    Public Function SPGetSingleReturnValue(Of T)(spName As String,
-                                                 parameterArray As SqlParameter(),
-                                                 Optional forceAddNullableParameters As Boolean = True
-                                                 ) As T
+    Public Function SPGetOutputParameter(Of T)(spName As String,
+                                               parameterArray As SqlParameter(),
+                                               Optional forceAddNullableParameters As Boolean = True
+                                               ) As T
         Dim result As Boolean = False
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)
@@ -86,7 +85,7 @@ Partial Public Class DBHelper
                 result = command.ExecuteNonQuery()
                 command.Connection.Close()
 
-                Return DBUtilities.GetNullable(Of T)(command.Parameters(SPReturnValueParameterName).Value)
+                Return GetNullable(Of T)(command.Parameters(SPReturnValueParameterName).Value)
             End Using
         End Using
     End Function
@@ -151,5 +150,73 @@ Partial Public Class DBHelper
                 Throw New ArgumentException("No SQL data type mapping defined for " & GetType(T).ToString & ". Use SPRunCommand instead.")
         End Select
     End Function
+
+#Region " Deprecated methods "
+
+    ''' <summary>
+    ''' A synonym for SPGetBooleanOutputParameter. Kept for backward compatibility.
+    ''' May be removed in a future version.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>A boolean value.</returns>
+    <Obsolete("This method is deprecated, use SPGetBooleanOutputParameter instead.")>
+    Public Function SPGetBooleanReturnValue(spName As String,
+                                            Optional parameter As SqlParameter = Nothing,
+                                            Optional forceAddNullableParameters As Boolean = True
+                                            ) As Boolean
+        Return SPGetBooleanOutputParameter(spName, parameter, forceAddNullableParameters)
+    End Function
+
+    ''' <summary>
+    ''' A synonym for SPGetBooleanOutputParameter. Kept for backward compatibility.
+    ''' May be removed in a future version.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>A boolean value.</returns>
+    <Obsolete("This method is deprecated, use SPGetBooleanOutputParameter instead.")>
+    Public Function SPGetBooleanReturnValue(spName As String,
+                                            parameterArray As SqlParameter(),
+                                            Optional forceAddNullableParameters As Boolean = True
+                                            ) As Boolean
+        Return SPGetBooleanOutputParameter(spName, parameterArray, forceAddNullableParameters)
+    End Function
+
+    ''' <summary>
+    ''' A synonym for SPGetOutputValue. Kept for backward compatibility.
+    ''' May be removed in a future version.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>A value of the specified type.</returns>
+    <Obsolete("This method is deprecated, use SPGetOutputValue instead.")>
+    Public Function SPGetSingleReturnValue(Of T)(spName As String,
+                                                 Optional parameter As SqlParameter = Nothing,
+                                                 Optional forceAddNullableParameters As Boolean = True
+                                                 ) As T
+        Return SPGetOutputParameter(Of T)(spName, parameter, forceAddNullableParameters)
+    End Function
+
+    ''' <summary>
+    ''' A synonym for SPGetOutputValue. Kept for backward compatibility.
+    ''' May be removed in a future version.
+    ''' </summary>
+    ''' <param name="spName">The stored procedure to call.</param>
+    ''' <param name="parameterArray">An optional SqlParameter array to send.</param>
+    ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <returns>A value of the specified type.</returns>
+    <Obsolete("This method is deprecated, use SPGetOutputValue instead.")>
+    Public Function SPGetSingleReturnValue(Of T)(spName As String,
+                                                 parameterArray As SqlParameter(),
+                                                 Optional forceAddNullableParameters As Boolean = True
+                                                 ) As T
+        Return SPGetOutputParameter(Of T)(spName, parameterArray, forceAddNullableParameters)
+    End Function
+
+#End Region
 
 End Class

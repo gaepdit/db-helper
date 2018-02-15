@@ -137,7 +137,7 @@ Partial Public Class DBHelper
             End Using
         End Using
 
-        Return DBUtilities.GetNullable(Of T)(result)
+        Return GetNullable(Of T)(result)
     End Function
 
 End Class
