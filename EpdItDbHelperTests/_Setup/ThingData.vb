@@ -15,4 +15,6 @@
 
     Public Shared Property SelectedThingsDataTable As DataTable
 
+    Public Shared Property AlternateThingsDataTable As DataTable
+
 End Class
