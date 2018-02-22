@@ -112,7 +112,7 @@ If this parameter is not set (or is manually set to `true`), then `DBNull.Value`
 * Run the unit tests and fix any code that is broken.
 * Review the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
 
-Note to self: To push changes to NuGet.org, build a Release version and run `nuget push EpdIt.DbHelper.x.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
+Note to self: To push changes to NuGet.org, build a Release version and run `nuget push EpdIt.DbHelper.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
 
 ### TO-DO
 
