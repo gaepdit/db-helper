@@ -113,12 +113,12 @@ Partial Public Class DBHelper
 #Region " DataSet "
 
     ''' <summary>
-    ''' Retrieves a DataTable of values from the database.
+    ''' Retrieves a DataSet containing one or more DataTables selected from the database.
     ''' </summary>
     ''' <param name="spName">The Stored Procedure to call</param>
     ''' <param name="parameter">An optional SqlParameter to send.</param>
     ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <returns>A DataTable</returns>
+    ''' <returns>A DataSet</returns>
     Public Function SPGetDataSet(spName As String,
                                    Optional ByRef parameter As SqlParameter = Nothing,
                                    Optional forceAddNullableParameters As Boolean = True
@@ -135,12 +135,12 @@ Partial Public Class DBHelper
     End Function
 
     ''' <summary>
-    ''' Retrieves a DataTable of values from the database.
+    ''' Retrieves a DataSet containing one or more DataTables selected from the database.
     ''' </summary>
     ''' <param name="spName">The Stored Procedure to call</param>
     ''' <param name="parameterArray">An SqlParameter array to send.</param>
     ''' <param name="forceAddNullableParameters">True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <returns>A DataTable</returns>
+    ''' <returns>A DataSet</returns>
     Public Function SPGetDataSet(spName As String,
                                    ByRef parameterArray As SqlParameter(),
                                    Optional forceAddNullableParameters As Boolean = True
