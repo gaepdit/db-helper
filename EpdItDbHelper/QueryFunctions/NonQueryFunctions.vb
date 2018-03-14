@@ -70,43 +70,44 @@ Partial Public Class DBHelper
         If queryList.Count <> parametersList.Count Then Return False
         Dim success As Boolean = True
 
-        Using connection As New SqlConnection(ConnectionString)
-            Using command As SqlCommand = connection.CreateCommand
-                command.CommandType = CommandType.Text
-                Dim transaction As SqlTransaction = Nothing
+        Using dbConnection As New SqlConnection(ConnectionString)
+            dbConnection.Open()
+
+            Using dbTransaction As SqlTransaction = dbConnection.BeginTransaction()
 
                 Try
-                    command.Connection.Open()
-                    transaction = connection.BeginTransaction
-                    command.Transaction = transaction
+                    Using dbCommand As SqlCommand = dbConnection.CreateCommand()
+                        dbCommand.CommandType = CommandType.Text
+                        dbCommand.Transaction = dbTransaction
 
-                    Try
                         For index As Integer = 0 To queryList.Count - 1
-                            command.CommandText = queryList(index)
+                            dbCommand.CommandText = queryList(index)
                             If parametersList(index) IsNot Nothing Then
                                 If forceAddNullableParameters Then
                                     DBNullifyParameters(parametersList(index))
                                 End If
-                                command.Parameters.AddRange(parametersList(index))
+                                dbCommand.Parameters.AddRange(parametersList(index))
                             End If
-                            Dim rowsAffected As Integer = command.ExecuteNonQuery()
+                            Dim rowsAffected As Integer = dbCommand.ExecuteNonQuery()
                             countList.Insert(index, rowsAffected)
-                            command.Parameters.Clear()
+                            dbCommand.Parameters.Clear()
                         Next
-                        transaction.Commit()
-                    Catch ee As SqlException
-                        success = False
-                        countList.Clear()
-                        transaction.Rollback()
-                        Throw
-                    End Try
-
-                    command.Connection.Close()
+                    End Using
+                Catch ee As SqlException
+                    success = False
+                    countList.Clear()
+                    Throw
                 Finally
-                    If transaction IsNot Nothing Then transaction.Dispose()
+                    If success Then
+                        dbTransaction.Commit()
+                    Else
+                        If dbTransaction IsNot Nothing Then dbTransaction.Rollback()
+                    End If
                 End Try
 
             End Using
+
+            dbConnection.Close()
         End Using
 
         Return success
