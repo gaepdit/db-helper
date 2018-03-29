@@ -13,12 +13,21 @@ Partial Public Class DBUtilities
     Private Shared Function SqlDataRecords(Of T)(values As IEnumerable(Of T), dbColumnName As String) As IEnumerable(Of SqlDataRecord)
         If values Is Nothing OrElse Not values.Any() Then Return Nothing
 
-        Dim metadata As SqlMetaData = SqlMetaData.InferFromValue(values.First(), dbColumnName)
-        Return values.Select(Function(v)
-                                 Dim r As New SqlDataRecord(metadata)
-                                 r.SetValues(v)
-                                 Return r
-                             End Function)
+        Dim metadata As SqlMetaData
+
+        If GetType(T) = GetType(String) Then
+            ' See https://stackoverflow.com/questions/337704/parameterize-an-sql-in-clause/337864#comment86087763_337864
+            metadata = New SqlMetaData(dbColumnName, SqlDbType.NVarChar, -1)
+        Else
+            metadata = SqlMetaData.InferFromValue(values.First(), dbColumnName)
+        End If
+
+        Return values.Select(
+                Function(v)
+                    Dim r As New SqlDataRecord(metadata)
+                    r.SetValues(v)
+                    Return r
+                End Function)
     End Function
 
     ''' <summary>
@@ -32,9 +41,9 @@ Partial Public Class DBUtilities
     ''' <remarks>See http://stackoverflow.com/a/337864/212978 </remarks>
     Public Shared Function TvpSqlParameter(Of T)(parameterName As String, values As IEnumerable(Of T), dbTableTypeName As String, dbColumnName As String) As SqlParameter
         Return New SqlParameter(parameterName, SqlDbType.Structured) With {
-            .Value = SqlDataRecords(Of T)(values, dbColumnName),
-            .TypeName = dbTableTypeName
-        }
+                .Value = SqlDataRecords(values, dbColumnName),
+                .TypeName = dbTableTypeName
+            }
     End Function
 
 End Class
