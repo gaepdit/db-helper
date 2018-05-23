@@ -13,7 +13,7 @@ echo _
 echo Done
 echo _
 
-..\docu\src\Docu.Console\bin\Release\docu EpdItDbHelper\bin\Release\EpdIt.DbHelper.dll --output=documentation
+..\docu\src\Docu.Console\bin\Release\docu DBHelper\bin\Release\EpdIt.DbHelper.dll --output=documentation
 
 echo _
 echo Done

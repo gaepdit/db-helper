@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EpdItDbHelper", "EpdItDbHelper\EpdItDbHelper.vbproj", "{D069B1F3-FCEF-45EA-9BB4-0737D725BEDD}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DBHelper", "DBHelper\DBHelper.vbproj", "{D069B1F3-FCEF-45EA-9BB4-0737D725BEDD}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EpdItDbHelperTests", "EpdItDbHelperTests\EpdItDbHelperTests.vbproj", "{4F9B0208-AD49-44C9-AF3E-7E83D6B54CB2}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DBHelperTests", "DBHelperTests\DBHelperTests.vbproj", "{4F9B0208-AD49-44C9-AF3E-7E83D6B54CB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9165F144-00D9-49B2-8007-79124D5CC585}
 	EndGlobalSection
 EndGlobal

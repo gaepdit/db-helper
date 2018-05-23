@@ -145,9 +145,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EpdItDbHelper\EpdItDbHelper.vbproj">
+    <ProjectReference Include="..\DBHelper\DBHelper.vbproj">
       <Project>{d069b1f3-fcef-45ea-9bb4-0737d725bedd}</Project>
-      <Name>EpdItDbHelper</Name>
+      <Name>DBHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
