@@ -84,4 +84,14 @@ Public Class SPScalarFunctionsTests
         Assert.AreEqual(0, EpdIt.DBUtilities.GetNullable(Of Integer)(result))
     End Sub
 
+    <TestMethod()>
+    Public Sub SPGetBooleanAndReturnValue_True()
+        Dim spName As String = DBO_SP_Get_Boolean_And_Return
+        Dim parameter As New SqlParameter("@select", True)
+        Dim returnValue As Integer = 0
+        Dim result As Boolean = DB.SPGetBoolean(spName, parameter, returnValue:=returnValue)
+        Assert.IsTrue(result)
+        Assert.AreEqual(2, returnValue)
+    End Sub
+
 End Class

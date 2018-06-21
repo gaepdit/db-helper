@@ -12,6 +12,11 @@
     Public Property DBO_SP_INSERT_NoParameters_VALUE_int As Integer = 100
     Public Property DBO_SP_INSERT_NoParameters_VALUE_str As String = "test" & DBO_SP_INSERT_NoParameters_VALUE_int
 
+    ' SP insert no parameters with Return Value
+    Public Property DBO_SP_INSERT_NoParameters_NAME_RV As String = "InsertSpNoParamRV"
+    Public Property DBO_SP_INSERT_NoParameters_VALUE_int_RV As Integer = 100
+    Public Property DBO_SP_INSERT_NoParameters_VALUE_str_RV As String = "test" & DBO_SP_INSERT_NoParameters_VALUE_int_RV
+
     ' SP insert single parameter
     Public Property DBO_SP_INSERT_OneParameter_NAME As String = "InsertSpWith1Param"
     Public Property DBO_SP_INSERT_OneParameter_VALUE_int As Integer = 200
@@ -75,11 +80,17 @@
     ' SP get scalar nullable int
     Public Property DBO_SP_Get_Nullable_Int As String = "SpGetNullableInt"
 
+    ' SP get scalar boolean and RETURN value
+    Public Property DBO_SP_Get_Boolean_And_Return As String = "SpGetBooleanAndReturn"
+
     Public Property DbTestObjectStrings As New List(Of String) From {
         "CREATE FUNCTION dbo." & DBO_UDF_NoParameters_NAME & " () RETURNS INT AS BEGIN RETURN " & DBO_UDF_NoParameters_VALUE & " END",
         "CREATE FUNCTION dbo." & DBO_UDF_WithParameters_NAME & " (@param1 int, @param2 int) RETURNS INT AS BEGIN RETURN @param1 + @param2 END",
         "CREATE PROCEDURE " & DBO_SP_INSERT_NoParameters_NAME & " AS BEGIN 
              INSERT INTO dbo.Things (Name, Status, MandatoryInteger, MandatoryDate) VALUES ('" & DBO_SP_INSERT_NoParameters_VALUE_str & "', 1, " & DBO_SP_INSERT_NoParameters_VALUE_int & ",  N'2016-04-01 00:00:00'); END;
+        ",
+        "CREATE PROCEDURE " & DBO_SP_INSERT_NoParameters_NAME_RV & " AS BEGIN 
+             INSERT INTO dbo.Things (Name, Status, MandatoryInteger, MandatoryDate) VALUES ('" & DBO_SP_INSERT_NoParameters_VALUE_str_RV & "', 1, " & DBO_SP_INSERT_NoParameters_VALUE_int_RV & ",  N'2016-04-01 00:00:00'); return 2; END;
         ",
         "CREATE PROCEDURE " & DBO_SP_INSERT_OneParameter_NAME & " @mandatoryInteger int AS BEGIN 
              INSERT INTO dbo.Things (Name, Status, MandatoryInteger, MandatoryDate) VALUES ('" & DBO_SP_INSERT_OneParameter_VALUE_str & "', 1, @mandatoryInteger,  N'2016-04-01 00:00:00'); END;
@@ -140,6 +151,9 @@
         ",
         "CREATE PROCEDURE " & DBO_SP_Get_Nullable_Int & " @select BIT AS BEGIN 
              IF @select = 1 SELECT 1; ELSE SELECT NULL; END;
+        ",
+        "CREATE PROCEDURE " & DBO_SP_Get_Boolean_And_Return & " @select BIT AS BEGIN 
+             IF @select = 1 SELECT 1; ELSE SELECT 0; return 2; END;
         "
     }
 End Module
