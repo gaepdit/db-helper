@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DBUtilities\TableValuedParameter.vb" />
     <Compile Include="QueryFunctions\NonQueryFunctions.vb" />
+    <Compile Include="SPFunctions\SPExecute.vb" />
     <Compile Include="SPFunctions\SPNonQueryFunctions.vb" />
     <Compile Include="DBHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -83,7 +84,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SPFunctions\SPScalarFunctions.vb" />
-    <Compile Include="SPFunctions\SPOutputParameterFunctions.vb" />
     <Compile Include="SPFunctions\SPTableFunctions.vb" />
     <Compile Include="QueryFunctions\TableFunctions.vb" />
     <Compile Include="QueryFunctions\ScalarFunctions.vb" />

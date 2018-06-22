@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports EpdIt.DBUtilities
 
 ' These functions call Stored Procedures using IN and/or OUT parameters.
 ' If successful, any OUT parameters are available to the calling procedure as 
@@ -8,59 +7,53 @@ Imports EpdIt.DBUtilities
 Partial Public Class DBHelper
 
     ''' <summary>
-    ''' Executes a Stored Procedure on the database.
+    ''' Executes a non-query stored procedure on the database.
     ''' </summary>
-    ''' <param name="spName">The name of the Stored Procedure to execute.</param>
-    ''' <param name="parameter">(Optional) SqlParameter to send.</param>
-    ''' <param name="rowsAffected">(Optional) Output parameter that stores the number of rows affected.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
-    ''' <returns>True if the Stored Procedure returns a value of 0. Otherwise, false.</returns>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+    ''' <param name="rowsAffected">Optional output parameter that stores the number of rows affected.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+    ''' <returns>True if the stored procedure returns a value of 0. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
                                  Optional ByRef parameter As SqlParameter = Nothing,
                                  Optional ByRef rowsAffected As Integer = 0,
-                                 Optional forceAddNullableParameters As Boolean = True,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As Boolean
 
-        returnValue = SPReturnValue(spName, parameter, rowsAffected, forceAddNullableParameters)
+        returnValue = SPReturnValue(spName, parameter, rowsAffected)
 
         Return (returnValue = 0)
     End Function
 
     ''' <summary>
-    ''' Executes a Stored Procedure on the database.
+    ''' Executes a non-query stored procedure on the database.
     ''' </summary>
-    ''' <param name="spName">The name of the Stored Procedure to execute.</param>
-    ''' <param name="parameterArray">SqlParameter array to send.</param>
-    ''' <param name="rowsAffected">(Optional) Output parameter that stores the number of rows affected.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
-    ''' <returns>True if the Stored Procedure returns a value of 0. Otherwise, false.</returns>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+    ''' <param name="rowsAffected">Optional output parameter that stores the number of rows affected.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+    ''' <returns>True if the stored procedure returns a value of 0. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
                                  ByRef parameterArray As SqlParameter(),
                                  Optional ByRef rowsAffected As Integer = 0,
-                                 Optional forceAddNullableParameters As Boolean = True,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As Boolean
 
-        returnValue = SPReturnValue(spName, parameterArray, rowsAffected, forceAddNullableParameters)
+        returnValue = SPReturnValue(spName, parameterArray, rowsAffected)
 
         Return (returnValue = 0)
     End Function
 
     ''' <summary>
-    ''' Executes a Stored Procedure on the database.
+    ''' Executes a non-query stored procedure on the database.
     ''' </summary>
-    ''' <param name="spName">The name of the Stored Procedure to execute.</param>
-    ''' <param name="parameter">(optional) SqlParameter to send.</param>
-    ''' <param name="rowsAffected">(Optional) Output parameter that stores the number of rows affected.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+    ''' <param name="rowsAffected">Optional output parameter that stores the number of rows affected.</param>
     ''' <returns>Integer RETURN value from the Stored Procedure.</returns>
     Public Function SPReturnValue(spName As String,
                                   Optional ByRef parameter As SqlParameter = Nothing,
-                                  Optional ByRef rowsAffected As Integer = 0,
-                                  Optional forceAddNullableParameters As Boolean = True
+                                  Optional ByRef rowsAffected As Integer = 0
                                   ) As Integer
 
         Dim parameterArray As SqlParameter() = Nothing
@@ -69,62 +62,32 @@ Partial Public Class DBHelper
             parameterArray = {parameter}
         End If
 
-        Dim result As Integer = SPReturnValue(spName, parameterArray, rowsAffected, forceAddNullableParameters)
+        Dim returnValue As Integer = SPReturnValue(spName, parameterArray, rowsAffected)
 
         If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
             parameter = parameterArray(0)
         End If
 
-        Return result
+        Return returnValue
     End Function
 
     ''' <summary>
-    ''' Executes a Stored Procedure on the database.
+    ''' Executes a non-query stored procedure on the database.
     ''' </summary>
-    ''' <param name="spName">The name of the Stored Procedure to execute.</param>
-    ''' <param name="parameterArray">SqlParameter array to send.</param>
-    ''' <param name="rowsAffected">(Optional) Output parameter that stores the number of rows affected.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+    ''' <param name="rowsAffected">Optional output parameter that stores the number of rows affected.</param>
     ''' <returns>Integer RETURN value from the Stored Procedure.</returns>
     Public Function SPReturnValue(spName As String,
                                   ByRef parameterArray As SqlParameter(),
-                                  Optional ByRef rowsAffected As Integer = 0,
-                                  Optional forceAddNullableParameters As Boolean = True
+                                  Optional ByRef rowsAffected As Integer = 0
                                   ) As Integer
 
-        Using connection As New SqlConnection(ConnectionString)
-            Using command As New SqlCommand(spName, connection)
+        Dim returnValue As Integer
 
-                command.CommandType = CommandType.StoredProcedure
+        rowsAffected = SPExecuteNonQuery(spName, parameterArray, returnValue)
 
-                If parameterArray IsNot Nothing Then
-                    If forceAddNullableParameters Then
-                        DBNullifyParameters(parameterArray)
-                    End If
-                    command.Parameters.AddRange(parameterArray)
-                End If
-
-                Dim returnParameter As New SqlParameter("@EpdItReturnValue", SqlDbType.Int) With {
-                    .Direction = ParameterDirection.ReturnValue
-                }
-
-                command.Parameters.Add(returnParameter)
-                command.Connection.Open()
-                rowsAffected = command.ExecuteNonQuery()
-                command.Connection.Close()
-                command.Parameters.Remove(returnParameter)
-
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
-                    Dim newArray(command.Parameters.Count) As SqlParameter
-                    command.Parameters.CopyTo(newArray, 0)
-                    Array.Copy(newArray, parameterArray, parameterArray.Length)
-                End If
-
-                command.Parameters.Clear()
-
-                Return returnParameter.Value
-            End Using
-        End Using
+        Return returnValue
     End Function
 
 End Class

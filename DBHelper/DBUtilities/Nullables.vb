@@ -43,7 +43,6 @@ Partial Public Class DBUtilities
     <DebuggerStepThrough()>
     Public Shared Function GetNullableDateTime(ByVal obj As Object) As DateTime?
         Try
-
             If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj) Then
                 Return Nothing
             Else
@@ -67,7 +66,7 @@ Partial Public Class DBUtilities
     ''' error if the parameter is expected, even if null is an allowed value.)
     ''' </summary>
     ''' <param name="sqlParameter">An array of SqlParameter</param>
-    Public Shared Sub DBNullifyParameters(ByRef sqlParameter() As SqlParameter)
+    Friend Shared Sub DBNullifyParameters(ByRef sqlParameter() As SqlParameter)
         For Each param As SqlParameter In sqlParameter
             param.Value = If(param.Value, DBNull.Value)
         Next

@@ -1,21 +1,18 @@
 ﻿Imports System.Data.SqlClient
-Imports EpdIt.DBUtilities
 
 Partial Public Class DBHelper
 
 #Region " DataRow "
 
     ''' <summary>
-    ''' Retrieves a single row of values from the database.
+    ''' Retrieves a single row of values from the database by calling a stored procedure.
     ''' </summary>
-    ''' <param name="spName">The Stored Procedure to call</param>
-    ''' <param name="parameter">SqlParameter to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>A DataRow.</returns>
     Public Function SPGetDataRow(spName As String,
                                  ByRef Optional parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = True,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As DataRow
 
@@ -25,30 +22,36 @@ Partial Public Class DBHelper
             parameterArray = {parameter}
         End If
 
-        Return SPGetDataRow(spName, parameterArray, forceAddNullableParameters, returnValue)
+        Dim dataRow As DataRow = SPGetDataRow(spName, parameterArray, returnValue)
+
+        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+            parameter = parameterArray(0)
+        End If
+
+        Return dataRow
     End Function
 
     ''' <summary>
-    ''' Retrieves a single row of values from the database.
+    ''' Retrieves a single row of values from the database by calling a stored procedure.
     ''' </summary>
-    ''' <param name="spName">The Stored Procedure to call</param>
-    ''' <param name="parameterArray">SqlParameter to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
-    ''' <returns>A DataRow</returns>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+    ''' <returns>A DataRow.</returns>
     Public Function SPGetDataRow(spName As String,
                                  ByRef parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = True,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As DataRow
 
-        Dim resultTable As DataTable = SPGetDataTable(spName, parameterArray, forceAddNullableParameters, returnValue)
+        Dim dataTable As DataTable = SPGetDataTable(spName, parameterArray, returnValue)
 
-        If resultTable IsNot Nothing And resultTable.Rows.Count = 1 Then
-            Return resultTable.Rows(0)
-        Else
+        If dataTable Is Nothing Then
             Return Nothing
+        ElseIf dataTable.Rows.Count > 1 Then
+            Throw New TooManyRecordsException(spName)
         End If
+
+        Return dataTable.Rows(0)
     End Function
 
 #End Region
@@ -58,14 +61,12 @@ Partial Public Class DBHelper
     ''' <summary>
     ''' Retrieves a DataTable of values from the database.
     ''' </summary>
-    ''' <param name="spName">The Stored Procedure to call</param>
-    ''' <param name="parameter">An optional SqlParameter to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
-    ''' <returns>A DataTable</returns>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+    ''' <returns>A DataTable.</returns>
     Public Function SPGetDataTable(spName As String,
                                    Optional ByRef parameter As SqlParameter = Nothing,
-                                   Optional forceAddNullableParameters As Boolean = True,
                                    Optional ByRef returnValue As Integer = Nothing
                                    ) As DataTable
 
@@ -75,9 +76,9 @@ Partial Public Class DBHelper
             parameterArray = {parameter}
         End If
 
-        Dim table As DataTable = SPGetDataTable(spName, parameterArray, forceAddNullableParameters, returnValue)
+        Dim table As DataTable = SPGetDataTable(spName, parameterArray, returnValue)
 
-        If table IsNot Nothing AndAlso parameterArray IsNot Nothing Then
+        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
             parameter = parameterArray(0)
         End If
 
@@ -87,57 +88,24 @@ Partial Public Class DBHelper
     ''' <summary>
     ''' Retrieves a DataTable of values from the database.
     ''' </summary>
-    ''' <param name="spName">The Stored Procedure to call</param>
-    ''' <param name="parameterArray">An SqlParameter array to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>A DataTable</returns>
     Public Function SPGetDataTable(spName As String,
                                    ByRef parameterArray As SqlParameter(),
-                                   Optional forceAddNullableParameters As Boolean = True,
                                    Optional ByRef returnValue As Integer = Nothing
                                    ) As DataTable
 
-        If String.IsNullOrEmpty(spName) Then
+        Dim dataSet As DataSet = SPGetDataSet(spName, parameterArray, returnValue)
+
+        If dataSet Is Nothing Then
             Return Nothing
+        ElseIf dataSet.Tables.Count > 1 Then
+            Throw New TooManyRecordsException(spName)
         End If
 
-        Dim table As New DataTable
-
-        Using connection As New SqlConnection(ConnectionString)
-            Using command As New SqlCommand(spName, connection)
-                command.CommandType = CommandType.StoredProcedure
-
-                If parameterArray IsNot Nothing Then
-                    If forceAddNullableParameters Then
-                        DBNullifyParameters(parameterArray)
-                    End If
-
-                    command.Parameters.AddRange(parameterArray)
-                End If
-
-                Dim returnParameter As New SqlParameter("@EpdItReturnValue", SqlDbType.Int) With {
-                    .Direction = ParameterDirection.ReturnValue
-                }
-
-                command.Parameters.Add(returnParameter)
-
-                Using adapter As New SqlDataAdapter(command)
-                    adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
-                    adapter.Fill(table)
-                    returnValue = returnParameter.Value
-                    command.Parameters.Remove(returnParameter)
-
-                    If parameterArray IsNot Nothing Then
-                        command.Parameters.CopyTo(parameterArray, 0)
-                    End If
-                End Using
-
-                command.Parameters.Clear()
-            End Using
-        End Using
-
-        Return table
+        Return dataSet.Tables(0)
     End Function
 
 #End Region
@@ -147,14 +115,12 @@ Partial Public Class DBHelper
     ''' <summary>
     ''' Retrieves a DataSet containing one or more DataTables selected from the database.
     ''' </summary>
-    ''' <param name="spName">The Stored Procedure to call</param>
-    ''' <param name="parameter">An optional SqlParameter to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
-    ''' <returns>A DataSet</returns>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameter">An optional SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+    ''' <returns>A DataSet.</returns>
     Public Function SPGetDataSet(spName As String,
                                  Optional ByRef parameter As SqlParameter = Nothing,
-                                 Optional forceAddNullableParameters As Boolean = True,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As DataSet
 
@@ -164,69 +130,29 @@ Partial Public Class DBHelper
             parameterArray = {parameter}
         End If
 
-        Dim ds As DataSet = SPGetDataSet(spName, parameterArray, forceAddNullableParameters, returnValue)
+        Dim dataSet As DataSet = SPGetDataSet(spName, parameterArray, returnValue)
 
-        If ds IsNot Nothing AndAlso parameterArray IsNot Nothing Then
+        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
             parameter = parameterArray(0)
         End If
 
-        Return ds
+        Return dataSet
     End Function
 
     ''' <summary>
     ''' Retrieves a DataSet containing one or more DataTables selected from the database.
     ''' </summary>
-    ''' <param name="spName">The Stored Procedure to call</param>
-    ''' <param name="parameterArray">An SqlParameter array to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>A DataSet</returns>
     Public Function SPGetDataSet(spName As String,
                                  ByRef parameterArray As SqlParameter(),
-                                 Optional forceAddNullableParameters As Boolean = True,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As DataSet
 
-        If String.IsNullOrEmpty(spName) Then
-            Return Nothing
-        End If
+        Return SPFillDataSet(spName, parameterArray, returnValue)
 
-        Dim ds As New DataSet
-
-        Using connection As New SqlConnection(ConnectionString)
-            Using command As New SqlCommand(spName, connection)
-                command.CommandType = CommandType.StoredProcedure
-
-                If parameterArray IsNot Nothing Then
-                    If forceAddNullableParameters Then
-                        DBNullifyParameters(parameterArray)
-                    End If
-
-                    command.Parameters.AddRange(parameterArray)
-                End If
-
-                Dim returnParameter As New SqlParameter("@EpdItReturnValue", SqlDbType.Int) With {
-                    .Direction = ParameterDirection.ReturnValue
-                }
-
-                command.Parameters.Add(returnParameter)
-
-                Using adapter As New SqlDataAdapter(command)
-                    adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
-                    adapter.Fill(ds)
-                    returnValue = returnParameter.Value
-                    command.Parameters.Remove(returnParameter)
-
-                    If parameterArray IsNot Nothing Then
-                        command.Parameters.CopyTo(parameterArray, 0)
-                    End If
-                End Using
-
-                command.Parameters.Clear()
-            End Using
-        End Using
-
-        Return ds
     End Function
 
 #End Region
@@ -236,19 +162,45 @@ Partial Public Class DBHelper
     ''' <summary>
     ''' Retrieves a dictionary of (integer -> string) values from the database
     ''' </summary>
-    ''' <param name="spName">The SQL query to send.</param>
-    ''' <param name="parameter">An optional SqlParameter to send.</param>
-    ''' <param name="forceAddNullableParameters">(Optional) True to force sending DBNull.Value for parameters that evaluate to Nothing; false to allow default behavior of dropping such parameters.</param>
-    ''' <param name="returnValue">(Optional) Output parameter that stores the return value.</param>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameter">A SqlParameter value. The value may be modified by the stored produre if it is an output parameter.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>A lookup dictionary.</returns>
     Public Function SPGetLookupDictionary(spName As String,
                                           ByRef Optional parameter As SqlParameter = Nothing,
-                                          Optional forceAddNullableParameters As Boolean = True,
                                           Optional ByRef returnValue As Integer = Nothing
                                           ) As Dictionary(Of Integer, String)
+
+        Dim parameterArray As SqlParameter() = Nothing
+
+        If parameter IsNot Nothing Then
+            parameterArray = {parameter}
+        End If
+
+        Dim d As Dictionary(Of Integer, String) = SPGetLookupDictionary(spName, parameterArray, returnValue)
+
+        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+            parameter = parameterArray(0)
+        End If
+
+        Return d
+    End Function
+
+    ''' <summary>
+    ''' Retrieves a dictionary of (integer -> string) values from the database
+    ''' </summary>
+    ''' <param name="spName">The name of the stored procedure to execute.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
+    ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
+    ''' <returns>A lookup dictionary.</returns>
+    Public Function SPGetLookupDictionary(spName As String,
+                                          ByRef parameterArray As SqlParameter(),
+                                          Optional ByRef returnValue As Integer = Nothing
+                                          ) As Dictionary(Of Integer, String)
+
         Dim d As New Dictionary(Of Integer, String)
 
-        Dim dataTable As DataTable = SPGetDataTable(spName, parameter, forceAddNullableParameters, returnValue)
+        Dim dataTable As DataTable = SPGetDataTable(spName, parameterArray, returnValue)
 
         For Each row As DataRow In dataTable.Rows
             d.Add(row.Item(0), row.Item(1))
