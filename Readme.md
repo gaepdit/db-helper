@@ -1,4 +1,4 @@
-# EPD-IT Simple DB Helper
+# EPD-IT DB Helper
 
 The purpose of this library is to simplify interactions with a SQL Server database. 
 
@@ -6,42 +6,38 @@ The purpose of this library is to simplify interactions with a SQL Server databa
 
 ## What is this?
 
-This library was originally written for working with an Oracle database. It is being migrated to work with SQL Server. **This is still a work in progress.** Some parts are working and some are not. Please contribute and help fix the parts that don't work yet.
+There are two classes available:
 
-See the status of each method at the bottom of this page. 
+* The `DBHelper` class has many functions available for interacting with a SQL Server database. These functions take care of the tedious parts of querying data or running commands on the database, such as handling connection objects and transactions. There are separate sets of functions depending on whether a SQL query string is used as input or the name of a stored procedure.
 
-## How do I use the library?
+* There is also a `DBUtilities` class with some static functions that simplify working with DBNull values and table-valued SQL parameters.
 
-To install Simple DB Helper, run the following command in the [Package Manager Console](https://docs.nuget.org/consume/package-manager-console):
+## How do I install it?
+
+To install DB Helper, search for "EpdIt.DbHelper" in the NuGet package manager or run the following command in the [Package Manager Console](https://docs.nuget.org/consume/package-manager-console):
 
 `PM> Install-Package EpdIt.DbHelper`
 
-There are two classes available:
+## Using the `DBHelper` class
 
-### The `DB` Class
-
-The DB class must be instantiated with a connection string. (In the future, there may be more options for instantiating. Let me know if this is a priority for you.) 
-
-Example:
+The `DBHelper` class must be instantiated with a connection string:
 
 ```
-Friend DB As New EpdIt.DBHelper(ConnectionString)
+Public DB As New EpdIt.DBHelper(connectionString)
 ```
 
-The DB object has many functions available for interacting with the database. They differ based on whether they require a SQL query string as input, or the name of a Stored Procedure. 
+### Query string functions
 
-#### Query string functions
+These functions require a SQL query or command plus an optional SQL parameter or array of SQL parameters. When running a non-query command, such as `INSERT` or `UPDATE`, an optional output parameter will contain the number of rows affected.
 
-These functions require a SQL query or command plus optional SQL parameters.
-
-**Example 1:** No SQL parameters
+**Example 1:** Simple query
 
 ```
 Dim query as String = "select States from StatesTable"
 Dim states as DataTable = DB.GetDataTable(query)
 ```
 
-**Example 2:** One SQL parameter
+**Example 2:** Query with one SQL parameter
 
 ```
 Dim query as String = "select UserName from UserTable where UserId = @id"
@@ -49,7 +45,7 @@ Dim parameter As New SqlParameter("@id", MyUserId)
 Dim userName as String = DB.GetSingleValue(Of String)(query, parameter)
 ```
 
-**Example 3:** Multiple SQL parameters
+**Example 3:** Command with multiple SQL parameters
 
 ```
 Dim query as String = "update FacilityTable set Name = @name where FacilityId = @id"
@@ -57,65 +53,73 @@ Dim parameterArray As SqlParameter() = {
     New SqlParameter("@name", MyNewFacilityName),
     New SqlParameter("@id", MyFacilityId)
 }
-Dim userName as String = DB.GetDataTable(query, parameterArray)
+Dim result as Boolean = DB.RunCommand(query, parameterArray)
 ```
 
-#### Stored Procedure functions
+**Example 4:** Count rows affected by command
 
-These functions require the name of a Stored Procedure instead of a SQL query. These functions all start with "SP" in the name. 
+```
+Dim query as String = "update CompanyTable set Status = @status where State = @state"
+Dim parameterArray As SqlParameter() = {
+    New SqlParameter("@status", MyNewStatus),
+    New SqlParameter("@state", AffectedState)
+}
+Dim rowsAffected as Integer
+Dim result as Boolean = DB.RunCommand(query, parameterArray, rowsAffected)
+Console.WriteLine(rowsAffected & " rows affected.")
+```
 
-Any combination of INPUT or OUTPUT parameters can be used, and the OUTPUT parameters will contain their values as sent by the database.
+### Stored procedure functions
 
-**Example 1:** Specifying INPUT and OUTPUT parameters
+These functions require the name of a stored procedure instead of a SQL query, but otherwise are very similar to the query functions. These functions all start with "SP" in the name. 
+
+An optional output parameter will contain the integer RETURN value of the stored procedure. (Often, a return value of 0 indicates success and a nonzero value indicates failure, but this depends on the particular stored procedure.)
+
+**Example 1:** Specifying INPUT and OUTPUT SQL parameters
 
 ```
 Dim spName as String = "RetrieveFacilitiesByCounty"
+Dim returnParam As New SqlParameter("@total", SqlDbType.Int) With {
+    .Direction = ParameterDirection.Output
+}
 Dim parameterArray As SqlParameter() = {
     New SqlParameter("@county", MyCounty),
-    New SqlParameter("@total", SqlDbType.Int) With {
-        .Direction = ParameterDirection.Output
-    }
+    returnParam
 }
 Dim facilities as DataTable = DB.SPGetDataTable(spName, parameterArray)
+Dim total As Integer = returnParam.Value
 ```
 
-Some convenience functions are available for stored procedures with a single OUTPUT parameter. These require the stored procedure to be written with a single OUTPUT parameter named `@return_value_argument`. The OUTPUT parameter does not need to be specified when calling the function.
-
-**Example 2:** Single implied OUTPUT parameter
+**Example 2:** Querying for a DataSet and using RETURN value
 
 ```
-Dim spName as String = "RetrieveUserStatus" 
-' RetrieveUserStatus must have an OUTPUT bit parameter named @return_value_argument
-Dim parameter As New SqlParameter("id", userId)
-Dim status as Boolean = DB.SPGetBooleanOutputParameter(spName, parameter)
+Dim spName As String = "GetMyData"
+Dim returnValue As Integer
+Dim dataSet As DataSet = DB.SPGetDataSet(spName, returnValue:=returnValue)
 ```
 
-### The `DBUtilities` Class
+## Using the `DBUtilities` class
 
 This class does not need to be instantiated and only includes shared functions:
 
 * `GetNullable(Of T)` converts a database value to a generic, useable .NET value, handling DBNull appropriately
-* `GetNullableDateTime` converts a database value to a nullable DateTime object, handling DBNull appropriately
+* `GetNullableString` converts a database value to a string, handling DBNull appropriately
+* `GetNullableDateTime` converts a database value to a nullable DateTime, handling DBNull appropriately
 * `TvpSqlParameter(Of T)` converts an IEnumerable of type T to a structured, table-valued SqlParameter
 
-## Breaking change in version 2.0.0!
+## Breaking changes in version 3
 
-*The `forceAddNullableParameters` parameter now defaults to `true`.* 
+* The `forceAddNullableParameters` parameter has been removed. `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to null (`Nothing` in VB.NET).
+* The output parameter convenience functions have been removed. If you need an output SQL parameter, just add it as you would normally add any other parameter.
 
-If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
+## Breaking changes in version 2
 
-## How can I help make it better?
+* The `forceAddNullableParameters` parameter now defaults to `true`. If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
 
-* Write documentation for all available functions. 
-* Add new functions as needed.
-* Write unit tests for any functions not yet covered. 
-* Run the unit tests and fix any code that is broken.
-* Review the [XML documentation](https://msdn.microsoft.com/en-us/library/ms172652.aspx) for public functions.
+## Development
 
 Note to self: To push changes to NuGet.org, build a Release version and run `nuget push EpdIt.DbHelper.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
 
 ### TO-DO
 
-* Add unit tests for SP Table Functions with OUTPUT parameters (SPGetDataTable, etc.)
-* Add unit tests for the `forceAddNullableParameters` parameter
 * Add unit tests for table-valued parameters (`TvpSqlParameter`)
