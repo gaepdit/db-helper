@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DBUtilities\TableValuedParameter.vb" />
     <Compile Include="QueryFunctions\NonQueryFunctions.vb" />
+    <Compile Include="QueryFunctions\Execute.vb" />
     <Compile Include="SPFunctions\SPExecute.vb" />
     <Compile Include="SPFunctions\SPNonQueryFunctions.vb" />
     <Compile Include="DBHelper.vb" />

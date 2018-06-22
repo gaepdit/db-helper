@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports EpdIt.DBUtilities
 
 Partial Public Class DBHelper
 
@@ -14,11 +13,13 @@ Partial Public Class DBHelper
                                Optional parameter As SqlParameter = Nothing,
                                Optional ByRef rowsAffected As Integer = 0
                                ) As Boolean
-        rowsAffected = 0
+
         Dim parameterArray As SqlParameter() = Nothing
+
         If parameter IsNot Nothing Then
             parameterArray = {parameter}
         End If
+
         Return RunCommand(query, parameterArray, rowsAffected)
     End Function
 
@@ -33,12 +34,9 @@ Partial Public Class DBHelper
                                parameterArray As SqlParameter(),
                                Optional ByRef rowsAffected As Integer = 0
                                ) As Boolean
-        rowsAffected = 0
-        Dim queryList As New List(Of String)
-        queryList.Add(query)
 
+        Dim queryList As New List(Of String) From {query}
         Dim parameterArrayList As New List(Of SqlParameter()) From {parameterArray}
-
         Dim countList As New List(Of Integer)
 
         Dim result As Boolean = RunCommand(queryList, parameterArrayList, countList)
@@ -53,56 +51,14 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="queryList">The SQL statements to execute.</param>
     ''' <param name="parametersList">A List of SqlParameter arrays to send.</param>
-    ''' <param name="countList">A List of rows affected by each SQL statement.</param>
+    ''' <param name="rowsAffectedList">A List of rows affected by each SQL statement.</param>
     ''' <returns>True if command ran successfully. Otherwise, false.</returns>
     Public Function RunCommand(queryList As List(Of String),
                                parametersList As List(Of SqlParameter()),
-                               Optional ByRef countList As List(Of Integer) = Nothing
+                               Optional ByRef rowsAffectedList As List(Of Integer) = Nothing
                                ) As Boolean
-        If countList Is Nothing Then countList = New List(Of Integer)
-        countList.Clear()
-        If queryList.Count <> parametersList.Count Then Return False
-        Dim success As Boolean = True
 
-        Using dbConnection As New SqlConnection(ConnectionString)
-            dbConnection.Open()
-
-            Using dbTransaction As SqlTransaction = dbConnection.BeginTransaction()
-
-                Try
-                    Using dbCommand As SqlCommand = dbConnection.CreateCommand()
-                        dbCommand.CommandType = CommandType.Text
-                        dbCommand.Transaction = dbTransaction
-
-                        For index As Integer = 0 To queryList.Count - 1
-                            dbCommand.CommandText = queryList(index)
-                            If parametersList(index) IsNot Nothing Then
-                                DBNullifyParameters(parametersList(index))
-                                dbCommand.Parameters.AddRange(parametersList(index))
-                            End If
-                            Dim rowsAffected As Integer = dbCommand.ExecuteNonQuery()
-                            countList.Insert(index, rowsAffected)
-                            dbCommand.Parameters.Clear()
-                        Next
-                    End Using
-                Catch ee As SqlException
-                    success = False
-                    countList.Clear()
-                    Throw
-                Finally
-                    If success Then
-                        dbTransaction.Commit()
-                    Else
-                        If dbTransaction IsNot Nothing Then dbTransaction.Rollback()
-                    End If
-                End Try
-
-            End Using
-
-            dbConnection.Close()
-        End Using
-
-        Return success
+        Return QExecuteNonQuery(queryList, parametersList, rowsAffectedList)
     End Function
 
 End Class

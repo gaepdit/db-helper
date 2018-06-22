@@ -14,9 +14,9 @@ Partial Public Class DBUtilities
         ' http://stackoverflow.com/a/9953399/212978
         If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
             ' returns the default value for the type
-            Return CType(Nothing, T)
+            Return Nothing
         Else
-            Return CType(obj, T)
+            Return obj
         End If
     End Function
 
