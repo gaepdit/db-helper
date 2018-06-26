@@ -29,7 +29,7 @@ Partial Public Class DBHelper
     Public Function GetDataRow(query As String, parameterArray As SqlParameter()) As DataRow
         Dim dataTable As DataTable = GetDataTable(query, parameterArray)
 
-        If dataTable Is Nothing Then
+        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then
             Return Nothing
         ElseIf dataTable.Rows.Count > 1 Then
             Throw New TooManyRecordsException()

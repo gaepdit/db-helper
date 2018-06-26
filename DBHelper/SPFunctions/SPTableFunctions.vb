@@ -45,7 +45,7 @@ Partial Public Class DBHelper
 
         Dim dataTable As DataTable = SPGetDataTable(spName, parameterArray, returnValue)
 
-        If dataTable Is Nothing Then
+        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then
             Return Nothing
         ElseIf dataTable.Rows.Count > 1 Then
             Throw New TooManyRecordsException(spName)
