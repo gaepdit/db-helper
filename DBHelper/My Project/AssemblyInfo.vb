@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Simple DB Helper")>
-<Assembly: AssemblyDescription("A library to simplify database interactions (not an ORM)")>
+<Assembly: AssemblyDescription("A library to simplify database interactions")>
 <Assembly: AssemblyCompany("State of Georgia, EPD-IT, Doug Waldron")>
 <Assembly: AssemblyProduct("Simple DB Helper")>
 <Assembly: AssemblyCopyright("Copyright © 2018")> 
