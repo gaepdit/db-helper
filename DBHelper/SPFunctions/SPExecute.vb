@@ -42,6 +42,8 @@ Partial Public Class DBHelper
                     Array.Copy(newArray, parameterArray, parameterArray.Length)
                 End If
 
+                command.Parameters.Clear()
+
                 ' Return
                 Return rowsAffected
 
@@ -91,6 +93,8 @@ Partial Public Class DBHelper
                     Array.Copy(newArray, parameterArray, parameterArray.Length)
                 End If
 
+                command.Parameters.Clear()
+
                 ' Return
                 Return dataSet
 
@@ -137,6 +141,8 @@ Partial Public Class DBHelper
                     command.Parameters.CopyTo(newArray, 0)
                     Array.Copy(newArray, parameterArray, parameterArray.Length)
                 End If
+
+                command.Parameters.Clear()
 
                 ' Return
                 Return result

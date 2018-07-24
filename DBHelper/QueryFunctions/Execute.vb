@@ -97,6 +97,8 @@ Partial Public Class DBHelper
                     adapter.Fill(dataTable)
                 End Using
 
+                command.Parameters.Clear()
+
                 Return dataTable
             End Using
         End Using
@@ -123,7 +125,9 @@ Partial Public Class DBHelper
 
                 command.Connection.Open()
                 Dim result As Object = command.ExecuteScalar()
+
                 command.Connection.Close()
+                command.Parameters.Clear()
 
                 Return result
             End Using
