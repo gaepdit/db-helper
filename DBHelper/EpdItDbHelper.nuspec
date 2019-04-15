@@ -6,12 +6,12 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://tldrlegal.com/license/mit-license#fulltext</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/ga-epd-it/db-helper</projectUrl>
-    <iconUrl>http://dmu.georgiaair.org/favicon.ico</iconUrl>
+    <iconUrl>https://iaip.gaepd.org/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <copyright>Copyright © 2018</copyright>
+    <copyright>Copyright © 2019</copyright>
     <tags>database SQLServer Georgia EPD-IT</tags>
   </metadata>
 </package>
