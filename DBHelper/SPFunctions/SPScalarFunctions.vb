@@ -115,10 +115,6 @@ Partial Public Class DBHelper
 
         Dim result As T = SPGetSingleValue(Of T)(spName, parameterArray, returnValue)
 
-        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
-            parameter = parameterArray(0)
-        End If
-
         Return result
     End Function
 

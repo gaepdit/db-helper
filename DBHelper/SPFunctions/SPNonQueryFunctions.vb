@@ -15,7 +15,7 @@ Partial Public Class DBHelper
     ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>True if the stored procedure returns a value of 0. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
-                                 Optional ByRef parameter As SqlParameter = Nothing,
+                                 Optional parameter As SqlParameter = Nothing,
                                  Optional ByRef rowsAffected As Integer = 0,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As Boolean
@@ -34,7 +34,7 @@ Partial Public Class DBHelper
     ''' <param name="returnValue">Optional output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>True if the stored procedure returns a value of 0. Otherwise, false.</returns>
     Public Function SPRunCommand(spName As String,
-                                 ByRef parameterArray As SqlParameter(),
+                                 parameterArray As SqlParameter(),
                                  Optional ByRef rowsAffected As Integer = 0,
                                  Optional ByRef returnValue As Integer = Nothing
                                  ) As Boolean
@@ -52,7 +52,7 @@ Partial Public Class DBHelper
     ''' <param name="rowsAffected">Optional output parameter that stores the number of rows affected.</param>
     ''' <returns>Integer RETURN value from the Stored Procedure.</returns>
     Public Function SPReturnValue(spName As String,
-                                  Optional ByRef parameter As SqlParameter = Nothing,
+                                  Optional parameter As SqlParameter = Nothing,
                                   Optional ByRef rowsAffected As Integer = 0
                                   ) As Integer
 
@@ -63,10 +63,6 @@ Partial Public Class DBHelper
         End If
 
         Dim returnValue As Integer = SPReturnValue(spName, parameterArray, rowsAffected)
-
-        If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
-            parameter = parameterArray(0)
-        End If
 
         Return returnValue
     End Function
@@ -79,7 +75,7 @@ Partial Public Class DBHelper
     ''' <param name="rowsAffected">Optional output parameter that stores the number of rows affected.</param>
     ''' <returns>Integer RETURN value from the Stored Procedure.</returns>
     Public Function SPReturnValue(spName As String,
-                                  ByRef parameterArray As SqlParameter(),
+                                  parameterArray As SqlParameter(),
                                   Optional ByRef rowsAffected As Integer = 0
                                   ) As Integer
 

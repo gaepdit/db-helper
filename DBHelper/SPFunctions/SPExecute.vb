@@ -10,7 +10,7 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
     ''' <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>The number of rows affected.</returns>
-    Private Function SPExecuteNonQuery(spName As String, ByRef parameterArray As SqlParameter(), ByRef returnValue As Integer) As Integer
+    Private Function SPExecuteNonQuery(spName As String, parameterArray As SqlParameter(), ByRef returnValue As Integer) As Integer
         If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", "spName")
 
         Using connection As New SqlConnection(ConnectionString)
@@ -59,7 +59,7 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An array of SqlParameter values. The array may be modified by the stored produre if it includes output parameters.</param>
     ''' <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>A DataSet.</returns>
-    Private Function SPFillDataSet(spName As String, ByRef parameterArray As SqlParameter(), ByRef returnValue As Integer) As DataSet
+    Private Function SPFillDataSet(spName As String, parameterArray As SqlParameter(), ByRef returnValue As Integer) As DataSet
         If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", "spName")
 
         Using connection As New SqlConnection(ConnectionString)
