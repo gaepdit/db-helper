@@ -21,8 +21,19 @@
         "CREATE PROCEDURE TableSpOneParam @mandatoryInteger int AS BEGIN 
              SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]; END;
         ",
+        "CREATE PROCEDURE TableSpOutputParam @dateOut date OUTPUT AS BEGIN 
+            SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = 2; 
+            SELECT @dateOut = MandatoryDate FROM dbo.Things WHERE ID = 2; 
+            END;
+        ",
         "CREATE PROCEDURE RowSpNoParam AS BEGIN 
-             SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = 2; END;",
+             SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = 2; END;
+        ",
+        "CREATE PROCEDURE RowSpOutputParam @name varchar(max) OUTPUT AS BEGIN 
+            SELECT @name = Name FROM dbo.Things WHERE id = 2;
+            SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = 2;
+            END;
+        ",
         "CREATE PROCEDURE RowSpOneParam @id int AS BEGIN 
              SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE ID = @id; END;
         ",
@@ -32,6 +43,11 @@
         "CREATE PROCEDURE DictSpOneParam @mandatoryInteger int AS BEGIN 
              SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = @mandatoryInteger ORDER BY [ID]; END;
         ",
+        "CREATE PROCEDURE DictSpOutputParam @dateOut date OUTPUT AS BEGIN 
+            SELECT ID, Name FROM dbo.Things WHERE MandatoryInteger = " & ThingData.ThingSelectionKey & " ORDER BY [ID]; 
+            SELECT @dateOut = '2019-01-01';
+            END; 
+        ",
         "CREATE PROCEDURE DataSetSpNoParam AS BEGIN 
              SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE MandatoryInteger = " & ThingData.ThingSelectionKey & " ORDER BY [ID]; 
              SELECT ID, Name, Status, MandatoryInteger, MandatoryDate, OptionalInteger, OptionalDate FROM dbo.Things WHERE MandatoryInteger <> " & ThingData.ThingSelectionKey & " ORDER BY [ID]; 
@@ -39,7 +55,20 @@
         ",
         "CREATE PROCEDURE SpOutParam @id int, @name varchar(max) OUTPUT AS BEGIN 
              SET NOCOUNT ON; 
-             SELECT @name = Name FROM dbo.Things WHERE id = @id; END;
+             SELECT @name = Name FROM dbo.Things WHERE id = @id; 
+             END;
+        ",
+        "CREATE PROCEDURE SpSelectInAndOutParam @id int, @name varchar(max) OUTPUT AS BEGIN 
+            SET NOCOUNT ON; 
+            SELECT @name = Name FROM dbo.Things WHERE id = @id; 
+            SELECT MandatoryInteger FROM dbo.Things WHERE id = @id; 
+            END;
+        ",
+        "CREATE PROCEDURE SpSelectOutParam @name varchar(max) OUTPUT AS BEGIN 
+            SET NOCOUNT ON; 
+            SELECT @name = Name FROM dbo.Things WHERE id = 2; 
+            SELECT MandatoryInteger FROM dbo.Things WHERE id = 2; 
+            END;
         ",
         "CREATE PROCEDURE SpOutReturnString @id int, @return_value_argument varchar(max) OUTPUT AS BEGIN 
              SET NOCOUNT ON; 
@@ -71,6 +100,12 @@
         ",
         "CREATE PROCEDURE SpGetBooleanAndReturn @select BIT AS BEGIN 
              IF @select = 1 SELECT 1; ELSE SELECT 0; return 2; END;
+        ",
+        "CREATE PROCEDURE SpGetBooleanAndReturnAndOutputParam @dateOut date OUTPUT AS BEGIN 
+            SELECT 1;
+            SELECT @dateOut = '2019-01-01';
+            return 2; 
+            END;
         "
     }
 End Module
