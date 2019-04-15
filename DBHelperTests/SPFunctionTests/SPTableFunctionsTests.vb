@@ -35,7 +35,7 @@ Public Class SPTableFunctionsTests
 
     <TestMethod()>
     Public Sub SPGetDataTable_NoParams()
-        Dim spName As String = DBO_SP_Table_NoParameters_NAME
+        Dim spName As String = "TableSpNoParam"
         Dim dt As DataTable = DB.SPGetDataTable(spName)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dt.Rows.Count)
@@ -55,7 +55,7 @@ Public Class SPTableFunctionsTests
 
     <TestMethod()>
     Public Sub SPGetDataTable_OneParam()
-        Dim spName As String = DBO_SP_Table_OneParameter_NAME
+        Dim spName As String = "TableSpOneParam"
         Dim parameter As New SqlParameter("mandatoryInteger", ThingData.ThingSelectionKey)
         Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
@@ -75,8 +75,8 @@ Public Class SPTableFunctionsTests
 
     <TestMethod>
     Public Sub SPGetDataRow_NoParam()
-        Dim key As Integer = DBO_SP_Row_NoParameters_VALUE_int
-        Dim spName As String = DBO_SP_Row_NoParameters_NAME
+        Dim key As Integer = 2
+        Dim spName As String = "RowSpNoParam"
         Dim dr As DataRow = DB.SPGetDataRow(spName)
 
         Dim th As Thing = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key)
@@ -95,8 +95,8 @@ Public Class SPTableFunctionsTests
 
     <TestMethod>
     Public Sub SPGetDataRow_OneParam()
-        Dim key As Integer = DBO_SP_Row_OneParameter_VALUE_int
-        Dim spName As String = DBO_SP_Row_OneParameter_NAME
+        Dim key As Integer = 2
+        Dim spName As String = "RowSpOneParam"
         Dim parameter As New SqlParameter("id", key)
         Dim dr As DataRow = DB.SPGetDataRow(spName, parameter)
 
@@ -116,7 +116,7 @@ Public Class SPTableFunctionsTests
 
     <TestMethod()>
     Public Sub SPGetLookupDictionary_NoParams()
-        Dim spName As String = DBO_SP_Dictionary_NoParameters_NAME
+        Dim spName As String = "DictSpNoParam"
         Dim dict As Dictionary(Of Integer, String) = DB.SPGetLookupDictionary(spName)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, dict.Count)
@@ -125,7 +125,7 @@ Public Class SPTableFunctionsTests
 
     <TestMethod()>
     Public Sub SPGetLookupDictionary_OneParam()
-        Dim spName As String = DBO_SP_Dictionary_OneParameter_NAME
+        Dim spName As String = "DictSpOneParam"
         Dim parameter As New SqlParameter("mandatoryInteger", ThingData.ThingSelectionKey)
         Dim dict As Dictionary(Of Integer, String) = DB.SPGetLookupDictionary(spName, parameter)
 
@@ -135,7 +135,7 @@ Public Class SPTableFunctionsTests
 
     <TestMethod()>
     Public Sub SPGetDataSet_NoParams()
-        Dim spName As String = DBO_SP_DataSet_NoParameters_NAME
+        Dim spName As String = "DataSetSpNoParam"
         Dim ds As DataSet = DB.SPGetDataSet(spName)
 
         Assert.AreEqual(ThingData.SelectedThingsDataTable.Rows.Count, ds.Tables(0).Rows.Count)

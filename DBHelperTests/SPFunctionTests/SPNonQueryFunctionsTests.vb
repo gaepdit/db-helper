@@ -6,21 +6,21 @@ Public Class SPNonQueryFunctionsTests
     <TestMethod()>
     Public Sub SPInsert_NoParameters()
         Dim rowsAffected As Integer = 0
-        Dim spName As String = DBO_SP_INSERT_NoParameters_NAME
+        Dim spName As String = "InsertSpNoParam"
         Dim Actual_Result As Boolean = DB.SPRunCommand(spName, rowsAffected:=rowsAffected)
         Assert.IsTrue(Actual_Result)
         Assert.AreEqual(1, rowsAffected)
 
         Dim extraQuery As String = "SELECT MandatoryInteger FROM dbo.Things WHERE Name = @name"
-        Dim extraParameter As New SqlParameter("@name", DBO_SP_INSERT_NoParameters_VALUE_str)
+        Dim extraParameter As New SqlParameter("@name", "test100")
         Dim Extra_Result As Integer = DB.GetSingleValue(Of Integer)(extraQuery, extraParameter)
-        Assert.AreEqual(DBO_SP_INSERT_NoParameters_VALUE_int, Extra_Result)
+        Assert.AreEqual(100, Extra_Result)
     End Sub
 
     <TestMethod()>
     Public Sub SPInsert_NoParameters_ReturnValue()
         Dim rowsAffected As Integer = 0
-        Dim spName As String = DBO_SP_INSERT_NoParameters_NAME_RV
+        Dim spName As String = "InsertSpNoParamRV"
         Dim returnValue As Integer = 0
         Dim Actual_Result As Boolean = DB.SPRunCommand(spName, rowsAffected:=rowsAffected, returnValue:=returnValue)
         Assert.IsFalse(Actual_Result)
@@ -28,24 +28,24 @@ Public Class SPNonQueryFunctionsTests
         Assert.AreEqual(2, returnValue)
 
         Dim extraQuery As String = "SELECT MandatoryInteger FROM dbo.Things WHERE Name = @name"
-        Dim extraParameter As New SqlParameter("@name", DBO_SP_INSERT_NoParameters_VALUE_str_RV)
+        Dim extraParameter As New SqlParameter("@name", "test100")
         Dim Extra_Result As Integer = DB.GetSingleValue(Of Integer)(extraQuery, extraParameter)
-        Assert.AreEqual(DBO_SP_INSERT_NoParameters_VALUE_int_RV, Extra_Result)
+        Assert.AreEqual(100, Extra_Result)
     End Sub
 
     <TestMethod()>
     Public Sub SPInsert_OneParameter()
         Dim rowsAffected As Integer = 0
-        Dim spName As String = DBO_SP_INSERT_OneParameter_NAME
-        Dim parameter As New SqlParameter("@mandatoryInteger", DBO_SP_INSERT_OneParameter_VALUE_int)
+        Dim spName As String = "InsertSpWith1Param"
+        Dim parameter As New SqlParameter("@mandatoryInteger", 200)
         Dim Actual_Result As Boolean = DB.SPRunCommand(spName, parameter, rowsAffected)
         Assert.IsTrue(Actual_Result)
         Assert.AreEqual(1, rowsAffected)
 
         Dim extraQuery As String = "SELECT MandatoryInteger FROM dbo.Things WHERE Name = @name"
-        Dim extraParameter As New SqlParameter("@name", DBO_SP_INSERT_OneParameter_VALUE_str)
+        Dim extraParameter As New SqlParameter("@name", "test200")
         Dim Extra_Result As Integer = DB.GetSingleValue(Of Integer)(extraQuery, extraParameter)
-        Assert.AreEqual(DBO_SP_INSERT_OneParameter_VALUE_int, Extra_Result)
+        Assert.AreEqual(200, Extra_Result)
     End Sub
 
     <TestMethod()>
@@ -54,7 +54,7 @@ Public Class SPNonQueryFunctionsTests
         Dim insertName As String = "test" & key.ToString
         Dim insertDate As Date = New Date(2016, 2, 3)
 
-        Dim spName As String = DBO_SP_INSERT_WithParameters_NAME
+        Dim spName As String = "InsertSpWithParam"
         Dim parameterArray() As SqlParameter = {
             New SqlParameter("@name", insertName),
             New SqlParameter("@status", True),
@@ -93,7 +93,7 @@ Public Class SPNonQueryFunctionsTests
     <TestMethod()>
     Public Sub SPReturnValue()
         Dim rowsAffected As Integer = 0
-        Dim spName As String = DBO_SP_Get_Boolean_And_Return
+        Dim spName As String = "SpGetBooleanAndReturn"
         Dim parameter As New SqlParameter("@select", True)
         Dim Return_Value As Integer = DB.SPReturnValue(spName, parameter, rowsAffected:=rowsAffected)
         Assert.AreEqual(-1, rowsAffected)

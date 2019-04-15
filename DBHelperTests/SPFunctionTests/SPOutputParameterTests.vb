@@ -6,8 +6,8 @@ Public Class SPOutputParameterTests
 
     <TestMethod()>
     Public Sub SPOutput_Parameter()
-        Dim spName As String = DBO_SP_Output_Parameter_NAME
-        Dim key As Integer = DBO_SP_Output_Parameter_VALUE_int
+        Dim spName As String = "SpOutParam"
+        Dim key As Integer = 2
         Dim parameterArray As SqlParameter() = {
             New SqlParameter("@id", key),
             New SqlParameter("@name", SqlDbType.VarChar) With {
