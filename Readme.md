@@ -116,10 +116,11 @@ This class does not need to be instantiated and only includes shared functions:
 
 * The `forceAddNullableParameters` parameter now defaults to `true`. If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
 
-## Development
+## Publish to nuget.org
 
-Note to self: To push changes to NuGet.org, build a Release version and run 
-`nuget push EpdIt.DbHelper.x.x.x.nupkg -Source https://www.nuget.org/api/v2/package`
+To push changes to NuGet.org, build a Release version, navigate to the project folder, and run:
+
+`nuget push EpdIt.DbHelper.x.x.x.nupkg -Source https://api.nuget.org/v3/index.json`
 
 ### TO-DO
 
