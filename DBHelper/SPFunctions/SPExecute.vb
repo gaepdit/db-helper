@@ -33,7 +33,7 @@ Partial Public Class DBHelper
                 command.Connection.Close()
 
                 ' Cleanup
-                returnValue = returnParameter.Value
+                returnValue = CInt(returnParameter.Value)
                 command.Parameters.Remove(returnParameter)
 
                 If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
@@ -84,7 +84,7 @@ Partial Public Class DBHelper
                 End Using
 
                 ' Cleanup
-                returnValue = returnParameter.Value
+                returnValue = CInt(returnParameter.Value)
                 command.Parameters.Remove(returnParameter)
 
                 If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
@@ -133,7 +133,7 @@ Partial Public Class DBHelper
                 command.Connection.Close()
 
                 ' Cleanup
-                returnValue = returnParameter.Value
+                returnValue = CInt(returnParameter.Value)
                 command.Parameters.Remove(returnParameter)
 
                 If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then

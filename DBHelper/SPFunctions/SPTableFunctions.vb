@@ -187,7 +187,7 @@ Partial Public Class DBHelper
         Dim dataTable As DataTable = SPGetDataTable(spName, parameterArray, returnValue)
 
         For Each row As DataRow In dataTable.Rows
-            d.Add(row.Item(0), row.Item(1))
+            d.Add(CInt(row.Item(0)), CStr(row.Item(1)))
         Next
 
         Return d
