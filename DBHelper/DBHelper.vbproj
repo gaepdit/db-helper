@@ -1,32 +1,53 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <RootNamespace>EpdIt</RootNamespace>
-    <AssemblyName>EpdIt.DbHelper</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OptionStrict>On</OptionStrict>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn></NoWarn>
-    <DocumentationFile>EpdIt.DbHelper.xml</DocumentationFile>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn></NoWarn>
-    <DefineDebug>false</DefineDebug>
-    <DocumentationFile>EpdIt.DbHelper.xml</DocumentationFile>
-    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.VisualBasic" Version="8.36.1.44192">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-  </ItemGroup>
-  <Target Name="AfterBuild">
-    <Exec Command="nuget pack $(ProjectFileName) -Prop Configuration=$(ConfigurationName) -Symbols -SymbolPackageFormat snupkg" Condition=" '$(Configuration)' == 'Release'">
-    </Exec>
-  </Target>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<RootNamespace>EpdIt</RootNamespace>
+		<AssemblyName>EpdIt.DbHelper</AssemblyName>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<OptionStrict>On</OptionStrict>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>DouglasWaldron</Authors>
+		<Title>DB Helper</Title>
+		<Description>A library to simplify database interactions.</Description>
+		<PackageIcon>epd-icon-tile.png</PackageIcon>
+		<PackageTags>database SQLServer</PackageTags>
+		<Copyright>© 2022</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://github.com/gaepdit/db-helper</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/gaepdit/db-helper.git</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<AssemblyVersion>4.0.0.0</AssemblyVersion>
+		<PackageVersion>4.0.0-dev</PackageVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<NoWarn></NoWarn>
+		<DocumentationFile>EpdIt.DbHelper.xml</DocumentationFile>
+		<WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<NoWarn></NoWarn>
+		<DefineDebug>false</DefineDebug>
+		<DocumentationFile>EpdIt.DbHelper.xml</DocumentationFile>
+		<WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+		<PackageReference Include="SonarAnalyzer.VisualBasic" Version="8.36.1.44192">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="assets\epd-icon-tile.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 </Project>

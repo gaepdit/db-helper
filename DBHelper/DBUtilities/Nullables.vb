@@ -12,7 +12,7 @@ Partial Public Class DBUtilities
     Public Shared Function GetNullable(Of T)(obj As Object) As T
         ' http://stackoverflow.com/a/870771/212978
         ' http://stackoverflow.com/a/9953399/212978
-        If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
+        If obj Is Nothing OrElse Convert.IsDBNull(obj) OrElse obj.ToString = "null" Then
             ' returns the default value for the type
             Return Nothing
         Else
@@ -27,7 +27,7 @@ Partial Public Class DBUtilities
     ''' <returns>If database value is DBNull, returns the default value for the requested data type; otherwise, returns the value unchanged.</returns>
     <DebuggerStepThrough()>
     Public Shared Function GetNullableString(obj As Object) As String
-        If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
+        If obj Is Nothing OrElse Convert.IsDBNull(obj) OrElse obj.ToString = "null" Then
             ' returns the default value for the type
             Return Nothing
         Else
@@ -43,7 +43,7 @@ Partial Public Class DBUtilities
     <DebuggerStepThrough()>
     Public Shared Function GetNullableDateTime(obj As Object) As DateTime?
         Try
-            If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj.ToString) Then
+            If obj Is Nothing OrElse Convert.IsDBNull(obj) OrElse String.IsNullOrEmpty(obj.ToString) Then
                 Return Nothing
             Else
                 Dim newDate As New DateTime
