@@ -1,4 +1,6 @@
-﻿Public Class ThingData
+﻿Imports System.Data
+
+Public Class ThingData
 
     Private Sub New()
     End Sub
