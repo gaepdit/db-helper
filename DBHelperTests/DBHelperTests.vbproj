@@ -5,15 +5,17 @@
     <RootNamespace>EpdItDbHelperTests</RootNamespace>
     <AssemblyName>EpdItDbHelperTests</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OptionStrict>On</OptionStrict>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DocumentationFile>EpdItDbHelperTests.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn></NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn></NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
     <DefineDebug>false</DefineDebug>
-    <DocumentationFile>EpdItDbHelperTests.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DefineTrace>false</DefineTrace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DBHelper\DBHelper.vbproj" />

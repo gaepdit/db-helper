@@ -16,7 +16,7 @@ Partial Public Class DBUtilities
             ' returns the default value for the type
             Return Nothing
         Else
-            Return obj
+            Return CType(obj, T)
         End If
     End Function
 
@@ -43,11 +43,11 @@ Partial Public Class DBUtilities
     <DebuggerStepThrough()>
     Public Shared Function GetNullableDateTime(obj As Object) As DateTime?
         Try
-            If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj) Then
+            If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj.ToString) Then
                 Return Nothing
             Else
                 Dim newDate As New DateTime
-                If DateTime.TryParse(obj, newDate) Then
+                If Date.TryParse(obj.ToString, newDate) Then
                     Return newDate
                 Else
                     Return Nothing
