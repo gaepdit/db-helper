@@ -9,7 +9,7 @@ Partial Public Class DBUtilities
     ''' <param name="obj">The database value to convert.</param>
     ''' <returns>If database value is DBNull, returns the default value for the requested data type; otherwise, returns the value unchanged.</returns>
     <DebuggerStepThrough()>
-    Public Shared Function GetNullable(Of T)(ByVal obj As Object) As T
+    Public Shared Function GetNullable(Of T)(obj As Object) As T
         ' http://stackoverflow.com/a/870771/212978
         ' http://stackoverflow.com/a/9953399/212978
         If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
@@ -26,7 +26,7 @@ Partial Public Class DBUtilities
     ''' <param name="obj">The database value to convert.</param>
     ''' <returns>If database value is DBNull, returns the default value for the requested data type; otherwise, returns the value unchanged.</returns>
     <DebuggerStepThrough()>
-    Public Shared Function GetNullableString(ByVal obj As Object) As String
+    Public Shared Function GetNullableString(obj As Object) As String
         If obj Is Nothing OrElse IsDBNull(obj) OrElse obj.ToString = "null" Then
             ' returns the default value for the type
             Return Nothing
@@ -41,7 +41,7 @@ Partial Public Class DBUtilities
     ''' <param name="obj">The database value to convert.</param>
     ''' <returns>If database value is DBNull or value cannot be converted to a DateTime, returns Nothing; otherwise, returns the value converted to a DateTime.</returns>
     <DebuggerStepThrough()>
-    Public Shared Function GetNullableDateTime(ByVal obj As Object) As DateTime?
+    Public Shared Function GetNullableDateTime(obj As Object) As DateTime?
         Try
             If obj Is Nothing OrElse IsDBNull(obj) OrElse String.IsNullOrEmpty(obj) Then
                 Return Nothing

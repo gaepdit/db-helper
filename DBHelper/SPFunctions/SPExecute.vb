@@ -12,7 +12,7 @@ Partial Public Class DBHelper
     ''' <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>The number of rows affected.</returns>
     Private Function SPExecuteNonQuery(spName As String, parameterArray As SqlParameter(), ByRef returnValue As Integer) As Integer
-        If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", "spName")
+        If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", NameOf(spName))
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)
@@ -20,7 +20,7 @@ Partial Public Class DBHelper
                 ' Setup
                 command.CommandType = CommandType.StoredProcedure
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     DBNullifyParameters(parameterArray)
                     command.Parameters.AddRange(parameterArray)
                 End If
@@ -37,7 +37,7 @@ Partial Public Class DBHelper
                 returnValue = CInt(returnParameter.Value)
                 command.Parameters.Remove(returnParameter)
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     Dim newArray(command.Parameters.Count) As SqlParameter
                     command.Parameters.CopyTo(newArray, 0)
                     Array.Copy(newArray, parameterArray, parameterArray.Length)
@@ -61,7 +61,7 @@ Partial Public Class DBHelper
     ''' <param name="returnValue">Output parameter that stores the RETURN value of the stored procedure.</param>
     ''' <returns>A DataSet.</returns>
     Private Function SPFillDataSet(spName As String, parameterArray As SqlParameter(), ByRef returnValue As Integer) As DataSet
-        If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", "spName")
+        If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", NameOf(spName))
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)
@@ -69,7 +69,7 @@ Partial Public Class DBHelper
                 ' Setup
                 command.CommandType = CommandType.StoredProcedure
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     DBNullifyParameters(parameterArray)
                     command.Parameters.AddRange(parameterArray)
                 End If
@@ -88,7 +88,7 @@ Partial Public Class DBHelper
                 returnValue = CInt(returnParameter.Value)
                 command.Parameters.Remove(returnParameter)
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     Dim newArray(command.Parameters.Count) As SqlParameter
                     command.Parameters.CopyTo(newArray, 0)
                     Array.Copy(newArray, parameterArray, parameterArray.Length)
@@ -112,7 +112,7 @@ Partial Public Class DBHelper
     ''' <returns>The first column of the first row in the result set, or a null reference (Nothing
     ''' in Visual Basic) if the result set is empty.</returns>
     Private Function SPExecuteScalar(spName As String, parameterArray As SqlParameter(), ByRef returnValue As Integer) As Object
-        If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", "spName")
+        If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", NameOf(spName))
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(spName, connection)
@@ -120,7 +120,7 @@ Partial Public Class DBHelper
                 ' Setup
                 command.CommandType = CommandType.StoredProcedure
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     DBNullifyParameters(parameterArray)
                     command.Parameters.AddRange(parameterArray)
                 End If
@@ -137,7 +137,7 @@ Partial Public Class DBHelper
                 returnValue = CInt(returnParameter.Value)
                 command.Parameters.Remove(returnParameter)
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     Dim newArray(command.Parameters.Count) As SqlParameter
                     command.Parameters.CopyTo(newArray, 0)
                     Array.Copy(newArray, parameterArray, parameterArray.Length)

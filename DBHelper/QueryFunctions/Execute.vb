@@ -21,7 +21,7 @@ Partial Public Class DBHelper
         End If
 
         If queryList.Count = 0 Then
-            Throw New ArgumentException("At least one query must be specified.", "query")
+            Throw New ArgumentException("At least one query must be specified.", NameOf(queryList))
         End If
 
         rowsAffectedList = New List(Of Integer)
@@ -56,7 +56,7 @@ Partial Public Class DBHelper
                 Catch ee As SqlException
                     success = False
                     rowsAffectedList.Clear()
-                    Throw ee
+                    Throw
                 Finally
                     If success Then
                         transaction.Commit()
@@ -80,13 +80,13 @@ Partial Public Class DBHelper
     ''' <param name="parameterArray">An array of SqlParameter values.</param>
     ''' <returns>A DataSet.</returns>
     Private Function QFillDataTable(query As String, parameterArray As SqlParameter()) As DataTable
-        If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", "query")
+        If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", NameOf(query))
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     DBNullifyParameters(parameterArray)
                     command.Parameters.AddRange(parameterArray)
                 End If
@@ -113,13 +113,13 @@ Partial Public Class DBHelper
     ''' <returns>The first column of the first row in the result set, or a null reference (Nothing
     ''' in Visual Basic) if the result set is empty.</returns>
     Private Function QExecuteScalar(query As String, parameterArray As SqlParameter()) As Object
-        If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", "query")
+        If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", NameOf(query))
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
                 command.CommandType = CommandType.Text
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Count > 0 Then
+                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
                     DBNullifyParameters(parameterArray)
                     command.Parameters.AddRange(parameterArray)
                 End If

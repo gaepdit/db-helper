@@ -53,10 +53,10 @@ Public Class SPNonQueryFunctionsTests
     Public Sub SPInsert_WithMultipleParameter()
         Dim key As Integer = 21
         Dim insertName As String = "test" & key.ToString
-        Dim insertDate As Date = New Date(2016, 2, 3)
+        Dim insertDate As New Date(2016, 2, 3)
 
         Dim spName As String = "InsertSpWithParam"
-        Dim parameterArray() As SqlParameter = {
+        Dim parameterArray As SqlParameter() = {
             New SqlParameter("@name", insertName),
             New SqlParameter("@status", True),
             New SqlParameter("@mandatoryInteger", key),
