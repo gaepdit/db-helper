@@ -1,6 +1,6 @@
 # EPD-IT DB Helper
 
-The purpose of this library is to simplify interactions with a SQL Server database. 
+The purpose of this library is to simplify interactions with a SQL Server database. Version 4 target .NET Standard 2.0 and includes no new functionality.
 
 [![NuGet](https://img.shields.io/nuget/v/EpdIt.DbHelper.svg?maxAge=86400)](https://www.nuget.org/packages/EpdIt.DbHelper/) 
 
