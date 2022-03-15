@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Data.SqlClient
 
 Public Class DBHelper
 
@@ -8,7 +9,7 @@ Public Class DBHelper
         Me.ConnectionString = connectionString
     End Sub
 
-    Private Function ReturnValueParameter() As SqlParameter
+    Private Shared Function ReturnValueParameter() As SqlParameter
         Return New SqlParameter("@DbHelperReturnValue", SqlDbType.Int) With {.Direction = ParameterDirection.ReturnValue}
     End Function
 

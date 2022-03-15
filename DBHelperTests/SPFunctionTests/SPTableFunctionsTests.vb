@@ -1,5 +1,7 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Data.SqlClient
 Imports EpdIt.DBUtilities
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()>
 Public Class SPTableFunctionsTests

@@ -1,5 +1,7 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Data.SqlClient
 Imports EpdIt.DBUtilities
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()>
 Public Class SPOutputParameterTests
@@ -111,7 +113,7 @@ Public Class SPOutputParameterTests
         Assert.IsNull(GetNullable(Of Integer?)(dr.Item(NameOf(Thing.OptionalInteger))))
         Assert.IsNull(GetNullable(Of Date?)(dr.Item(NameOf(Thing.OptionalDate))))
 
-        Dim Actual_Output_Result As Date = param.Value
+        Dim Actual_Output_Result As Date = CDate(param.Value)
         Dim Expected_Output_Result As Date = ThingData.ThingsList.Find(Function(Thing) Thing.ID = key).MandatoryDate
         Assert.AreEqual(Expected_Output_Result, Actual_Output_Result)
     End Sub

@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()>
 Public Class NonQueryFunctionsTests
@@ -40,11 +41,11 @@ Public Class NonQueryFunctionsTests
     Public Sub Insert_WithMultipleParameter()
         Dim key As Integer = 15
         Dim insertName As String = "test" & key.ToString
-        Dim insertDate As Date = New Date(2016, 2, 3)
+        Dim insertDate As New Date(2016, 2, 3)
 
         Dim rowsAffected As Integer = 0
         Dim query As String = "INSERT INTO dbo.Things (Name, Status, MandatoryInteger, MandatoryDate) VALUES (@name, @status, @mandatoryInteger, @mandatoryDate)"
-        Dim parameterArray() As SqlParameter = {
+        Dim parameterArray As SqlParameter() = {
             New SqlParameter("@name", insertName),
             New SqlParameter("@status", True),
             New SqlParameter("@mandatoryInteger", key),

@@ -1,3 +1,4 @@
+Imports System.Data
 Imports System.Data.SqlClient
 
 Partial Public Class DBHelper

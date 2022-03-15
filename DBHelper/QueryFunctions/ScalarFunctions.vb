@@ -117,7 +117,7 @@ Partial Public Class DBHelper
     Public Function ValueExists(query As String, parameterArray As SqlParameter()) As Boolean
         Dim result As Object = QExecuteScalar(query, parameterArray)
 
-        Return result IsNot Nothing AndAlso Not IsDBNull(result)
+        Return result IsNot Nothing AndAlso Not Convert.IsDBNull(result)
     End Function
 
 End Class

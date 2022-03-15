@@ -1,5 +1,6 @@
 ﻿Imports System.Data.Entity
 Imports EpdIt
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Module CommonDbObjects
 
