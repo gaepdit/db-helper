@@ -118,9 +118,9 @@ This class does not need to be instantiated and only includes shared functions:
 
 ## Publish to nuget.org
 
-To push changes to NuGet.org, build a Release version, navigate to the project folder, and run:
+To publish an updated package to NuGet.org, tag the release on the "main" branch with the version number using the format:
 
-`nuget push EpdIt.DbHelper.x.x.x.nupkg -Source https://api.nuget.org/v3/index.json`
+`version/v4.0.0`
 
 ### TO-DO
 
