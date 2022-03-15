@@ -4,7 +4,6 @@
 		<OutputType>Library</OutputType>
 		<RootNamespace>EpdIt</RootNamespace>
 		<AssemblyName>EpdIt.DbHelper</AssemblyName>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<OptionStrict>On</OptionStrict>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>DouglasWaldron</Authors>
@@ -12,7 +11,7 @@
 		<Description>A library to simplify database interactions.</Description>
 		<PackageIcon>epd-icon-tile.png</PackageIcon>
 		<PackageTags>database SQLServer</PackageTags>
-		<Copyright>© 2022</Copyright>
+		<Copyright>© State of Georgia 2022</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageProjectUrl>https://github.com/gaepdit/db-helper</PackageProjectUrl>
