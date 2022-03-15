@@ -4,6 +4,10 @@ The purpose of this library is to simplify interactions with a SQL Server databa
 
 [![NuGet](https://img.shields.io/nuget/v/EpdIt.DbHelper.svg?maxAge=86400)](https://www.nuget.org/packages/EpdIt.DbHelper/) 
 
+[![.NET Test](https://github.com/gaepdit/db-helper/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/gaepdit/enforcement-orders/actions/workflows/dotnet.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gaepdit_db-helper&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gaepdit_db-helper)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=gaepdit_db-helper&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=gaepdit_db-helper)
+
 ## What is this?
 
 There are two classes available:
