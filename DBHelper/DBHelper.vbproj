@@ -12,8 +12,7 @@
 		<PackageIcon>epd-icon-tile.png</PackageIcon>
 		<PackageTags>database SQLServer</PackageTags>
 		<Copyright>© State of Georgia 2022</Copyright>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/gaepdit/db-helper</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/gaepdit/db-helper.git</RepositoryUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
