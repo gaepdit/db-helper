@@ -22,7 +22,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<AssemblyVersion>4.0.0.0</AssemblyVersion>
-		<PackageVersion>4.0.0</PackageVersion>
+		<PackageVersion>4.0.1</PackageVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn></NoWarn>
