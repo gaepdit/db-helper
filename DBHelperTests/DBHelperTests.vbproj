@@ -21,14 +21,14 @@
     <ProjectReference Include="..\DBHelper\DBHelper.vbproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="3.1.2">
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
-    <PackageReference Include="SonarAnalyzer.VisualBasic" Version="8.36.1.44192">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
+    <PackageReference Include="SonarAnalyzer.VisualBasic" Version="8.48.0.56517">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
