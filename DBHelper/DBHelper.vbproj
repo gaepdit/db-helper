@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<PackageVersion>5.0.0</PackageVersion>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<OutputType>Library</OutputType>
 		<RootNamespace>GaEpd</RootNamespace>
@@ -20,8 +21,6 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<AssemblyVersion>4.0.0.0</AssemblyVersion>
-		<PackageVersion>4.0.2</PackageVersion>
 		<PackageIcon>epd-icon-tile.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
