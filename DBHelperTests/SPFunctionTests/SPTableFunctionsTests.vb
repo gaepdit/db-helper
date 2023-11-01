@@ -1,4 +1,4 @@
-Imports System.Data
+﻿Imports System.Data
 Imports System.Data.SqlClient
 Imports GaEpd.DBUtilities
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
@@ -28,9 +28,9 @@ Public Class SPTableFunctionsTests
 
         For Each thing As Thing In ThingData.ThingsList
             If thing.MandatoryInteger = ThingData.ThingSelectionKey Then
-                ThingData.SelectedThingsDataTable.Rows.Add({thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate, thing.OptionalInteger, thing.OptionalDate})
+                ThingData.SelectedThingsDataTable.Rows.Add(thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate, thing.OptionalInteger, thing.OptionalDate)
             Else
-                ThingData.AlternateThingsDataTable.Rows.Add({thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate, thing.OptionalInteger, thing.OptionalDate})
+                ThingData.AlternateThingsDataTable.Rows.Add(thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate, thing.OptionalInteger, thing.OptionalDate)
             End If
         Next
     End Sub

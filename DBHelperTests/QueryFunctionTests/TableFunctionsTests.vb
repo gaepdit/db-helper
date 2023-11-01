@@ -1,4 +1,4 @@
-Imports System.Data
+﻿Imports System.Data
 Imports System.Data.SqlClient
 Imports GaEpd.DBUtilities
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
@@ -16,7 +16,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
         For Each thing As Thing In ThingData.ThingsList
             If thing.MandatoryInteger = ThingData.ThingSelectionKey Then
-                ThingData.SelectedThingsDataTable.Rows.Add({thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate})
+                ThingData.SelectedThingsDataTable.Rows.Add(thing.ID, thing.Name, thing.Status, thing.MandatoryInteger, thing.MandatoryDate)
             End If
         Next
     End Sub
