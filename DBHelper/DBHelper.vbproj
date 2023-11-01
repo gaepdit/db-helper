@@ -11,7 +11,7 @@
 		<Description>A library to simplify database interactions.</Description>
 		<PackageIcon>epd-icon-tile.png</PackageIcon>
 		<PackageTags>database SQLServer</PackageTags>
-		<Copyright>© State of Georgia 2022</Copyright>
+		<Copyright>© State of Georgia 2023</Copyright>
 		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/gaepdit/db-helper</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/gaepdit/db-helper.git</RepositoryUrl>
@@ -22,6 +22,8 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<AssemblyVersion>4.0.0.0</AssemblyVersion>
 		<PackageVersion>4.0.2</PackageVersion>
+		<PackageIcon>epd-icon-tile.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn></NoWarn>
@@ -43,9 +45,8 @@
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="assets\epd-icon-tile.png">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
+        <None Include="..\LICENSE" Pack="true" PackagePath="" />
+        <None Include="..\README.md" Pack="true" PackagePath="" />
+		<None Include=".\assets\epd-icon-tile.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>
