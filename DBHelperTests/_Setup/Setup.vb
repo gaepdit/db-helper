@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Entity
-Imports EpdIt
+Imports GaEpd
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 Module CommonDbObjects
@@ -16,7 +16,7 @@ Public Class Setup
     <AssemblyInitialize>
     Public Shared Sub DbSetup(testContext As TestContext)
 #Enable Warning IDE0060 ' Remove unused parameter
-        ConnectionString = "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EpdItDbHelperTests.ThingDbContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+        ConnectionString = "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DbHelperTests.ThingDbContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
         DB = New DBHelper(ConnectionString)
         InitializeTestDb()
     End Sub

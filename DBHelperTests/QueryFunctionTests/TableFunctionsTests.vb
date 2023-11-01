@@ -1,6 +1,6 @@
-﻿Imports System.Data
+Imports System.Data
 Imports System.Data.SqlClient
-Imports EpdIt.DBUtilities
+Imports GaEpd.DBUtilities
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()> Public Class TableFunctionsTests

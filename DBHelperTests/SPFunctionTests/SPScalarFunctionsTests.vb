@@ -82,7 +82,7 @@ Public Class SPScalarFunctionsTests
         Dim result As Integer? = DB.SPGetSingleValue(Of Integer?)(spName, parameter)
         Assert.IsNull(result)
         Assert.AreEqual(Nothing, result)
-        Assert.AreEqual(0, EpdIt.DBUtilities.GetNullable(Of Integer)(result))
+        Assert.AreEqual(0, GaEpd.DBUtilities.GetNullable(Of Integer)(result))
     End Sub
 
     <TestMethod()>

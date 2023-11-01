@@ -1,4 +1,4 @@
-﻿Imports EpdIt.DBUtilities
+﻿Imports GaEpd.DBUtilities
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()>

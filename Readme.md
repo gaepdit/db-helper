@@ -1,8 +1,8 @@
-# EPD-IT DB Helper
+# DB Helper
 
-The purpose of this library is to simplify interactions with a SQL Server database. Version 4 target .NET Standard 2.0 and includes no new functionality.
+The purpose of this library is to simplify interactions with a SQL Server database. 
 
-[![NuGet](https://img.shields.io/nuget/v/EpdIt.DbHelper.svg?maxAge=86400)](https://www.nuget.org/packages/EpdIt.DbHelper/) 
+[![NuGet](https://img.shields.io/nuget/v/GaEpd.DbHelper.svg?maxAge=86400)](https://www.nuget.org/packages/GaEpd.DbHelper/) 
 
 [![.NET Test](https://github.com/gaepdit/db-helper/actions/workflows/dotnet-test.yml/badge.svg)](https://github.com/gaepdit/enforcement-orders/actions/workflows/dotnet.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gaepdit_db-helper&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gaepdit_db-helper)
@@ -18,16 +18,16 @@ There are two classes available:
 
 ## How do I install it?
 
-To install DB Helper, search for "EpdIt.DbHelper" in the NuGet package manager or run the following command in the [Package Manager Console](https://docs.nuget.org/consume/package-manager-console):
+To install DB Helper, search for "GaEpd.DbHelper" in the NuGet package manager or run the following command in the [Package Manager Console](https://docs.nuget.org/consume/package-manager-console):
 
-`PM> Install-Package EpdIt.DbHelper`
+`PM> Install-Package GaEpd.DbHelper`
 
 ## Using the `DBHelper` class
 
 The `DBHelper` class must be instantiated with a connection string:
 
 ```
-Public DB As New EpdIt.DBHelper(connectionString)
+Public DB As New GaEpd.DBHelper(connectionString)
 ```
 
 ### Query string functions
@@ -111,21 +111,28 @@ This class does not need to be instantiated and only includes shared functions:
 * `GetNullableDateTime` converts a database value to a nullable DateTime, handling DBNull appropriately
 * `TvpSqlParameter(Of T)` converts an IEnumerable of type T to a structured, table-valued SqlParameter
 
-## Breaking changes in version 3
+## Developer Notes
 
-* The `forceAddNullableParameters` parameter has been removed. `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to null (`Nothing` in VB.NET).
-* The output parameter convenience functions have been removed. If you need an output SQL parameter, just add it as you would normally add any other parameter.
+### Breaking changes
 
-## Breaking changes in version 2
+#### Version 5
 
-* The `forceAddNullableParameters` parameter now defaults to `true`. If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
+The namespace/prefix was changed from `EpdIt` to `GaEpd`, which is a reserved prefix on nuget.org. This required publishing as a new package and deprecating the old package.
 
-## Publish to nuget.org
+#### Version 3
 
-To push changes to NuGet.org, build a Release version, navigate to the project folder, and run:
+The `forceAddNullableParameters` parameter has been removed. `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to null (`Nothing` in VB.NET).
 
-`nuget push EpdIt.DbHelper.x.x.x.nupkg -Source https://api.nuget.org/v3/index.json`
+The output parameter convenience functions have been removed. If you need an output SQL parameter, just add it as you would normally add any other parameter.
 
-### TO-DO
+#### Version 2
 
-* Add unit tests for table-valued parameters (`TvpSqlParameter`)
+The `forceAddNullableParameters` parameter now defaults to `true`. If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
+
+### Publish to nuget.org
+
+To publish a package update to NuGet.org, build a Release version, navigate to the project folder, and run:
+
+```
+nuget push GaEpd.DbHelper.x.x.x.nupkg -Source https://api.nuget.org/v3/index.json
+```
