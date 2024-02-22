@@ -25,7 +25,6 @@ Partial Public Class DBHelper
         End If
 
         rowsAffectedList = New List(Of Integer)
-        rowsAffectedList.Clear()
 
         Dim success As Boolean = True
         Dim rowsAffected As Integer
