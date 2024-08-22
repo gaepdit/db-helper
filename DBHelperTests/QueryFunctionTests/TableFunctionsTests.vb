@@ -1,5 +1,5 @@
 ﻿Imports System.Data
-Imports System.Data.SqlClient
+Imports Microsoft.Data.SqlClient
 Imports GaEpd.DBUtilities
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 

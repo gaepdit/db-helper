@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+﻿Imports Microsoft.Data.SqlClient
 
 ' These functions call Stored Procedures using IN and/or OUT parameters.
 ' If successful, any OUT parameters are available to the calling procedure as 

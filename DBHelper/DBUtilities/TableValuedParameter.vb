@@ -1,6 +1,6 @@
 ﻿Imports System.Data
-Imports System.Data.SqlClient
-Imports Microsoft.SqlServer.Server
+Imports Microsoft.Data.SqlClient
+Imports Microsoft.Data.SqlClient.Server
 
 Partial Public Class DBUtilities
 
