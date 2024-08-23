@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+﻿Imports Microsoft.Data.SqlClient
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()>
