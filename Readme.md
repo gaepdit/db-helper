@@ -111,9 +111,15 @@ This class does not need to be instantiated and only includes shared functions:
 * `GetNullableDateTime` converts a database value to a nullable DateTime, handling DBNull appropriately
 * `TvpSqlParameter(Of T)` converts an IEnumerable of type T to a structured, table-valued SqlParameter
 
-## Developer Notes
+## Changelog
 
 ### Breaking changes
+
+#### Version 5.1
+
+The SqlClient package was migrated from System.Data.SqlClient to the new [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient/). This update introduces some breaking changes. 
+
+Please see the [Microsoft announcement](https://github.com/dotnet/announcements/issues/322) and the [porting cheat sheet](https://github.com/dotnet/SqlClient/blob/main/porting-cheat-sheet.md) for more information and guidance on updating your code.
 
 #### Version 5
 
@@ -129,7 +135,7 @@ The output parameter convenience functions have been removed. If you need an out
 
 The `forceAddNullableParameters` parameter now defaults to `true`. If this parameter is not set (or is manually set to `true`), then `DBNull.Value` will be sent for `SqlParameter`'s that evaluate to `Nothing`. To return to the default behavior of dropping such parameters, you must manually set `forceAddNullableParameters` to `false`.
 
-### Publish to nuget.org
+## Developer Notes
 
 To publish a package update to NuGet.org, build a Release version, navigate to the project folder, and run:
 
