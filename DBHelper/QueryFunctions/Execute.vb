@@ -64,8 +64,6 @@ Partial Public Class DBHelper
                     End If
                 End Try
             End Using
-
-            connection.Close()
         End Using
 
         Return success
@@ -83,12 +81,7 @@ Partial Public Class DBHelper
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
-                command.CommandType = CommandType.Text
-
-                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
-                    DBNullifyParameters(parameterArray)
-                    command.Parameters.AddRange(parameterArray)
-                End If
+                QSetupCommand(command, parameterArray)
 
                 Dim dataTable As New DataTable
 
@@ -109,29 +102,36 @@ Partial Public Class DBHelper
     ''' </summary>
     ''' <param name="query">The name of the stored procedure to execute.</param>
     ''' <param name="parameterArray">An array of SqlParameter values.</param>
-    ''' <returns>The first column of the first row in the result set, or a null reference (Nothing
-    ''' in Visual Basic) if the result set is empty.</returns>
+    ''' <returns>The first column of the first row in the result set, or a null reference (Nothing in Visual Basic) if the result set is empty.</returns>
     Private Function QExecuteScalar(query As String, parameterArray As SqlParameter()) As Object
         If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", NameOf(query))
 
         Using connection As New SqlConnection(ConnectionString)
             Using command As New SqlCommand(query, connection)
-                command.CommandType = CommandType.Text
+                QSetupCommand(command, parameterArray)
 
-                If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
-                    DBNullifyParameters(parameterArray)
-                    command.Parameters.AddRange(parameterArray)
-                End If
-
-                command.Connection.Open()
+                connection.Open()
                 Dim result As Object = command.ExecuteScalar()
 
-                command.Connection.Close()
                 command.Parameters.Clear()
 
                 Return result
             End Using
         End Using
     End Function
+
+    ''' <summary>
+    ''' Sets up the SqlCommand with the provided parameters.
+    ''' </summary>
+    ''' <param name="command">The SqlCommand to set up.</param>
+    ''' <param name="parameterArray">An array of SqlParameter values.</param>
+    Private Sub QSetupCommand(command As SqlCommand, parameterArray As SqlParameter())
+        command.CommandType = CommandType.Text
+
+        If parameterArray IsNot Nothing AndAlso parameterArray.Any() Then
+            DBNullifyParameters(parameterArray)
+            command.Parameters.AddRange(parameterArray)
+        End If
+    End Sub
 
 End Class
