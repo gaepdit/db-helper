@@ -12,7 +12,7 @@
 		<Description>A library to simplify database interactions.</Description>
 		<PackageIcon>epd-icon-tile.png</PackageIcon>
 		<PackageTags>database SQLServer</PackageTags>
-		<Copyright>© State of Georgia 2024</Copyright>
+		<Copyright>© State of Georgia 2025</Copyright>
 		<PackageLicenseExpression>Unlicense</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/gaepdit/db-helper</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/gaepdit/db-helper.git</RepositoryUrl>
