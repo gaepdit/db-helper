@@ -30,6 +30,7 @@ Partial Public Class DBHelper
         Dim rowsAffected As Integer
 
         Using connection As New SqlConnection(ConnectionString)
+            connection.RetryLogicProvider = ConnectionRetryProvider
             connection.Open()
 
             Using transaction As SqlTransaction = connection.BeginTransaction()
@@ -80,6 +81,8 @@ Partial Public Class DBHelper
         If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", NameOf(query))
 
         Using connection As New SqlConnection(ConnectionString)
+            connection.RetryLogicProvider = ConnectionRetryProvider
+
             Using command As New SqlCommand(query, connection)
                 QSetupCommand(command, parameterArray)
 
@@ -107,6 +110,8 @@ Partial Public Class DBHelper
         If String.IsNullOrEmpty(query) Then Throw New ArgumentException("The query must be specified.", NameOf(query))
 
         Using connection As New SqlConnection(ConnectionString)
+            connection.RetryLogicProvider = ConnectionRetryProvider
+
             Using command As New SqlCommand(query, connection)
                 QSetupCommand(command, parameterArray)
 

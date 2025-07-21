@@ -15,6 +15,8 @@ Partial Public Class DBHelper
         If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", NameOf(spName))
 
         Using connection As New SqlConnection(ConnectionString)
+            connection.RetryLogicProvider = ConnectionRetryProvider
+
             Using command As New SqlCommand(spName, connection)
                 SPSetupCommand(command, parameterArray)
 
@@ -43,6 +45,8 @@ Partial Public Class DBHelper
         If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", NameOf(spName))
 
         Using connection As New SqlConnection(ConnectionString)
+            connection.RetryLogicProvider = ConnectionRetryProvider
+
             Using command As New SqlCommand(spName, connection)
                 SPSetupCommand(command, parameterArray)
 
@@ -73,6 +77,8 @@ Partial Public Class DBHelper
         If String.IsNullOrEmpty(spName) Then Throw New ArgumentException("The name of the stored procedure must be specified.", NameOf(spName))
 
         Using connection As New SqlConnection(ConnectionString)
+            connection.RetryLogicProvider = ConnectionRetryProvider
+
             Using command As New SqlCommand(spName, connection)
                 SPSetupCommand(command, parameterArray)
 

@@ -4,9 +4,15 @@ Imports Microsoft.Data.SqlClient
 Public Class DBHelper
 
     Private Property ConnectionString As String
+    Private Property ConnectionRetryProvider As SqlRetryLogicBaseProvider = Nothing
 
     Public Sub New(connectionString As String)
         Me.ConnectionString = connectionString
+    End Sub
+
+    Public Sub New(connectionString As String, connectionRetryProvider As SqlRetryLogicBaseProvider)
+        Me.ConnectionString = connectionString
+        Me.ConnectionRetryProvider = connectionRetryProvider
     End Sub
 
     Private Shared Function ReturnValueParameter() As SqlParameter
