@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<PackageVersion>6.0.0-beta.1</PackageVersion>
+		<PackageVersion>6.0.0</PackageVersion>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<OutputType>Library</OutputType>
 		<RootNamespace>GaEpd</RootNamespace>
