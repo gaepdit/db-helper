@@ -26,8 +26,23 @@ To install DB Helper, search for "GaEpd.DbHelper" in the NuGet package manager o
 
 The `DBHelper` class must be instantiated with a connection string:
 
-```
+```vb
 Public DB As New GaEpd.DBHelper(connectionString)
+```
+
+Optionally, you can configure [connection retry logic](https://learn.microsoft.com/en-us/sql/connect/ado-net/configurable-retry-logic-sqlclient-introduction) and provide it to the `DBHelper` constructor:
+
+```vb
+Dim options As New SqlRetryLogicOption() With {
+    .NumberOfTries = 3,
+    .DeltaTime = TimeSpan.FromSeconds(5),
+    .MaxTimeInterval = TimeSpan.FromSeconds(15),
+    .AuthorizedSqlCondition = Function(x) String.IsNullOrEmpty(x) OrElse Regex.IsMatch(x, "\b(SELECT)\b", RegexOptions.IgnoreCase)
+}
+
+connectionRetryProvider = SqlConfigurableRetryFactory.CreateFixedRetryProvider(options)
+
+DB = New GaEpd.DBHelper(connectionString, connectionRetryProvider)
 ```
 
 ### Query string functions
@@ -36,14 +51,14 @@ These functions require a SQL query or command plus an optional SQL parameter or
 
 **Example 1:** Simple query
 
-```
+```vb
 Dim query as String = "select States from StatesTable"
 Dim states as DataTable = DB.GetDataTable(query)
 ```
 
 **Example 2:** Query with one SQL parameter
 
-```
+```vb
 Dim query as String = "select UserName from UserTable where UserId = @id"
 Dim parameter As New SqlParameter("@id", MyUserId)
 Dim userName as String = DB.GetSingleValue(Of String)(query, parameter)
@@ -51,7 +66,7 @@ Dim userName as String = DB.GetSingleValue(Of String)(query, parameter)
 
 **Example 3:** Command with multiple SQL parameters
 
-```
+```vb
 Dim query as String = "update FacilityTable set Name = @name where FacilityId = @id"
 Dim parameterArray As SqlParameter() = {
     New SqlParameter("@name", MyNewFacilityName),
@@ -62,7 +77,7 @@ Dim result as Boolean = DB.RunCommand(query, parameterArray)
 
 **Example 4:** Count rows affected by command
 
-```
+```vb
 Dim query as String = "update CompanyTable set Status = @status where State = @state"
 Dim parameterArray As SqlParameter() = {
     New SqlParameter("@status", MyNewStatus),
@@ -81,7 +96,7 @@ An optional output parameter will contain the integer RETURN value of the stored
 
 **Example 1:** Specifying INPUT and OUTPUT SQL parameters
 
-```
+```vb
 Dim spName as String = "RetrieveFacilitiesByCounty"
 Dim returnParam As New SqlParameter("@total", SqlDbType.Int) With {
     .Direction = ParameterDirection.Output
@@ -96,7 +111,7 @@ Dim total As Integer = returnParam.Value
 
 **Example 2:** Querying for a DataSet and using RETURN value
 
-```
+```vb
 Dim spName As String = "GetMyData"
 Dim returnValue As Integer
 Dim dataSet As DataSet = DB.SPGetDataSet(spName, returnValue:=returnValue)
