@@ -1,4 +1,4 @@
-name: .NET Test
+name: .NET Unit Tests
 
 on:
   pull_request:
@@ -7,12 +7,12 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-and-test:
     if: github.event.pull_request.draft == false
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
       - name: Restore dependencies
         run: dotnet restore
